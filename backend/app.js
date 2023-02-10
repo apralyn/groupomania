@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+//remove mongoose
 const mongoose = require("mongoose");
+const { Sequelize } = require('sequelize');
 const path = require('path');
 
 const saucesRoutes = require("./routes/sauces");
@@ -18,6 +20,17 @@ mongoose
     console.log("Unable to connect to MongoDB");
     console.error(error);
   });
+
+//connect to sequelize
+const sequelize = new Sequelize('groupomania', 'newuser', 'password', {
+  host: 'localhost',
+  dialect: 'postgres'
+});  
+
+//testing sequelize connection
+sequelize.authenticate()
+.then(() => console.log('Sequelize is connected!'))
+.catch(err => console.log('Error: ' + err))
 
 app.use(express.json());
 
