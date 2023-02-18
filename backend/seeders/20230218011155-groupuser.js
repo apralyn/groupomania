@@ -12,6 +12,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      */
+    //hard coded data 
     await queryInterface.bulkInsert(
       "groupUsers",
       [

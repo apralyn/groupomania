@@ -9,9 +9,9 @@ const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.json")[env];
 const db = {};
 //addded from Scott's mini demo
-const database = process.env.DB_NAME; //DB_NAME=
-const username = process.env.DB_USERNAME; //DB_USERNAME=
-const password = process.env.DB_PASSWORD; //DB_PASSWORD=
+const database = process.env.DB_NAME; //DB_NAME=groupomania
+const username = process.env.DB_USERNAME; //DB_USERNAME=newuser
+const password = process.env.DB_PASSWORD; //DB_PASSWORD=password
 
 let sequelize;
 if (config.use_env_variable) {

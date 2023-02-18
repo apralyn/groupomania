@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   groupUser.init({
     email: DataTypes.STRING,
-    password: DataTypes.STRING
+    password: DataTypes.STRING,
+    unique: true
   }, {
     sequelize,
     modelName: 'groupUser',
