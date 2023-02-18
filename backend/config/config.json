@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "root",
+    "username": "newuser",
     "password": null,
-    "database": "database_development",
+    "database": "groupomania",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
