@@ -3,10 +3,9 @@ const bodyParser = require("body-parser");
 //remove mongoose
 const mongoose = require("mongoose");
 
-const { Sequelize } = require("sequelize");
+// const { Sequelize } = require("sequelize");
 const path = require("path");
 
-const saucesRoutes = require("./routes/sauces");
 const userRoutes = require("./routes/user");
 
 const app = express();
@@ -22,16 +21,16 @@ mongoose
   });
 
 //connect to sequelize
-const sequelize = new Sequelize("groupomania", "newuser", "password", {
-  host: "localhost",
-  dialect: "postgres",
-});
+// const sequelize = new Sequelize("groupomania", "newuser", "password", {
+//   host: "localhost",
+//   dialect: "postgres",
+// });
 
 //testing sequelize connection
-sequelize
-  .authenticate()
-  .then(() => console.log("Sequelize is connected!"))
-  .catch((error) => console.log("Error: " + error));
+// sequelize
+//   .authenticate()
+//   .then(() => console.log("Sequelize is connected!"))
+//   .catch((error) => console.log("Error: " + error));
 
 app.use(express.json());
 
@@ -52,7 +51,6 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/api/sauces", saucesRoutes);
 app.use("/api/auth", userRoutes);
 
 module.exports = app;

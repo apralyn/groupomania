@@ -25,6 +25,7 @@ if (config.use_env_variable) {
   );
 }
 //added from Scott's mini demo
+console.log("Hello World!");
 if ("development" === env) {
   sequelize.sync({ alter: true });
   console.log("All tables are up to date");
