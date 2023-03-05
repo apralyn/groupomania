@@ -1,7 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-//remove mongoose
-const mongoose = require("mongoose");
 
 // const { Sequelize } = require("sequelize");
 const path = require("path");
@@ -10,15 +8,6 @@ const userRoutes = require("./routes/user");
 
 const app = express();
 
-//mongooseAtlas DB server
-mongoose
-  .connect(process.env.DB_URL)
-  .then(() => {
-    console.log("Successfully connected to mongoDB Atlas!");
-  })
-  .catch((error) => {
-    console.log("Unable to connect to MongoDB" + error);
-  });
 
 //connect to sequelize
 // const sequelize = new Sequelize("groupomania", "newuser", "password", {
