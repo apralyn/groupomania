@@ -1,18 +1,21 @@
 <template>
   <div class="home">
     <img alt="Groupomania logo" src="../assets/icon-above-font.png">
-    <HelloWorld msg="Welcome to Groupomania"/>
+    <PageHeader />
+    <button>Login</button>
+    <br>
+    <button>Sign Up</button>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import PageHeader from '@/components/PageHeader.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld
+    PageHeader
   }
 }
 </script>

@@ -62,19 +62,19 @@ exports.login = (req, res, next) => {
 };
 
 //getting all users
-exports.getUsers = (req, res, next) => {
-  User.findAll()
-    .then((user) => {
-      res.status(200).json(user);
-    })
-    .catch((error) => {
-      res.status(500).json({
-        error: error.message,
-      });
-    });
-};
+// exports.getUsers = (req, res, next) => {
+//   User.findAll()
+//     .then((user) => {
+//       res.status(200).json(user);
+//     })
+//     .catch((error) => {
+//       res.status(500).json({
+//         error: error.message,
+//       });
+//     });
+// };
 
-//getting one user
+//puling the user Profile
 exports.getUser = (req, res, next) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => {
@@ -87,7 +87,7 @@ exports.getUser = (req, res, next) => {
     });
 };
 
-//when user wants to delete their profile
+//delete user profile
 exports.deleteUser = (req, res, next) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => {
