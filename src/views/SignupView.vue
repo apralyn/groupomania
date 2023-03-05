@@ -22,17 +22,18 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      //FIXME use correct URL
-      //FIXME surround try/catch - add errorMessage
-      const response = await axios.post('/#/signup', {
+      try{
+      const response = await axios.post('/api/auth/signup', {
         email: this.email,
         password: this.password,
       });
       console.log(response);
       // this will redirect to login route after signing up.
-      //FIXME use router
-      this.$router.push('/#/login');
+      this.$router.push('/login');
+    } catch (error) {
+      error.message;
     }
+  }
   }
 }
 </script>
