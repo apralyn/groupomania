@@ -6,9 +6,6 @@
     <input type="email" name="email" v-model="email" placeholder="email" />
     <br>
     <input type="password" name="password" v-model="password" placeholder="password" />
-    //display error message using vue
-    //connection error, any kinds of error
-    //need to style to stand out as an error message
     <p>{{ errorMessage }}</p>
     <br>
     <button @click="getLogin">Login</button>
@@ -22,7 +19,7 @@ export default {
     return {
       email: '',
       password: '',
-      errorMessage:''
+      errorMessage: ''
     }
   },
   methods: {
@@ -32,8 +29,8 @@ export default {
           email: this.email,
           password: this.password
         });
-        
-        localStorage.setItem('token', response.data);
+
+        localStorage.setItem('token', JSON.stringify(response.data));
         this.$router.push('/');
       } catch (error) {
         this.errorMessage = error.message;

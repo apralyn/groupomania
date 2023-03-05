@@ -61,9 +61,9 @@ exports.login = (req, res, next) => {
     });
 };
 
-//when user click profile from feed to access profile page
-exports.getUser = (req, res, next) => {
-  User.findOne({ id: req.params.id })
+//getting all users
+exports.getUsers = (req, res, next) => {
+  User.findAll()
     .then((user) => {
       res.status(200).json(user);
     })
@@ -74,25 +74,41 @@ exports.getUser = (req, res, next) => {
     });
 };
 
-//when user wants to modify their profile page
-exports.modifyUser = () => {};
+//getting one user
+exports.getUser = (req, res, next) => {
+  User.findOne({ where: { id: req.params.id } })
+    .then((user) => {
+      res.status(200).json(user);
+    })
+    .catch((error) => {
+      res.status(500).json({
+        error: error.message,
+      });
+    });
+};
 
 //when user wants to delete their profile
 exports.deleteUser = (req, res, next) => {
-  User.findOne({ id: req.params.id }).then((user) => {
-    const filename = user.imageUrl.split("/images")[1];
-    fs.unlink("images/" + filename, () => {
-      User.deleteOne({ id: req.params.id })
-        .then(() => {
+  User.findOne({ where: { id: req.params.id } })
+    .then((user) => {
+      if (user !== null) {
+        user.destroy().then(() => {
           res.status(200).json({
             message: "User successfully deleted.",
           });
-        })
-        .catch((error) => {
-          res.status(400).json({
-            erorr: error.message,
-          });
         });
+      } else {
+        res.status(400).json({
+          message: "User not found.",
+        });
+      }
+    })
+    .catch((error) => {
+      res.status(400).json({
+        erorr: error.message,
+      });
     });
-  });
 };
+
+//when user wants to modify their profile page
+exports.modifyUser = () => {};
