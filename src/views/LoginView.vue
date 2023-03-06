@@ -1,13 +1,10 @@
 <template>
+  <img class="logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
+  <h1>Login</h1>
   <form @submit.prevent="handleSubmit">
-    <div class="login">
-      <h1>Login</h1>
-    </div>
-    <input type="email" name="email" v-model="email" placeholder="email" />
-    <br>
-    <input type="password" name="password" v-model="password" placeholder="password" />
+    <input type="email" name="email" v-model="email" placeholder="label">
+    <input type="password" name="password" v-model="password" placeholder="password">
     <p>{{ errorMessage }}</p>
-    <br>
     <button @click="getLogin">Login</button>
   </form>
 </template>
@@ -39,4 +36,8 @@ export default {
   }
 }
 </script>
-<style></style>
+<style>
+.form-field {
+  width: 300px;
+}
+</style>

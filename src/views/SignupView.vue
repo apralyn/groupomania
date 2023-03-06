@@ -7,6 +7,7 @@
     <br>
     <input type="password" name="password" v-model="password" placeholder="password" />
     <br>
+    <p></p>
     <button>Sign Up</button>
   </form>
 </template>
@@ -22,18 +23,18 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      try{
-      const response = await axios.post('/api/auth/signup', {
-        email: this.email,
-        password: this.password,
-      });
-      console.log(response);
-      // this will redirect to login route after signing up.
-      this.$router.push('/login');
-    } catch (error) {
-      error.message;
+      try {
+        const response = await axios.post('/api/auth/signup', {
+          email: this.email,
+          password: this.password,
+        });
+        console.log(response);
+        // this will redirect to login route after signing up.
+        this.$router.push('/login');
+      } catch (error) {
+        error.message;
+      }
     }
-  }
   }
 }
 </script>
