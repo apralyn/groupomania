@@ -1,9 +1,9 @@
 <template>
   <div class="home">
-    <img class="logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
+    <img @click="$router.push('/')" class="logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
     <div class="btns">
-      <button>Login</button>
-      <button>Sign Up</button>
+      <button @click="$router.push('/login')">Login</button>
+      <button @click="$router.push('/signup')">Sign Up</button>
     </div>
     <PageHeader />
   </div>
@@ -12,12 +12,16 @@
 <script>
 </script>
 <style>
+img {
+  cursor: pointer;
+}
+
 .logo {
   width: 200px;
   margin-top: 100px;
 }
 
-.btns button {
+button {
   width: 60%;
   height: 60px;
   display: block;

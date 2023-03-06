@@ -1,9 +1,9 @@
 <template>
-  <img class="logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
+  <img @click="$router.push('/')" class="logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
   <h1>Login</h1>
   <form @submit.prevent="handleSubmit">
-    <input type="email" name="email" v-model="email" placeholder="email">
-    <input type="password" name="password" v-model="password" placeholder="password">
+    <input type="email" name="email" v-model="email" placeholder="email" required>
+    <input type="password" name="password" v-model="password" placeholder="password" required>
     <p>{{ errorMessage }}</p>
     <button @click="getLogin">Login</button>
   </form>
