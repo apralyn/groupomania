@@ -27,7 +27,7 @@ button {
   display: block;
   margin: auto;
   background-color: lightpink;
-  border: 4px solid;
+  border: 2px solid white;
   color: white;
   cursor: pointer;
 }

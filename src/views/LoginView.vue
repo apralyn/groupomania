@@ -1,5 +1,5 @@
 <template>
-  <img @click="$router.push('/')" class="logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
+  <img @click="$router.push('/login')" class="logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
   <h1>Login</h1>
   <form @submit.prevent="handleSubmit">
     <input type="email" name="email" v-model="email" placeholder="email" required>
