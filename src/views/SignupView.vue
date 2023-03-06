@@ -1,13 +1,9 @@
 <template>
+  <img class="logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
+  <h1>Sign Up</h1>
   <form @submit.prevent="handleSubmit">
-    <div class="signup">
-      <h1>Sign Up</h1>
-    </div>
     <input type="email" name="email" v-model="email" placeholder="email" />
-    <br>
     <input type="password" name="password" v-model="password" placeholder="password" />
-    <br>
-    <p></p>
     <button>Sign Up</button>
   </form>
 </template>
@@ -38,3 +34,4 @@ export default {
   }
 }
 </script>
+

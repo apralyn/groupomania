@@ -10,15 +10,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import PageHeader from '@/components/PageHeader.vue'
-
-export default {
-  name: 'HomeView',
-  components: {
-    PageHeader
-  }
-}
 </script>
 <style>
 .logo {
@@ -27,12 +18,12 @@ export default {
 }
 
 .btns button {
-  width: 200px;
+  width: 60%;
   height: 60px;
-  border: 4px solid;
   display: block;
   margin: auto;
   background-color: lightpink;
+  border: 4px solid;
   color: white;
   cursor: pointer;
 }
