@@ -1,24 +1,24 @@
 <template>
   <div class="profile-container">
-  <nav id="nav-menu">
-    <div>
-      <img id="profile-icon" alt="Groupomania logo" src="../assets/icon.png">
+    <nav id="nav-menu">
+      <div>
+        <img id="profile-icon" alt="Groupomania logo" src="../assets/icon.png">
+      </div>
+      <ul class="nav-items">
+        <li class="feed" @click="$router.push('/feed')">Feed</li>
+        <li>Edit Profile</li>
+      </ul>
+    </nav>
+    <div id="profile-image">
+      <img src="image.jpg" alt="img">
     </div>
-    <ul class="nav-items">
-      <li class="feed" @click="$router.push('/feed')">Feed</li>
-      <li>Edit Profile</li>
-    </ul>
-  </nav>
-  <div id="profile-image">
-    <img src="image.jpg" alt="img">
+    <div class="profile-bio">
+      <p>Name</p>
+      <p>Bio</p>
+      <p>Posts:</p>
+    </div>
+    <button onclick="handleSubmit">Delete</button>
   </div>
-  <div class="profile-bio">
-    <p>Name</p>
-    <p>Bio</p>
-    <p>Posts:</p>
-  </div>
-  <button onclick="handleSubmit">Delete</button>
-</div>
 </template>
 <script>
 import axios from 'axios'
@@ -47,13 +47,18 @@ export default {
 }
 </script>
 <style>
-.profile-container{
+.profile-container {
   border: 2px solid red;
   margin: auto;
   padding: 15px;
 }
+
 #profile-icon {
   width: 50px;
+}
+
+nav {
+  padding: 0;
 }
 
 #nav-menu {

@@ -6,6 +6,7 @@
     <input type="password" name="password" v-model="password" placeholder="password" required />
     <button>Sign Up</button>
   </form>
+  <span>All ready have an account?</span><span @click="$router.push(/login)">Log in</span>
 </template>
 <script>
 import axios from 'axios'
