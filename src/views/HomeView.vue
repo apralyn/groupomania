@@ -11,7 +11,7 @@
 
 <script>
 </script>
-<style>
+<style scoped>
 img {
   cursor: pointer;
 }
@@ -26,9 +26,7 @@ button {
   height: 60px;
   display: block;
   margin: auto;
-  background-color: lightpink;
   border: 2px solid white;
-  color: white;
-  cursor: pointer;
+  
 }
 </style>

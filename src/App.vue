@@ -32,4 +32,11 @@ nav a {
 nav a.router-link-exact-active {
   color: #fd2d01;
 }
+
+button {
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #ffd7d7;
+}
 </style>

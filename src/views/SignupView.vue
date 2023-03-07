@@ -55,20 +55,20 @@ input {
   height: 60px;
   text-align: center;
   margin: 5px;
-  border: 1px solid lightpink;
+  border: 1px solid #ffd7d7;
 }
 
 button {
   width: 60%;
   height: 40px;
   margin: auto;
-  background-color: lightpink;
-  border: 4px solid lightpink;
+  background-color: #ffd7d7;
+  border: 4px solid #ffd7d7;
   color: white;
 }
 
 .login-link {
-  color: lightcoral;
+  color: #fd2d01;
   cursor: pointer;
 }
 </style>

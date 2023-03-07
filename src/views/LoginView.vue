@@ -36,7 +36,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 form {
   max-width: 420px;
   background: white;
@@ -50,15 +50,13 @@ input {
   height: 60px;
   text-align: center;
   margin: 5px;
-  border: 1px solid lightpink;
+  border: 1px solid #ffd7d7;
 }
 
 button {
   width: 60%;
   height: 40px;
   margin: auto;
-  background-color: lightpink;
-  border: 4px solid lightpink;
-  color: white;
+  border: 4px solid #ffd7d7;
 }
 </style>
