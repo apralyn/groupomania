@@ -1,96 +1,129 @@
 <template>
-  <div class="profile-container">
-    <nav id="nav-menu">
-      <div>
-        <img id="profile-icon" alt="Groupomania logo" src="../assets/icon.png">
-      </div>
-      <ul class="nav-items">
-        <li class="feed" @click="$router.push('/feed')">Feed</li>
-        <li>Edit Profile</li>
-      </ul>
-    </nav>
-    <div id="profile-image">
-      <img src="image.jpg" alt="img">
-    </div>
-    <div class="profile-bio">
-      <p>Name</p>
-      <p>Bio</p>
-      <p>Posts:</p>
-    </div>
-    <button onclick="handleSubmit">Delete</button>
-  </div>
+	<div class="profile-container">
+		<nav id="nav-menu">
+			<div class="nav-feed-link">
+				<img id="profile-icon" alt="Groupomania logo" src="../assets/icon.png">
+				<p class="feed" @click="$router.push('/feed')">Feed</p>
+			</div>
+			<ul class="nav-items">
+				<li>Edit Profile</li>
+				<li @click="$router.push('/')">Logout</li>
+			</ul>
+		</nav>
+		<div id="profile-image">
+			<div id="profile-pic-holder">Profile Pic</div>
+		</div>
+		<div class="profile-bio">
+			<p>Name</p>
+			<p>About Me</p>
+			<p>Posts:</p>
+		</div>
+		<button @click="toggleModal" class="delete-btn">Delete</button>
+		<Modal @cancel="toggleModal" :modalActive="modalActive">
+			<div class="modal-content">
+				<button @click="handleSubmit">Confirm</button>
+			</div>
+		</Modal>
+	</div>
 </template>
 <script>
-import axios from 'axios'
+import Modal from '@/components/PopupModal.vue'
+import { ref } from 'vue'
 export default {
-  name: 'ProfileView',
-  data() {
-    return {
-      email: '',
-      password: ''
-    }
-  },
-  methods: {
-    async handleSubmit() {
-      try {
-        const response = await axios.post('/api/auth/:id', {
-          email: this.email,
-          password: this.password,
-        });
-        console.log(response);
-        // this will redirect to login route after signing up.
-      } catch (error) {
-        error.message;
-      }
-    }
-  }
+	name: 'ProfileView',
+	data() {
+		return {
+			email: '',
+			password: ''
+		}
+	},
+	methods: {
+		async handleSubmit() {
+			try {
+				console.log("Deleted!");
+				this.$router.push('/');
+				//TODO redirect to /
+			} catch (error) {
+				error.message;
+			}
+		}
+	},
+	components: {
+		Modal,
+	},
+	setup() {
+		const modalActive = ref(false);
+		const toggleModal = () => {
+			modalActive.value = !modalActive.value;
+		}
+		return {
+			modalActive, toggleModal
+		}
+	}
 }
 </script>
 <style>
 .profile-container {
-  border: 2px solid red;
-  margin: auto;
-  padding: 15px;
+	border: 2px solid red;
+	margin: auto;
+	padding: 15px;
 }
 
 #profile-icon {
-  width: 50px;
+	width: 50px;
 }
 
 nav {
-  padding: 0;
+	padding: 0;
+}
+
+.nav-feed-link {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 #nav-menu {
-  display: flex;
-  margin-right: auto;
-  justify-content: space-between;
-  align-items: center;
+	display: flex;
+	margin-right: auto;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .nav-items {
-  display: flex;
-  list-style-type: none;
+	display: flex;
+	list-style-type: none;
 
 
 }
 
 li {
-  padding: 5px;
+	padding: 5px;
 }
 
 #profile-image {
-  width: 250px;
-  height: 250px;
-  padding: 25px;
-  margin: auto;
-  border: 1px solid black;
-  background-color: lightpink;
+	max-width: 250px;
+	height: 250px;
+	padding: 25px;
+	margin: auto;
+	border: 1px solid black;
+	background-color: lightpink;
+}
+
+#profile-pic-holder {
+	border: 1px solid black;
+	max-width: 250px;
+	max-height: 550px;
+	padding: 60px 50px 50px 50px;
+	margin: 25px 20px;
 }
 
 .profile-bio {
-  text-align: left;
-  padding-right: auto;
+	text-align: left;
+	padding-right: auto;
+}
 
+.delete-btn {
+	max-width: 250px;
 }
 </style>
