@@ -2,11 +2,11 @@
   <div class="feed-container">
     <img class="feed-logo" src="../assets/icon-above-font.png" alt="Groupomania-logo">
     <div class="feed-nav">
-      <div class="profile">Profile</div>
-      <div class="add-post">Create a post</div>
+      <div class="profile" @click="$router.push('/profile')">Profile</div>
+      <div class="add-post" @click="$router.push('/addpost')">Create a post</div>
     </div>
     <div class="posts-cards-container">
-      <div class="post-card post-preview">
+      <div class="post-card post-preview" @click="$router.push('/viewpost')">
         <div class="post-thumb">thumb</div>
         <div class="post-description">
           <div class="post-title">title</div>
