@@ -39,4 +39,8 @@ button {
   cursor: pointer;
   background-color: #ffd7d7;
 }
+
+.logo {
+  cursor: pointer;
+}
 </style>

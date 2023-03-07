@@ -21,12 +21,13 @@
 		<button @click="toggleModal" class="delete-btn">Delete</button>
 		<Modal @cancel="toggleModal" :modalActive="modalActive">
 			<div class="modal-content">
-				<button @click="handleSubmit">Confirm</button>
+				<button class="delete-btn" @click="handleDelete">Confirm</button>
 			</div>
 		</Modal>
 	</div>
 </template>
 <script>
+import axios from 'axios'
 import Modal from '@/components/PopupModal.vue'
 import { ref } from 'vue'
 export default {
@@ -38,10 +39,16 @@ export default {
 		}
 	},
 	methods: {
-		async handleSubmit() {
+		async handleDelete() {
 			try {
+				axios.delete('http://localhost:3000/api/auth/13')
+				.then((response) => {
+					console.log(response);
+				})
 				console.log("Deleted!");
-				this.$router.push('/');
+				//TODO remove user from the local storage
+				//localStorage.removeItem('YourItem')
+				//this.$router.push('/');
 				//TODO redirect to /
 			} catch (error) {
 				error.message;
@@ -62,9 +69,9 @@ export default {
 	}
 }
 </script>
-<style>
+<style scoped>
 .profile-container {
-	border: 2px solid red;
+	border: 2px solid #fd2d01;
 	margin: auto;
 	padding: 15px;
 }
@@ -90,15 +97,13 @@ nav {
 	align-items: center;
 }
 
-.nav-items {
-	display: flex;
-	list-style-type: none;
-
-
-}
-
 li {
-	padding: 5px;
+	display: inline;
+	flex-direction: row;
+	list-style-type: none;
+	margin: 10px;
+	cursor: pointer;
+	
 }
 
 #profile-image {
@@ -107,7 +112,7 @@ li {
 	padding: 25px;
 	margin: auto;
 	border: 1px solid black;
-	background-color: lightpink;
+	background-color: #ffd7d7;
 }
 
 #profile-pic-holder {
@@ -124,6 +129,8 @@ li {
 }
 
 .delete-btn {
-	max-width: 250px;
+	width: 250px;
+	height: 40px;
+	border: 3px solid white;
 }
 </style>

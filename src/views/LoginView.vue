@@ -5,7 +5,7 @@
     <input type="email" name="email" v-model="email" placeholder="email" required>
     <input type="password" name="password" v-model="password" placeholder="password" required>
     <p>{{ errorMessage }}</p>
-    <button @click="getLogin">Login</button>
+    <button class="login-btn" @click="getLogin">Login</button>
   </form>
 </template>
 <script>
@@ -28,7 +28,7 @@ export default {
         });
 
         localStorage.setItem('token', JSON.stringify(response.data));
-        this.$router.push('/');
+        this.$router.push('/feed');
       } catch (error) {
         this.errorMessage = error.message;
       }
@@ -37,6 +37,11 @@ export default {
 }
 </script>
 <style scoped>
+.logo {
+  max-width: 500px;
+  margin-top: 20px;
+}
+
 form {
   max-width: 420px;
   background: white;
@@ -53,9 +58,9 @@ input {
   border: 1px solid #ffd7d7;
 }
 
-button {
+.login-btn {
   width: 60%;
-  height: 40px;
+  height: 50px;
   margin: auto;
   border: 4px solid #ffd7d7;
 }

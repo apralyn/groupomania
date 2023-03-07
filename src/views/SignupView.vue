@@ -36,10 +36,10 @@ export default {
   }
 }
 </script>
-<style>
-
-img {
-  cursor: pointer;
+<style scoped>
+.logo {
+  max-width: 500px;
+  margin-top: 20px;
 }
 
 form {
@@ -60,11 +60,10 @@ input {
 
 button {
   width: 60%;
-  height: 40px;
+  height: 50px;
   margin: auto;
-  background-color: #ffd7d7;
   border: 4px solid #ffd7d7;
-  color: white;
+
 }
 
 .login-link {

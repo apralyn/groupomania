@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img @click="$router.push('/')" class="logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
+    <img class="home-logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
     <div class="btns">
       <button @click="$router.push('/login')">Login</button>
       <button @click="$router.push('/signup')">Sign Up</button>
@@ -12,21 +12,16 @@
 <script>
 </script>
 <style scoped>
-img {
-  cursor: pointer;
-}
-
-.logo {
-  width: 200px;
-  margin-top: 100px;
+.home-logo {
+  max-width: 500px;
+  margin-top: 20px;
 }
 
 button {
-  width: 60%;
-  height: 60px;
+  width: 50%;
+  height: 80px;
   display: block;
   margin: auto;
-  border: 2px solid white;
-  
+  border: 4px solid white;
 }
 </style>
