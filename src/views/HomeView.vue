@@ -35,7 +35,6 @@ export default {
 .logo {
   width: 200px;
   margin-bottom: 80px;
-
 }
 
 .btns button {
@@ -46,5 +45,6 @@ export default {
   border: 2px solid #ffd7d7;
   background-color: white;
   color: #fd2d01;
+  border-radius: 10px;
 }
 </style>
