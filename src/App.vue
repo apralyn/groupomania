@@ -19,25 +19,9 @@
   box-sizing: border-box;
 }
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-  padding: 5px;
-}
-
-nav a.router-link-exact-active {
-  color: #fd2d01;
-}
-
 button {
-  color: #fff;
   font-size: 14px;
   cursor: pointer;
-  background-color: #ffd7d7;
 }
 
 .logo {

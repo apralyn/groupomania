@@ -1,27 +1,50 @@
 <template>
-  <div class="home">
-    <img class="home-logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
-    <div class="btns">
-      <button @click="$router.push('/login')">Login</button>
-      <button @click="$router.push('/signup')">Sign Up</button>
+  <div class="full-screen">
+    <div class="home">
+      <img class="logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
+      <div class="btns">
+        <button @click="$router.push('/login')">Login</button>
+        <button @click="$router.push('/signup')">Sign Up</button>
+      </div>
     </div>
-    <PageHeader />
   </div>
 </template>
 
 <script>
+export default {
+}
 </script>
 <style scoped>
-.home-logo {
-  max-width: 500px;
-  margin-top: 20px;
+.full-screen {
+  top: 0;
+  position: fixed;
+  border: 10px solid black;
+  width: 100%;
+  height: 100%;
 }
 
-button {
+.home {
+  width: 450px;
+  height: 550px;
+  padding: 5px;
+  margin: 80px auto;
+  border: 1px solid #ffd7d7;
+  border-radius: 10px;
+}
+
+.logo {
+  width: 200px;
+  margin-bottom: 80px;
+
+}
+
+.btns button {
   width: 50%;
   height: 80px;
   display: block;
-  margin: auto;
-  border: 4px solid white;
+  margin: 10px auto;
+  border: 2px solid #ffd7d7;
+  background-color: white;
+  color: #fd2d01;
 }
 </style>
