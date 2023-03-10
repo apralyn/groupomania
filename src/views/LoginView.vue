@@ -10,7 +10,7 @@
         <button class="login-btn" @click="getLogin">Login</button>
       </form>
       <div class="sign-up">
-        <p><span @click="$router.push('/signup')">Sign up</span> to create an account.</p>
+        <p><span class="signup-link" @click="$router.push('/signup')">Sign up</span> to create an account.</p>
       </div>
     </div>
   </div>
@@ -86,8 +86,7 @@ input {
   padding-bottom: 5px;
 }
 
-.sign-up span {
-  text-decoration: underline;
+.signup-link {
   color: #fd2d01;
   cursor: pointer;
 }
