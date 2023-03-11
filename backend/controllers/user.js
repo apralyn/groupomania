@@ -62,17 +62,17 @@ exports.login = (req, res, next) => {
 };
 
 //getting all users
-// exports.getUsers = (req, res, next) => {
-//   User.findAll()
-//     .then((user) => {
-//       res.status(200).json(user);
-//     })
-//     .catch((error) => {
-//       res.status(500).json({
-//         error: error.message,
-//       });
-//     });
-// };
+exports.getUsers = (req, res, next) => {
+  User.findAll()
+    .then((user) => {
+      res.status(200).json(user);
+    })
+    .catch((error) => {
+      res.status(500).json({
+        error: error.message,
+      });
+    });
+};
 
 //puling the user Profile
 exports.getUser = (req, res, next) => {

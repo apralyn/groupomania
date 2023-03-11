@@ -1,22 +1,26 @@
 <template>
-  <div class="viewpost-container">
-    <h1>View Post</h1>
-    <div class="page-nav">
-      <div class="back-feed">back</div>
-      <div class="back-arrow">back arrow</div>
-    </div>
-    <div class="post-title">Title</div>
-    <div class="post-image">Image</div>
-    <div class="post-description">Description</div>
-    <div class="post-comment-section">Comments
-      <div class="view-comment">kjgal;khgfa</div>
-      <div class="add-comment">Add comment
-        <div class="comment-box">comment box</div>
-        <button class="submin-comment">submit</button>
+  <div class="full-screen">
+    <div class="view-post">
+      <div>
+        <button class="users-btn" @click="getUsers">Show all</button>
       </div>
-    </div>
-    <div class="likes-container">
-      <div class="like-post">Like</div>
     </div>
   </div>
 </template>
+<script>
+import axios from 'axios';
+export default {
+  methods: {
+    async getUsers() {
+      try {
+        const users = await axios.get('/api/auth/');
+        this.users = users.data; // to access the list of users
+        console.log(users);
+      }
+      catch (error) {
+        error.message;
+      }
+    }
+  }
+}
+</script>
