@@ -1,11 +1,12 @@
 <template>
+  <div class="full-overlay" v-if="false"></div>
   <div class="full-screen">
     <div class="signup">
       <img @click="$router.push('/')" class="logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
       <h1>Sign Up</h1>
       <form @submit.prevent="handleSubmit">
-        <input type="email" name="email" v-model="email" placeholder="email" required />
-        <input type="password" name="password" v-model="password" placeholder="password" required />
+        <input class="input-field" type="email" name="email" v-model="email" placeholder="email" required />
+        <input class="input-field" type="password" name="password" v-model="password" placeholder="password" required />
         <button class="signup-btn">Sign Up</button>
       </form>
       <div class="login">
@@ -41,12 +42,19 @@ export default {
 }
 </script>
 <style scoped>
-.full-screen {
-  top: 0;
+.full-overlay {
+  /* top: 0;
+  position: fixed; */
+  z-index: 1000;
+  background-color: #FF000077;
   position: fixed;
-  border: 10px solid black;
-  width: 100%;
-  height: 100%;
+  top:0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  /* border: 10px solid black; */
+  width: 100vw;
+  height: 100vh;
 }
 
 .signup {
@@ -77,6 +85,10 @@ input {
   margin: 5px;
   border: 1px solid #ffd7d7;
   border-radius: 10px;
+}
+
+.input-field:focus-visible {
+  outline: #fd2d01 auto 1px;
 }
 
 .signup-btn {

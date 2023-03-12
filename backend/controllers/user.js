@@ -25,7 +25,7 @@ exports.signup = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-  User.findOne({ email: req.body.email })
+  User.findOne({where: { email: req.body.email }})
     .then((user) => {
       if (!user) {
         return res.status(401).json({
@@ -79,6 +79,7 @@ exports.getUser = (req, res, next) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => {
       res.status(200).json(user);
+      console.log(user.id);
     })
     .catch((error) => {
       res.status(500).json({
@@ -93,7 +94,7 @@ exports.deleteUser = (req, res, next) => {
     .then((user) => {
       if (user !== null) {
         user.destroy().then(() => {
-          res.status(200).json({
+          res.status(201).json({
             message: "User successfully deleted.",
           });
         });

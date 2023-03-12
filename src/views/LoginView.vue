@@ -7,7 +7,7 @@
         <input type="email" name="email" v-model="email" placeholder="email" required>
         <input type="password" name="password" v-model="password" placeholder="password" required>
         <p>{{ errorMessage }}</p>
-        <button class="login-btn" @click="getLogin">Login</button>
+        <button class="login-btn" type="submit">Login</button>
       </form>
       <div class="sign-up">
         <p><span class="signup-link" @click="$router.push('/signup')">Sign up</span> to create an account.</p>
@@ -33,9 +33,10 @@ export default {
           email: this.email,
           password: this.password
         });
-
-        localStorage.setItem('token', JSON.stringify(response.data));
-        this.$router.push('/feed');
+        if (response.status == 200) {
+          localStorage.setItem('token', JSON.stringify(response.data));
+          this.$router.push('/feed');
+        }
       } catch (error) {
         this.errorMessage = error.message;
       }
@@ -95,8 +96,8 @@ input {
   width: 60%;
   height: 50px;
   margin: 5px auto;
-  border: 4px solid #ffd7d7;
-  background-color: #ffd7d7;
+  border: 4px solid #fd2d01;
+  background-color: #fd2d01;
   border-radius: 10px;
   color: white;
 }

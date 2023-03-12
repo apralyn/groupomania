@@ -39,11 +39,12 @@ export default {
     created() {
       this.getUsers();
     },
-    async getUser() {
+    async getUser(userId) {
       try {
-        const user = await axios.get('/api/auth/${id}');
-        this.user = user.data;
-        console.log(this.user);
+        const user = await axios.get('/api/auth/' + userId);
+        return user.data;
+        // this.user = user.data;
+        // console.log(this.user);
       }
       catch (error) { error.message }
     }

@@ -41,7 +41,7 @@ export default {
 	methods: {
 		async handleDelete() {
 			try {
-				axios.delete('http://localhost:3000/api/auth/13')
+				axios.delete('http://localhost:3000/api/auth/${id}')
 				.then((response) => {
 					console.log(response);
 				})
