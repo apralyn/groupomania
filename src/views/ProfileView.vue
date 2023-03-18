@@ -7,7 +7,7 @@
 			</div>
 			<ul class="nav-items">
 				<li>Edit Profile</li>
-				<li @click="$router.push('/')">Logout</li>
+				<li @click="onLogout">Logout</li>
 			</ul>
 		</nav>
 		<div id="profile-image">
@@ -35,8 +35,6 @@ export default {
 	name: 'ProfileView',
 	data() {
 		return {
-
-			id: this.$route.params.id,
 			token: '',
 			userId: ''
 		}
@@ -46,7 +44,14 @@ export default {
 			this.token = JSON.parse(localStorage.getItem("token"));
 		}
 		this.userId = this.token.userId;
-	},		
+	},
+	methods: {
+		onLogout() {
+			localStorage.removeItem('token');
+			this.$router.push('/');
+			console.log('You have been logged out!');
+		}
+	},
 	components: {
 		Modal,
 	},

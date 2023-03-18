@@ -3,7 +3,7 @@
     <img class="feed-logo" src="../assets/icon-above-font.png" alt="Groupomania-logo">
     <div class="feed-nav">
       <div @click="$router.push({ name: 'ProfileView', params: { id: userId } })">Profile</div>
-      <div class="add-post" @click="$router.push('/addpost')">Create a post</div>
+      <router-link to="/addpost">Create a post</router-link>
     </div>
     <div class="posts-cards-container" v-for="post in posts" :key="post.id">
       <div class="post-card post-preview" @click="$router.push('/viewpost')">
@@ -48,7 +48,7 @@
   </div>
 </template>
 <script>
-
+//the feed should only be access by a present user. 
 export default {
   data() {
     return {
@@ -63,7 +63,6 @@ export default {
       this.token = JSON.parse(localStorage.getItem("token"));
     }
     this.userId = this.token.userId;
-    console.log(this.token);
   },
 }
 </script>
