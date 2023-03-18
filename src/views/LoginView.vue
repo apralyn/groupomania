@@ -33,10 +33,9 @@ export default {
           email: this.email,
           password: this.password
         });
-        if (response.status == 200) {
-          localStorage.setItem('token', JSON.stringify(response.data));
-          this.$router.push('/feed');
-        }
+        console.log (response);
+        localStorage.setItem('token', JSON.stringify(response.data));
+        //this.$router.push('/feed');
       } catch (error) {
         this.errorMessage = error.message;
       }

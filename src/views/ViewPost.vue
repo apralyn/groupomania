@@ -12,6 +12,7 @@
       <div class="one-user">
         <p>Get one user</p>
         <button @click="getUser">A user</button>
+        <button @click="getUserId">get userId</button>
       </div>
     </div>
   </div>
@@ -23,6 +24,7 @@ export default {
   data() {
     return {
       users: [],
+      userId: ""
     };
   },
   methods: {
@@ -47,6 +49,21 @@ export default {
         // console.log(this.user);
       }
       catch (error) { error.message }
+    },
+    async getUserId() {
+      try {
+        const token = JSON.parse(localStorage.getItem('token')) || [];
+        const userId = token.userId;
+        console.log(userId);
+
+
+        const test = await axios.get('/api/auth/' + userId);
+        console.log(test);
+
+      }
+      catch (error) {
+        error.message;
+      }
     }
   }
 }

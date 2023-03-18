@@ -30,8 +30,17 @@
 import axios from 'axios'
 import Modal from '@/components/PopupModal.vue'
 import { ref } from 'vue'
+
 export default {
 	name: 'ProfileView',
+	async created() {
+		const response = await axios.get('user', {
+			headers: {
+				Authorization: 'Bearer' + localStorage.getItem('token')
+			}
+		});
+		console.log(response);
+	},
 	data() {
 		return {
 			email: '',
@@ -42,9 +51,9 @@ export default {
 		async handleDelete() {
 			try {
 				axios.delete('http://localhost:3000/api/auth/${id}')
-				.then((response) => {
-					console.log(response);
-				})
+					.then((response) => {
+						console.log(response);
+					})
 				console.log("Deleted!");
 				//TODO remove user from the local storage
 				//localStorage.removeItem('YourItem')
@@ -103,7 +112,7 @@ li {
 	list-style-type: none;
 	margin: 10px;
 	cursor: pointer;
-	
+
 }
 
 #profile-image {
