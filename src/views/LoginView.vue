@@ -35,7 +35,7 @@ export default {
         });
         console.log(response);
         localStorage.setItem('token', JSON.stringify(response.data));
-        //this.$router.push('/feed');
+        this.$router.push('/feed');
       } catch (error) {
         this.errorMessage = error.message;
       }

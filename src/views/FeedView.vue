@@ -2,10 +2,10 @@
   <div class="feed-container">
     <img class="feed-logo" src="../assets/icon-above-font.png" alt="Groupomania-logo">
     <div class="feed-nav">
-      <div class="profile" @click="$router.push('/profile')">Profile</div>
+      <div @click="$router.push({ name: 'ProfileView', params: { id: userId } })">Profile</div>
       <div class="add-post" @click="$router.push('/addpost')">Create a post</div>
     </div>
-    <div class="posts-cards-container">
+    <div class="posts-cards-container" v-for="post in posts" :key="post.id">
       <div class="post-card post-preview" @click="$router.push('/viewpost')">
         <div class="post-thumb">thumb</div>
         <div class="post-description">
@@ -23,7 +23,8 @@
             adipisicing elit.</div>
         </div>
         <div class="post-arrow-access">arrow</div>
-      </div><div class="post-card post-preview">
+      </div>
+      <div class="post-card post-preview">
         <div class="post-thumb">thumb</div>
         <div class="post-description">
           <div class="post-title">title</div>
@@ -47,6 +48,24 @@
   </div>
 </template>
 <script>
+
+export default {
+  data() {
+    return {
+      id: null,
+      posts: [],
+      token: '',
+      userId: ''
+    }
+  },
+  mounted() {
+    if (localStorage.getItem("token")) {
+      this.token = JSON.parse(localStorage.getItem("token"));
+    }
+    this.userId = this.token.userId;
+    console.log(this.token);
+  },
+}
 </script>
 <style scoped>
 .feed-container {
@@ -131,4 +150,5 @@
 
 .post-content {
   font-size: 12px;
-}</style>
+}
+</style>

@@ -14,7 +14,7 @@
 			<div id="profile-pic-holder">Profile Pic</div>
 		</div>
 		<div class="profile-bio">
-			<p>Hello {{ id }}</p>
+			<span>Hello {{ userId }}</span>
 			<p>You are not logged in.</p>
 			<p>About Me</p>
 			<p>Posts:</p>
@@ -35,19 +35,18 @@ export default {
 	name: 'ProfileView',
 	data() {
 		return {
-			user: null,
-			id: this.$route.params.id
+
+			id: this.$route.params.id,
+			token: '',
+			userId: ''
 		}
 	},
-	
-	methods: {
-		async created() {
-		
-	},
-		async handleDelete() {
-			
+	mounted() {
+		if (localStorage.getItem("token")) {
+			this.token = JSON.parse(localStorage.getItem("token"));
 		}
-	},
+		this.userId = this.token.userId;
+	},		
 	components: {
 		Modal,
 	},
