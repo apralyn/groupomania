@@ -1,25 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-
-// const { Sequelize } = require("sequelize");
 const path = require("path");
-
 const userRoutes = require("./routes/user");
 
 const app = express();
-
-
-//connect to sequelize
-// const sequelize = new Sequelize("groupomania", "newuser", "password", {
-//   host: "localhost",
-//   dialect: "postgres",
-// });
-
-//testing sequelize connection
-// sequelize
-//   .authenticate()
-//   .then(() => console.log("Sequelize is connected!"))
-//   .catch((error) => console.log("Error: " + error));
 
 app.use(express.json());
 

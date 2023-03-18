@@ -33,7 +33,7 @@ export default {
           email: this.email,
           password: this.password
         });
-        console.log (response);
+        console.log(response);
         localStorage.setItem('token', JSON.stringify(response.data));
         //this.$router.push('/feed');
       } catch (error) {

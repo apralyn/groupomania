@@ -14,7 +14,8 @@
 			<div id="profile-pic-holder">Profile Pic</div>
 		</div>
 		<div class="profile-bio">
-			<p>Name</p>
+			<p>Hello {{ id }}</p>
+			<p>You are not logged in.</p>
 			<p>About Me</p>
 			<p>Posts:</p>
 		</div>
@@ -27,41 +28,24 @@
 	</div>
 </template>
 <script>
-import axios from 'axios'
 import Modal from '@/components/PopupModal.vue'
 import { ref } from 'vue'
 
 export default {
 	name: 'ProfileView',
-	async created() {
-		const response = await axios.get('user', {
-			headers: {
-				Authorization: 'Bearer' + localStorage.getItem('token')
-			}
-		});
-		console.log(response);
-	},
 	data() {
 		return {
-			email: '',
-			password: ''
+			user: null,
+			id: this.$route.params.id
 		}
 	},
+	
 	methods: {
+		async created() {
+		
+	},
 		async handleDelete() {
-			try {
-				axios.delete('http://localhost:3000/api/auth/${id}')
-					.then((response) => {
-						console.log(response);
-					})
-				console.log("Deleted!");
-				//TODO remove user from the local storage
-				//localStorage.removeItem('YourItem')
-				//this.$router.push('/');
-				//TODO redirect to /
-			} catch (error) {
-				error.message;
-			}
+			
 		}
 	},
 	components: {
@@ -78,6 +62,7 @@ export default {
 	}
 }
 </script>
+
 <style scoped>
 .profile-container {
 	border: 2px solid #fd2d01;

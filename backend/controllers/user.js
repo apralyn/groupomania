@@ -79,7 +79,7 @@ exports.getUser = (req, res, next) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => {
       res.status(200).json(user);
-      console.log(user.id);
+      console.log("this is the current user id " + user.email);
     })
     .catch((error) => {
       res.status(500).json({

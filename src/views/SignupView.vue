@@ -7,6 +7,7 @@
       <form @submit.prevent="handleSubmit">
         <input class="input-field" type="email" name="email" v-model="email" placeholder="email" required />
         <input class="input-field" type="password" name="password" v-model="password" placeholder="password" required />
+        <div v-if="errorMessage" class="error"> {{ errorMessage }} </div>
         <button class="signup-btn">Sign Up</button>
       </form>
       <div class="login">
@@ -22,7 +23,8 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      errorMessage: ''
     }
   },
   methods: {
@@ -33,6 +35,9 @@ export default {
           password: this.password,
         });
         console.log(response)
+        //validate password
+        this.errorMessage = this.password.length > 5 ? '' : 'Password  must be 6 characters long';
+
         this.$router.push('/login');
       } catch (error) {
         error.message;
@@ -48,7 +53,7 @@ export default {
   z-index: 1000;
   background-color: #FF000077;
   position: fixed;
-  top:0;
+  top: 0;
   left: 0;
   margin: 0;
   padding: 0;

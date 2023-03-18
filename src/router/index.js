@@ -10,60 +10,45 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/LoginView.vue"),
+      import("../views/LoginView.vue"),
   },
   {
     path: "/signup",
     name: "signup",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "signup" */ "../views/SignupView.vue"),
+      import("../views/SignupView.vue"),
   },
   {
-    path: "/profile",
+    path: "/profile/:id",
     name: "profile",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+
     component: () =>
-      import(/* webpackChunkName: "delete" */ "../views/ProfileView.vue"),
+      import("../views/ProfileView.vue"),
   },
   {
     path: "/feed",
     name: "feed",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "feed" */ "../views/FeedView.vue"),
+      import("../views/FeedView.vue"),
   },
   {
     path: "/viewpost",
     name: "viewPost",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "viewPost" */ "../views/ViewPost.vue"),
+      import("../views/ViewPost.vue"),
   },
   {
     path: "/addpost",
     name: "addPost",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+
     component: () =>
-      import(/* webpackChunkName: "addPost" */ "../views/AddPost.vue"),
+      import("../views/AddPost.vue"),
   },
 ];
 
 const router = createRouter({
+  //removed the hash on the url
   history: createWebHistory(),
   routes,
 });
