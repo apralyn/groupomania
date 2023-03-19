@@ -30,12 +30,12 @@ exports.viewPost = (req, res, next) => {
 
 //create a new one (addPost)
 exports.addPost = (req, res, next) => {
-  //const imageUrl = req.protocol + "://" + req.get("host");
+  const imageUrl = req.protocol + "://" + req.get("host");
   const post = new Post({
     title: req.body.title,
     description: req.body.description,
-    imageUrl: req.body.imageUrl,
-    //imageUrl: imageUrl + "/images/" + req.file.filename,
+    //imageUrl: req.body.imageUrl,
+    imageUrl: imageUrl + "/images/" + req.file.filename,
     likes: 0,
     usersLiked: [],
     userId: req.body.userId,
@@ -58,15 +58,13 @@ exports.addPost = (req, res, next) => {
 exports.modifyPost = (req, res, next) => {
   let post = new Post({ id: req.params.id });
   if (req.file) {
-    //const imageUrl = req.protocol + "://" + req.get("host");
-    //const parsedSauce = JSON.parse(req.body.sauce);
+    const imageUrl = req.protocol + "://" + req.get("host");
+    //const parsedPost = JSON.parse(req.body.post);
     post = {
       title: req.body.title,
       description: req.body.description,
-      imageUrl: req.body.imageUrl,
-      //imageUrl: imageUrl + "/images/" + req.file.filename,
-      likes: 0,
-      usersLiked: [],
+      //imageUrl: req.body.imageUrl,
+      imageUrl: imageUrl + "/images/" + req.file.filename,
       userId: req.body.userId,
     };
   } else {
@@ -75,23 +73,21 @@ exports.modifyPost = (req, res, next) => {
       description: req.body.description,
       imageUrl: req.body.imageUrl,
       //imageUrl: imageUrl + "/images/" + req.file.filename,
-      likes: 0,
-      usersLiked: [],
       userId: req.body.userId,
     };
   }
 
-  Post.updateOne({ id: req.params.id }, post)
-    .then(() => {
-      res.status(201).json({
-        message: "Post updated successfully!",
-      });
-    })
-    .catch((error) => {
-      res.status(500).json({
-        error: error.message || error,
-      });
-    });
+  // Post.updateOne({ id: req.params.id }, post)
+  //   .then(() => {
+  //     res.status(201).json({
+  //       message: "Post updated successfully!",
+  //     });
+  //   })
+  //   .catch((error) => {
+  //     res.status(500).json({
+  //       error: error.message || error,
+  //     });
+  //   });
 };
 
 //liking a post (likePost)
