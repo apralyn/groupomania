@@ -5,30 +5,30 @@
 				<img id="profile-icon" alt="Groupomania logo" src="../assets/icon.png">
 				<p class="feed" @click="$router.push('/feed')">Feed</p>
 			</div>
-			<ul class="nav-items">
-				<li>Edit Profile</li>
-				<li @click="onLogout">Logout</li>
-			</ul>
+			<div @click="onLogout">Logout</div>
 		</nav>
 		<div id="profile-image">
 			<div id="profile-pic-holder">Profile Pic</div>
 		</div>
-		<div class="profile-bio">
-			<span>Hello {{ userId }}</span>
-			<p>You are not logged in.</p>
-			<p>About Me</p>
-			<p>Posts:</p>
-		</div>
-		<button @click="toggleModal" class="delete-btn">Delete</button>
-		<Modal @cancel="toggleModal" :modalActive="modalActive">
-			<div class="modal-content">
-				<button class="delete-btn" @click="handleDelete">Confirm</button>
-			</div>
-		</Modal>
+		
+		<EditProfile >
+			<span>Hello.name</span>
+			<span>Posts:</span>
+		</EditProfile>
+
+			<button class="user-btn">Edit Profile</button>
+			<button @click="toggleModal" class="user-btn">Delete</button>
+			<Modal @cancel="toggleModal" :modalActive="modalActive">
+				<div class="modal-content">
+					<button class="delete-btn" @click="handleDelete">Confirm</button>
+				</div>
+			</Modal>
+		
 	</div>
 </template>
 <script>
 import Modal from '@/components/PopupModal.vue'
+import EditProfile from '@/components/EditProfile.vue'
 import { ref } from 'vue'
 
 export default {
@@ -36,8 +36,12 @@ export default {
 	data() {
 		return {
 			token: '',
-			userId: ''
+			userId: '',
+			showEdit: true,
 		}
+	},
+	props: {
+
 	},
 	mounted() {
 		if (localStorage.getItem("token")) {
@@ -53,7 +57,7 @@ export default {
 		}
 	},
 	components: {
-		Modal,
+		Modal, EditProfile
 	},
 	setup() {
 		const modalActive = ref(false);
@@ -70,8 +74,14 @@ export default {
 <style scoped>
 .profile-container {
 	border: 2px solid #fd2d01;
-	margin: auto;
-	padding: 15px;
+	/* margin: auto; */
+	/* padding: 15px; */
+	width: 450px;
+  height: 550px;
+  padding: 5px;
+  margin: 80px auto;
+  border: 1px solid #ffd7d7;
+  border-radius: 10px;
 }
 
 #profile-icon {
@@ -122,11 +132,16 @@ li {
 }
 
 .profile-bio {
-	text-align: left;
-	padding-right: auto;
+	text-align: center;
+	margin: auto;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
-.delete-btn {
+.user-btn {
 	width: 250px;
 	height: 40px;
 	border: 3px solid white;

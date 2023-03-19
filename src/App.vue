@@ -4,7 +4,6 @@
 </template>
 
 <style>
-/*found inside public folder under index.html*/
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -20,7 +19,7 @@
 }
 
 button {
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
 }
 

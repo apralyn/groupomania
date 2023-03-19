@@ -48,7 +48,9 @@
   </div>
 </template>
 <script>
-//the feed should only be access by a present user. 
+//TODO 
+  //make sure that only current user can access the feed. 
+  //if the url is hard coded must show an errorMsg('you are not logged in').
 export default {
   data() {
     return {
