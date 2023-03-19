@@ -56,4 +56,57 @@ exports.addPost = (req, res, next) => {
 
 // edit a post (modifyPost)
 
+//liking a post (likePost)
+exports.likePost = (req, res, next) => {
+  const userId = req.params.id;
+  Post.findOne({ id: userId })
+    .then((post) => {
+      if (req.body.like == 1) {
+        console.log("I like this post");
+        if (!post.usersLiked.includes(userId)) {
+          post.usersLiked.push(userId);
+          post.likes++;
+        }
+      }
+      if (req.body.like == 0) {
+        console.log("neh!");
+        if (post.usersLiked.includes(userId)) {
+          post.usersLiked = post.usersLiked.filter((value) => value !== userId);
+          post.likes--;
+        }
+      }
+      post.save().then(() =>
+        res.status(200).json({
+          message: "Updated the post status.",
+        })
+      );
+    })
+    .catch((error) => {
+      res.status(400).json({
+        error: error,
+      });
+    });
+};
+
 //delete a post (deletePost)
+exports.deletePost = (req, res, next) => {
+  Post.findOne({ where: { id: req.params.id } })
+    .then((post) => {
+      if (post !== null) {
+        post.destroy().then(() => {
+          res.status(200).json({
+            message: "Post successfully deleted.",
+          });
+        });
+      } else {
+        res.status(400).json({
+          message: "Post not found.",
+        });
+      }
+    })
+    .catch((error) => {
+      res.status(400).json({
+        erorr: error.message,
+      });
+    });
+};
