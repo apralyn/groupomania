@@ -34,7 +34,6 @@ exports.addPost = (req, res, next) => {
   const post = new Post({
     title: req.body.title,
     description: req.body.description,
-    //imageUrl: req.body.imageUrl,
     imageUrl: imageUrl + "/images/" + req.file.filename,
     likes: 0,
     usersLiked: [],
@@ -59,11 +58,9 @@ exports.modifyPost = (req, res, next) => {
   let post = new Post({ id: req.params.id });
   if (req.file) {
     const imageUrl = req.protocol + "://" + req.get("host");
-    //const parsedPost = JSON.parse(req.body.post);
     post = {
       title: req.body.title,
       description: req.body.description,
-      //imageUrl: req.body.imageUrl,
       imageUrl: imageUrl + "/images/" + req.file.filename,
       userId: req.body.userId,
     };
@@ -72,7 +69,6 @@ exports.modifyPost = (req, res, next) => {
       title: req.body.title,
       description: req.body.description,
       imageUrl: req.body.imageUrl,
-      //imageUrl: imageUrl + "/images/" + req.file.filename,
       userId: req.body.userId,
     };
   }

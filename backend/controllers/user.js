@@ -112,4 +112,32 @@ exports.deleteUser = (req, res, next) => {
 };
 
 //when user wants to modify their profile page
-exports.modifyUser = () => {};
+exports.modifyUser = (req, res, next) => {
+  let user = new User({ id: req.params.id });
+  if (req.file) {
+    const imageUrl = req.protocol + "://" + req.get("host");
+    user = {
+      name: req.body.name,
+      imageUrl: imageUrl + "/images/" + req.file.filename,
+      userId: req.body.userId,
+    };
+  } else {
+    user = {
+      name: req.body.name,
+      imageUrl: req.body.imageUrl,
+      userId: req.body.userId,
+    };
+  }
+
+  // Post.updateOne({ id: req.params.id }, post)
+  //   .then(() => {
+  //     res.status(201).json({
+  //       message: "Post updated successfully!",
+  //     });
+  //   })
+  //   .catch((error) => {
+  //     res.status(500).json({
+  //       error: error.message || error,
+  //     });
+  //   });
+};
