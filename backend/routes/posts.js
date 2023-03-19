@@ -3,11 +3,11 @@ const router = express.Router();
 
 const postsCtrl = require("../controllers/posts");
 
-router.get("/feed", postsCtrl.getAllPosts);
-router.get("/viewpost/:id", postsCtrl.viewPost);
 router.post("/addpost", postsCtrl.addPost);
-// router.put("/:id", postsCtrl.modifyPost);
-router.delete("/:id", postsCtrl.deletePost);
+router.get("/feed", postsCtrl.getAllPosts);
+router.get("/:id/viewpost", postsCtrl.viewPost);
+router.put("/:id/modify", postsCtrl.modifyPost);
 router.post("/:id/like", postsCtrl.likePost);
+router.delete("/:id/delete", postsCtrl.deletePost);
 
 module.exports = router;

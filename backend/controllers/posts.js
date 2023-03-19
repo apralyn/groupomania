@@ -55,6 +55,44 @@ exports.addPost = (req, res, next) => {
 };
 
 // edit a post (modifyPost)
+exports.modifyPost = (req, res, next) => {
+  let post = new Post({ id: req.params.id });
+  if (req.file) {
+    //const imageUrl = req.protocol + "://" + req.get("host");
+    //const parsedSauce = JSON.parse(req.body.sauce);
+    post = {
+      title: req.body.title,
+      description: req.body.description,
+      imageUrl: req.body.imageUrl,
+      //imageUrl: imageUrl + "/images/" + req.file.filename,
+      likes: 0,
+      usersLiked: [],
+      userId: req.body.userId,
+    };
+  } else {
+    post = {
+      title: req.body.title,
+      description: req.body.description,
+      imageUrl: req.body.imageUrl,
+      //imageUrl: imageUrl + "/images/" + req.file.filename,
+      likes: 0,
+      usersLiked: [],
+      userId: req.body.userId,
+    };
+  }
+
+  Post.updateOne({ id: req.params.id }, post)
+    .then(() => {
+      res.status(201).json({
+        message: "Post updated successfully!",
+      });
+    })
+    .catch((error) => {
+      res.status(500).json({
+        error: error.message || error,
+      });
+    });
+};
 
 //liking a post (likePost)
 exports.likePost = (req, res, next) => {
