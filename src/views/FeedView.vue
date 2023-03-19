@@ -7,8 +7,10 @@
         <router-link to="/addpost">Create a post</router-link>
       </div>
       <div class="posts-container">
-        <button @submit="getAllPost()">View Posts</button>
-        <div class="all-posts">{{ posts }}</div>
+        <button @click="getAllPost()">View Posts</button>
+        <div class="all-posts" v-for="post of posts" :key="post"> 
+          {{ post.id }} {{ post.title }} {{ post.description }}
+        </div>
       </div>
       <button class="next-btn"> -- next -- </button>
       <div class="bottom-nav-container">
@@ -39,40 +41,24 @@ export default {
       posts: []
     }
   },
-  // setup() {
-  //   const posts = ref('')
-
-  //   const allPosts = async () => {
-  //     try{
-  //     const response = await axios.get('/api/posts/feed', {
-  //       posts.value = response.data
-  //     })
-  //     }catch (error){
-  //       console.log(error)
-  //     }
-
-  //   }
-  //   allPosts()
-  //   console.log("all posts" + posts.value)
-  // },
+  methods:{
+    async getAllPost() {
+      let res = await axios.get('/api/posts/feed')
+        .then(response => this.posts = response.data);
+      console.log(res);
+    },
+  },
   mounted() {
+    //working
+    // if user login success get userId from localstorage and declare on userId.
     if (localStorage.getItem("token")) {
       this.token = JSON.parse(localStorage.getItem("token"));
     }
     this.userId = this.token.userId;
-    
-    async getAllPost() {
-      try {
-        const res = await axios.get('/api/posts/feed')
-          .then(response => (this.posts = res.data))
-        console.log(this.posts);
-      }
-      catch (error) {
-        this.errorMessage = error.message;
-      }
-    }
+    //console.log(this.userId);
   },
   components: { PageContainer },
+
 }
 </script>
 <style scoped>
