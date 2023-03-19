@@ -31,13 +31,14 @@ exports.viewPost = (req, res, next) => {
 //create a new one (addPost)
 exports.addPost = (req, res, next) => {
   const imageUrl = req.protocol + "://" + req.get("host");
+  const parsedPost = JSON.parse(req.body.post);
   const post = new Post({
-    title: req.body.title,
-    description: req.body.description,
+    title: parsedPost.title,
+    description: parsedPost.description,
     imageUrl: imageUrl + "/images/" + req.file.filename,
     likes: 0,
     usersLiked: [],
-    userId: req.body.userId,
+    userId: parsedPost.userId,
   });
   post
     .save()
@@ -88,23 +89,28 @@ exports.modifyPost = (req, res, next) => {
 
 //liking a post (likePost)
 exports.likePost = (req, res, next) => {
-  const userId = req.params.id;
-  Post.findOne({ id: userId })
+  const postId = req.params.id;
+  const userId = req.body.userId;
+  Post.findOne({where: { id: postId }})
     .then((post) => {
+      let likes;
+      let {usersLiked} = post;  
       if (req.body.like == 1) {
         console.log("I like this post");
         if (!post.usersLiked.includes(userId)) {
-          post.usersLiked.push(userId);
-          post.likes++;
+          usersLiked = [...usersLiked, userId];
+          likes = post.likes +1;
         }
       }
       if (req.body.like == 0) {
         console.log("neh!");
         if (post.usersLiked.includes(userId)) {
+          //FIXME update using local variables like above
           post.usersLiked = post.usersLiked.filter((value) => value !== userId);
           post.likes--;
         }
       }
+      post.update({ usersLiked, likes })
       post.save().then(() =>
         res.status(200).json({
           message: "Updated the post status.",
@@ -113,7 +119,7 @@ exports.likePost = (req, res, next) => {
     })
     .catch((error) => {
       res.status(400).json({
-        error: error,
+        error: error.message,
       });
     });
 };

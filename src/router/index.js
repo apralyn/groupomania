@@ -32,7 +32,7 @@ const routes = [
       import("../views/FeedView.vue"),
   },
   {
-    path: "/viewpost/:id",
+    path: "/:id/viewpost",
     name: "viewPost",
     component: () =>
       import("../views/ViewPost.vue"),

@@ -6,11 +6,14 @@
         <div @click="$router.push({ name: 'ProfileView', params: { id: userId } })">Profile</div>
         <router-link to="/addpost">Create a post</router-link>
       </div>
-      <div class="posts-container">Hello</div>
+      <div class="posts-container">
+        <button @submit="getAllPost()">View Posts</button>
+        <div class="all-posts">{{ posts }}</div>
+      </div>
       <button class="next-btn"> -- next -- </button>
       <div class="bottom-nav-container">
-        <div class="bottom-nav-left">Left</div>
-        <div class="bottom-nav-right">Right</div>
+        <div class="bottom-nav-left">Link</div>
+        <div class="bottom-nav-right">Link</div>
       </div>
     </div>
   </div>
@@ -23,22 +26,51 @@
 // paste this inside the post container
 //v-for="post in posts" :key="post.id"
 import PageContainer from '@/components/PageContainer.vue'
+import axios from 'axios'
+//import { ref } from 'vue'
 
 export default {
   data() {
     return {
       id: null,
-      posts: [],
       token: '',
       userId: '',
-      container: 'PageContainer'
+      container: 'PageContainer',
+      posts: []
     }
   },
+  // setup() {
+  //   const posts = ref('')
+
+  //   const allPosts = async () => {
+  //     try{
+  //     const response = await axios.get('/api/posts/feed', {
+  //       posts.value = response.data
+  //     })
+  //     }catch (error){
+  //       console.log(error)
+  //     }
+
+  //   }
+  //   allPosts()
+  //   console.log("all posts" + posts.value)
+  // },
   mounted() {
     if (localStorage.getItem("token")) {
       this.token = JSON.parse(localStorage.getItem("token"));
     }
     this.userId = this.token.userId;
+    
+    async getAllPost() {
+      try {
+        const res = await axios.get('/api/posts/feed')
+          .then(response => (this.posts = res.data))
+        console.log(this.posts);
+      }
+      catch (error) {
+        this.errorMessage = error.message;
+      }
+    }
   },
   components: { PageContainer },
 }
@@ -50,6 +82,7 @@ export default {
   width: 100%;
   height: 100%;
 }
+
 .feed-view {
   display: flex;
   flex-direction: column;
@@ -59,6 +92,7 @@ export default {
   margin: 80px auto;
   border-radius: 10px;
 }
+
 .feed-logo {
   width: 200px;
   height: 200px;
@@ -70,8 +104,9 @@ export default {
   justify-content: space-between;
   width: 400px;
   z-index: 9999;
-  position:relative;
+  position: relative;
   top: -40px;
+  color: #fd2d01;
 }
 
 .posts-container {
@@ -82,9 +117,14 @@ export default {
   top: -30px;
 }
 
-.next-btn{
+.next-btn {
   position: relative;
   top: -20px;
+  border: 4px solid #fd2d01;
+  background-color: #fd2d01;
+  border-radius: 10px;
+  color: white;
+  padding: 3px;
 }
 
 .bottom-nav-container {
@@ -93,6 +133,6 @@ export default {
   width: 400px;
   position: relative;
   top: -15px;
+  color: #fd2d01;
 }
-
 </style>
