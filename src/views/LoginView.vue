@@ -47,7 +47,6 @@ export default {
 .full-screen {
   top: 0;
   position: fixed;
-  border: 10px solid black;
   width: 100%;
   height: 100%;
 }
@@ -55,7 +54,6 @@ export default {
 .login {
   width: 450px;
   height: 560px;
-  padding: 5px;
   margin: 80px auto;
   border: 1px solid #ffd7d7;
   border-radius: 10px;
@@ -63,41 +61,42 @@ export default {
 
 .logo {
   width: 200px;
+  height: 200px;
 }
 
 form {
-  max-width: 420px;
-  background: white;
-  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 450px;
+  padding: 20px;
   margin: auto;
 }
 
 input {
-  display: block;
   width: 100%;
   height: 60px;
   text-align: center;
-  margin: 5px;
-  border: 1px solid #ffd7d7;
+  margin: 10px;
+  border: 1px solid #fd2d01;
   border-radius: 10px;
 }
-
-.sign-up {
-  padding-bottom: 5px;
+.input-field:focus-visible {
+  outline: #fd2d01 auto 1px;
 }
-
-.signup-link {
-  color: #fd2d01;
-  cursor: pointer;
-}
-
 .login-btn {
   width: 60%;
   height: 50px;
-  margin: 5px auto;
+  margin: 15px auto;
   border: 4px solid #fd2d01;
   background-color: #fd2d01;
   border-radius: 10px;
   color: white;
 }
+.signup-link {
+  color: #fd2d01;
+  cursor: pointer;
+}
+
+
 </style>

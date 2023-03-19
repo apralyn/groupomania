@@ -65,7 +65,6 @@ export default {
 .signup {
   width: 450px;
   height: 560px;
-  padding: 5px;
   margin: 80px auto;
   border: 1px solid #ffd7d7;
   border-radius: 10px;
@@ -73,22 +72,24 @@ export default {
 
 .logo {
   width: 200px;
+  height: 200px;
 }
 
 form {
-  max-width: 420px;
-  background: white;
-  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 450px;
+  padding: 20px;
   margin: auto;
 }
 
 input {
-  display: block;
   width: 100%;
   height: 60px;
   text-align: center;
-  margin: 5px;
-  border: 1px solid #ffd7d7;
+  margin: 10px;
+  border: 1px solid #fd2d01;
   border-radius: 10px;
 }
 
@@ -99,9 +100,9 @@ input {
 .signup-btn {
   width: 60%;
   height: 50px;
-  margin: 5px auto;
-  border: 4px solid #ffd7d7;
-  background-color: #ffd7d7;
+  margin: 15px auto;
+  border: 4px solid #fd2d01;
+  background-color: #fd2d01;
   border-radius: 10px;
   color: white;
 }
