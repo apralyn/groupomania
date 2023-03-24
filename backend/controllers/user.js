@@ -3,6 +3,7 @@ const { User } = require("../models");
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
 
+//post
 exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then((hash) => {
     const user = new User({
@@ -24,6 +25,7 @@ exports.signup = (req, res, next) => {
   });
 };
 
+//post
 exports.login = (req, res, next) => {
   User.findOne({where: { email: req.body.email }})
     .then((user) => {
@@ -61,7 +63,7 @@ exports.login = (req, res, next) => {
     });
 };
 
-//getting all users
+//get
 exports.getUsers = (req, res, next) => {
   User.findAll()
     .then((user) => {
@@ -74,7 +76,7 @@ exports.getUsers = (req, res, next) => {
     });
 };
 
-//puling the user Profile
+//get
 exports.getUser = (req, res, next) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => {
@@ -88,7 +90,7 @@ exports.getUser = (req, res, next) => {
     });
 };
 
-//delete user profile
+//delete
 exports.deleteUser = (req, res, next) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => {
@@ -111,7 +113,9 @@ exports.deleteUser = (req, res, next) => {
     });
 };
 
-//when user wants to modify their profile page
+
+// WIP on modifying user
+//put
 exports.modifyUser = (req, res, next) => {
   let user = new User({ id: req.params.id });
   if (req.file) {

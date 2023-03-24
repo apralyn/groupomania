@@ -1,7 +1,9 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <input class="display-name" type="name" name="name" v-model="name" placeholder="Change your display name" required>
-    <span class="user-posts">Posts: {{ posts }}</span>
+    {{ name }}
+
+    <span v-for:="post of posts" class="user-posts">Posts: {{ posts }}</span>
     <div class="up-img">
       <input type="file">
     </div>
@@ -18,12 +20,18 @@ export default {
   },
   methods: {
     handleSubmit() {
+      //change name is half working
+      this.name = '';
+      this.posts.push(['1']);
       //TODO when user clicks on submit
       //where do I save the data that the user changed?
       //update the image on Profile Pic
-      //update the name
+      // POSTS
+      //posts needs to be attached to the userId, 
+      //userId will pull from the db total count? -- extra not needed.
+
     },
-    onFileChanged(e) {
+    onFileChange(e) {
       const file = e.target.files[0]
       console.log(file);
     },

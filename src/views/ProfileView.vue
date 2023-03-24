@@ -10,20 +10,21 @@
 		<div id="profile-image">
 			<div id="profile-pic-holder">Profile Pic</div>
 		</div>
-		
-		<EditProfile >
-			<span>Hello.name</span>
+
+		<EditProfile>
+			<span>{{ userId }}</span>
 			<span>Posts:</span>
 		</EditProfile>
 
-			<button class="user-btn">Edit Profile</button>
-			<button @click="toggleModal" class="user-btn">Delete</button>
-			<Modal @cancel="toggleModal" :modalActive="modalActive">
-				<div class="modal-content">
-					<button class="delete-btn" @click="handleDelete">Confirm</button>
-				</div>
-			</Modal>
+		<button v-on:click="showEditBtn" class="user-btn">{{ showEdit }}</button>
 		
+		<button @click="toggleModal" class="user-btn">Delete</button>
+		<Modal @cancel="toggleModal" :modalActive="modalActive">
+			<div class="modal-content">
+				<button class="delete-btn" @click="handleDelete">Confirm</button>
+			</div>
+		</Modal>
+
 	</div>
 </template>
 <script>
@@ -48,13 +49,17 @@ export default {
 			this.token = JSON.parse(localStorage.getItem("token"));
 		}
 		this.userId = this.token.userId;
+		console.log(this.userId);
 	},
 	methods: {
 		onLogout() {
 			localStorage.removeItem('token');
 			this.$router.push('/');
 			console.log('You have been logged out!');
-		}
+		},
+		showEditBtn() {
+			
+		},
 	},
 	components: {
 		Modal, EditProfile
@@ -77,11 +82,11 @@ export default {
 	/* margin: auto; */
 	/* padding: 15px; */
 	width: 450px;
-  height: 550px;
-  padding: 5px;
-  margin: 80px auto;
-  border: 1px solid #ffd7d7;
-  border-radius: 10px;
+	height: 550px;
+	padding: 5px;
+	margin: 80px auto;
+	border: 1px solid #ffd7d7;
+	border-radius: 10px;
 }
 
 #profile-icon {
