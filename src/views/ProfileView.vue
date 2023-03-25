@@ -11,13 +11,12 @@
 			<div id="profile-pic-holder">Profile Pic</div>
 		</div>
 
+		<button v-on:click="showEditBtn" class="user-btn">{{ showEdit }}</button>
 		<EditProfile>
 			<span>{{ userId }}</span>
 			<span>Posts:</span>
 		</EditProfile>
 
-		<button v-on:click="showEditBtn" class="user-btn">{{ showEdit }}</button>
-		
 		<button @click="toggleModal" class="user-btn">Delete</button>
 		<Modal @cancel="toggleModal" :modalActive="modalActive">
 			<div class="modal-content">
@@ -38,11 +37,8 @@ export default {
 		return {
 			token: '',
 			userId: '',
-			showEdit: true,
+			showEdit: false,
 		}
-	},
-	props: {
-
 	},
 	mounted() {
 		if (localStorage.getItem("token")) {
@@ -58,7 +54,7 @@ export default {
 			console.log('You have been logged out!');
 		},
 		showEditBtn() {
-			
+			this.showEdit = true;
 		},
 	},
 	components: {

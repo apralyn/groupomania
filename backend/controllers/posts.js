@@ -18,6 +18,9 @@ exports.getAllPosts = (req, res, next) => {
 exports.viewPost = (req, res, next) => {
   Post.findOne({ where: { id: req.params.id } })
     .then((post) => {
+      if(!post){
+        return res.status(404).send(new Error('Post not found!'));
+      }
       res.status(200).json(post);
       console.log("Hello Cat");
     })

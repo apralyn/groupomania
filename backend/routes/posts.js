@@ -6,9 +6,9 @@ const postsCtrl = require("../controllers/posts");
 
 router.post("/addpost", multer, postsCtrl.addPost);
 router.get("/feed", postsCtrl.getAllPosts);
-router.get("/:id/viewpost", postsCtrl.viewPost);
-router.put("/:id/mod", multer, postsCtrl.modifyPost);
-router.post("/:id/like", postsCtrl.likePost);
-router.delete("/:id/delete", postsCtrl.deletePost);
+router.get("/viewpost/:id", postsCtrl.viewPost);
+router.put("/mod/:id", multer, postsCtrl.modifyPost);
+router.post("/like/:id", postsCtrl.likePost);
+router.delete("/delete/:id", postsCtrl.deletePost);
 
 module.exports = router;
