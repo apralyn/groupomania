@@ -6,23 +6,15 @@
         <div @click="$router.push({ name: 'ProfileView', params: { id: userId } })">Profile</div>
         <router-link to="/addpost">Create a post</router-link>
       </div>
-      <div class="posts-container">
-        <button @click="getAllPost()">View Posts</button>
-
-        <div class="all-posts" v-for="post of posts" :key="post.id">
-          <!-- I just want to console.log the post.id on the console. -->
-          {{ post.id }}
-          <div @click="logme()"> {{ post.title }}</div>
-        </div>
-        <router-link to="/viewpost/:id"></router-link>
-
-
-      </div>
     </div>
-    <button class="next-btn"> -- next -- </button>
-    <div class="bottom-nav-container">
-      <div class="bottom-nav-left">Link</div>
-      <div class="bottom-nav-right">Link</div>
+    <div class="posts-container">
+      <div class="all-posts" v-for="post of posts" :key="post.id">
+        <h3> {{ post.title }}</h3>
+        <!-- <img :src="post.imageUrl" /> -->
+        <router-link :to="/viewpost/ + post.id">
+          <button>View Post</button>
+        </router-link>
+      </div>
     </div>
   </div>
   <PageContainer />
@@ -48,16 +40,10 @@ export default {
       posts: [],
     }
   },
-  methods: {
-    async getAllPost() {
-      let res = await axios.get('/api/posts/feed')
-        .then(response => this.posts = response.data);
-      console.log(res.id);
-
-    },
-    logme(event) {
-      console.log("you clicked " + event);
-    }
+  async created() {
+    const response = await axios.get('/api/posts/feed');
+    const posts = response.data;
+    this.posts = posts;
   },
   mounted() {
     //working
@@ -111,7 +97,7 @@ export default {
   width: 400px;
   height: 300px;
   position: relative;
-  top: -30px;
+  top: -450px;
 }
 
 .next-btn {

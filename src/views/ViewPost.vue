@@ -6,15 +6,14 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      posts: [],
-      post: posts.find(post => post.id === this.$route.params.postId)
+      post: {}
     }
   },
   async created() {
-    const response = await axios.get('/api/posts');
-    const posts = response.data;
-    this.posts = posts;
-    console.log(posts);
+    const response = await axios.get(`/api/posts/${this.$route.params.postId}`);
+    const post = response.data;
+    this.post = post;
+    console.log(post);
   }
 }
 </script>
