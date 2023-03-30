@@ -85,7 +85,7 @@ export default {
 }
 
 .posts-container {
-  border: 2px solid black;
+  border: 1px solid #ffd7d7;
   width: 400px;
   height: 300px;
   position: relative;

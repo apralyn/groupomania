@@ -1,5 +1,5 @@
 <template>
-  <div> hello {{ post }}</div>
+  <div> hello {{ post.title }}</div>
 </template>
 <script>
 import axios from 'axios'
@@ -10,7 +10,7 @@ export default {
     }
   },
   async created() {
-    const response = await axios.get(`/api/posts/${this.$route.params.postId}`);
+    const response = await axios.get(`/api/posts/viewpost/${this.$route.params.id}`);
     const post = response.data;
     this.post = post;
     console.log(post);
