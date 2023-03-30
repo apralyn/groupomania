@@ -17,17 +17,11 @@
       </div>
     </div>
   </div>
-  <PageContainer />
 </template>
 <script>
-//TODO 
-//make sure that only current user can access the feed. 
-//if the url is hard coded must show an errorMsg('you are not logged in').
-// paste this inside the post container
-//v-for="post in posts" :key="post.id"
-import PageContainer from '@/components/PageContainer.vue'
+
 import axios from 'axios'
-//import { ref } from 'vue'
+
 
 export default {
   name: "FeedView",
@@ -36,7 +30,6 @@ export default {
       id: null,
       token: '',
       userId: '',
-      container: 'PageContainer',
       posts: [],
     }
   },
@@ -54,7 +47,6 @@ export default {
     this.userId = this.token.userId;
     //console.log(this.userId);
   },
-  components: { PageContainer },
 
 }
 </script>
@@ -98,6 +90,13 @@ export default {
   height: 300px;
   position: relative;
   top: -450px;
+  left: 50px;
+}
+.all-posts {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+  align-items: center;
 }
 
 .next-btn {

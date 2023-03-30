@@ -24,23 +24,19 @@
       <button class="add-btn" @click="$router.push('/feed')">Back</button>
     </div>
   </div>
-  <PageContainer />
 </template>
 <script>
-import PageContainer from '@/components/PageContainer.vue'
 export default {
   data() {
     return {
-      posts:[],
+      posts: [],
       addPost: {
         title: '',
         description: '',
         imageUrl: ''
-      },
-      container: 'PageContainer'
+      }
     }
-  },
-  components: { PageContainer },
+  }
 }
 </script>
 <style scoped>
@@ -67,7 +63,7 @@ export default {
   margin-top: 2px;
 }
 
-h1{
+h1 {
   position: relative;
   top: -20px;
 }
@@ -79,9 +75,10 @@ h1{
   text-align: start;
 }
 
-.form-title{
+.form-title {
   margin: 10px;
 }
+
 input[type=text] {
   border-radius: 6px;
   padding: 15px;

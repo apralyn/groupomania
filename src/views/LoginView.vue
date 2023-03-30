@@ -55,7 +55,6 @@ export default {
   width: 450px;
   height: 560px;
   margin: 80px auto;
-  border: 1px solid #ffd7d7;
   border-radius: 10px;
 }
 

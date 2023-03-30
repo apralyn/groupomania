@@ -6,20 +6,8 @@
       <button @click="$router.push('/signup')">Sign Up</button>
     </div>
   </div>
-  <PageContainer />
 </template>
 
-<script>
-import PageContainer from '@/components/PageContainer.vue'
-export default {
-  data() {
-    return {
-      container: "PageContainer"
-    }
-  },
-  components: { PageContainer }
-}
-</script>
 <style scoped>
 .home-logo {
   width: 200px;
@@ -40,8 +28,9 @@ button {
   margin: 10px auto;
   border: 1px solid #fd2d01;
   background-color: #ffd7d79a;
-  color:#fd2d01;
+  color: #fd2d01;
 }
+
 button:hover {
   background-color: #fd2d01;
   color: #fff;
