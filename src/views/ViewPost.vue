@@ -1,29 +1,20 @@
 <template>
-  <div>
-    post here 
-    {{ $route.params.id }}
-  </div>
-  <router-link to="/feed"><button>BACK</button></router-link>
+  <div> hello {{ post }}</div>
 </template>
 <script>
 import axios from 'axios'
 export default {
   data() {
-    return{
-      post: ''
+    return {
+      posts: [],
+      post: posts.find(post => post.id === this.$route.params.postId)
     }
   },
-  methods: {
-    async getPost() {
-      let res = await axios.get(`/api/posts/viewpost/${id}`)
-        .then(response => this.post = response.data);
-      console.log(res);
-    },
-  },
-  computed: {
-    postId(){
-      return parseInt(this.$route.params.id)
-    }
+  async created() {
+    const response = await axios.get('/api/posts');
+    const posts = response.data;
+    this.posts = posts;
+    console.log(posts);
   }
 }
 </script>

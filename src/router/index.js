@@ -27,7 +27,7 @@ const routes = [
   },
   {
     path: "/feed",
-    name: "feed",
+    name: "FeedView",
     component: () =>
       import("../views/FeedView.vue"),
   },

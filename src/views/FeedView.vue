@@ -9,20 +9,20 @@
       <div class="posts-container">
         <button @click="getAllPost()">View Posts</button>
 
-        <div class="all-posts" v-for="post of posts" :key="post">
-          <!-- this will show all of the items in the post array -->
-          <!-- figure out how you can cycle through the array using if statement -->
-          <!-- if user click id and matches id from db id pull the id and show to viewpost -->
-          <router-link to="/:id/viewpost">
-            {{ post.title }}
-          </router-link>
+        <div class="all-posts" v-for="post of posts" :key="post.id">
+          <!-- I just want to console.log the post.id on the console. -->
+          {{ post.id }}
+          <div @click="logme()"> {{ post.title }}</div>
         </div>
+        <router-link to="/viewpost/:id"></router-link>
+
+
       </div>
-      <button class="next-btn"> -- next -- </button>
-      <div class="bottom-nav-container">
-        <div class="bottom-nav-left">Link</div>
-        <div class="bottom-nav-right">Link</div>
-      </div>
+    </div>
+    <button class="next-btn"> -- next -- </button>
+    <div class="bottom-nav-container">
+      <div class="bottom-nav-left">Link</div>
+      <div class="bottom-nav-right">Link</div>
     </div>
   </div>
   <PageContainer />
@@ -38,21 +38,26 @@ import axios from 'axios'
 //import { ref } from 'vue'
 
 export default {
+  name: "FeedView",
   data() {
     return {
       id: null,
       token: '',
       userId: '',
       container: 'PageContainer',
-      posts: []
+      posts: [],
     }
   },
   methods: {
     async getAllPost() {
       let res = await axios.get('/api/posts/feed')
         .then(response => this.posts = response.data);
-      console.log(res);
+      console.log(res.id);
+
     },
+    logme(event) {
+      console.log("you clicked " + event);
+    }
   },
   mounted() {
     //working
