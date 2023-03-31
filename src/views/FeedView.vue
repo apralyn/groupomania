@@ -92,10 +92,11 @@ export default {
   top: -450px;
   left: 50px;
 }
+
 .all-posts {
   display: flex;
   flex-direction: row;
-  justify-content:space-around;
+  justify-content: space-around;
   align-items: center;
 }
 
