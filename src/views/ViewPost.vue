@@ -5,16 +5,14 @@
   </div>
   <div class="edit-post">
     <!-- user can edit or delete -->
-    <!-- show buttons -->
-    <div class="edit-post" v-on="false">
-      <button>Edit Post</button>
+    <div class="edit-post" v-on="isUser = !isUser">
+      <button v-on:click="isUser">Edit Post</button>
       <div>
         <form class="edit-form" action="">
           <input class="post-edit" type="title" name="title" v-model="post.title" placeholder="title" required />
           <input class="post-edit" type="description" name="description" v-model="post.description"
             placeholder="description" required />
           <input class="post-edit" type="file" name="image">
-
         </form>
     </div>
   </div>
@@ -33,6 +31,7 @@ export default {
       post: {
         title: '',
         description: '',
+        isUser: false
         
       }
     }

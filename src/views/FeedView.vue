@@ -1,16 +1,15 @@
 <template>
-  <div class="feed-container">
-    <div class="feed-view">
-      <img class="feed-logo" src="../assets/icon-above-font.png" alt="Groupomania-logo">
-      <div class="feed-nav">
-        <div @click="$router.push({ name: 'ProfileView', params: { id: userId } })">Profile</div>
-        <router-link to="/addpost">Create a post</router-link>
-      </div>
+  <img id="feed-logo" alt="Groupomania logo" src="../assets/icon.png">
+  <div class="feed-view">
+    <div class="profile-container">
+      <div class="small-profile-pic">Pic</div>
+      <div class="feed-userName" @click="$router.push({ name: 'ProfileView', params: { id: userId } })">=UrName=</div>
+      <br>
+      <router-link to="/addpost">Add a post</router-link>
     </div>
     <div class="posts-container">
       <div class="all-posts" v-for="post of posts" :key="post.id">
         <h3> {{ post.title }}</h3>
-        <!-- <img :src="post.imageUrl" /> -->
         <router-link :to="/viewpost/ + post.id">
           <button>View Post</button>
         </router-link>
@@ -51,46 +50,33 @@ export default {
 }
 </script>
 <style scoped>
-.feed-container {
-  top: 0;
-  position: fixed;
-  width: 100%;
-  height: 100%;
+#feed-logo {
+  margin-top: 100px;
+  width: 50px;
 }
 
 .feed-view {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 450px;
-  height: 560px;
-  margin: 80px auto;
+  height: 480px;
+  margin: auto;
+  justify-content: space-between;
+}
+
+.posts-container,
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ffd7d7;
+  padding: 10px 20px;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 10px;
   border-radius: 10px;
 }
 
-.feed-logo {
-  width: 200px;
-  height: 200px;
-  margin-top: 2px;
-}
-
-.feed-nav {
-  display: flex;
-  justify-content: space-between;
-  width: 400px;
-  z-index: 9999;
-  position: relative;
-  top: -40px;
-  color: #fd2d01;
-}
-
 .posts-container {
-  border: 1px solid #ffd7d7;
-  width: 400px;
-  height: 300px;
-  position: relative;
-  top: -450px;
-  left: 50px;
+  width: 310px;
 }
 
 .all-posts {
@@ -100,7 +86,29 @@ export default {
   align-items: center;
 }
 
-.next-btn {
+.profile-container {
+  height: 200px;
+}
+
+.small-profile-pic {
+  border: 1px solid red;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  /* center the text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.addPostFeed {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+/* .next-btn {
   position: relative;
   top: -20px;
   border: 4px solid #fd2d01;
@@ -108,14 +116,14 @@ export default {
   border-radius: 10px;
   color: white;
   padding: 3px;
-}
+} */
 
-.bottom-nav-container {
+/* .bottom-nav-container {
   display: flex;
   justify-content: space-between;
   width: 400px;
   position: relative;
   top: -15px;
   color: #fd2d01;
-}
+} */
 </style>
