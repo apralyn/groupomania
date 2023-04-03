@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     imageUrl: DataTypes.STRING,
     likes: DataTypes.INTEGER,
     usersLiked: DataTypes.ARRAY(DataTypes.STRING),
-    userId: DataTypes.STRING
+    userId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Post',
