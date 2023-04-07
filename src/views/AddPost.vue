@@ -12,7 +12,8 @@
           </div>
           <div class="form-title">
             <label>Description </label>
-            <input type="text" name="description" v-model="addPost.description" size="30" style="height: 50px;">
+            <input type="textarea" name="description" v-model="addPost.description" size="30" row="3"
+             style="height: 50px;">
           </div>
           <div class="form-title">
             <label class="post-image">Add photo </label>

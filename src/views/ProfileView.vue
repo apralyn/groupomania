@@ -7,11 +7,39 @@
 			</div>
 			<div @click="onLogout">Logout</div>
 		</nav>
-		<div id="profile-image">
-			<div id="profile-pic-holder">Profile Pic</div>
-		</div>
+		<div class="profile">
+			<div>{{ UDname }}</div>
+			<input type="text" v-model="UDname" @input="handleInput" placeholder="Change your display name">
+			<div>
+				<div class="row">
+					<div>
+						<h1>Upload Image</h1>
+					</div>
+					<div>
+						<form>
+							<div class="form-group">
+								<label for="my-file">Select Image</label>
+								<input type="file" accept="image/*" @change="previewImage" class="form-control-file" id="my-file">
 
-		<button v-on:click="showEditBtn" class="user-btn">{{ showEdit }}</button>
+								<div>
+									<p>Preview Here:</p>
+									<template v-if="preview">
+										<img :src="preview" class="img-fluid" />
+										<p class="mb-0">file name: {{ image.name }}</p>
+										<p class="mb-0">size: {{ image.size / 1024 }}KB</p>
+									</template>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <div id="profile-image">
+			<div id="profile-pic-holder">Profile Pic</div>
+		</div> -->
+
+		<!-- <button v-on:click="showEditBtn" class="user-btn">{{ showEdit }}</button>
 		<EditProfile>
 			<span>{{ userId }}</span>
 			<span>Posts:</span>
@@ -22,14 +50,14 @@
 			<div class="modal-content">
 				<button class="delete-btn" @click="handleDelete">Confirm</button>
 			</div>
-		</Modal>
-
+		</Modal> -->
 	</div>
 </template>
 <script>
-import Modal from '@/components/PopupModal.vue'
-import EditProfile from '@/components/EditProfile.vue'
+// import Modal from '@/components/PopupModal.vue'
+// import EditProfile from '@/components/EditProfile.vue'
 import { ref } from 'vue'
+
 
 export default {
 	name: 'ProfileView',
@@ -38,6 +66,11 @@ export default {
 			token: '',
 			userId: '',
 			showEdit: false,
+			UDname: '',
+			preview: null,
+			image: null,
+			preview_list: [],
+			image_list: []
 		}
 	},
 	mounted() {
@@ -56,10 +89,25 @@ export default {
 		showEditBtn() {
 			this.showEdit = true;
 		},
+		previewImage(event) {
+			var input = event.target;
+			if (input.files) {
+				var reader = new FileReader();
+				reader.onload = (e) => {
+					this.preview = e.target.result;
+				}
+				this.image = input.files[0];
+				reader.readAsDataURL(input.files[0]);
+			}
+		},
+    handleInput(event) {
+			const name = event.target.value
+			this.UDname = name; 
+    },
 	},
-	components: {
-		Modal, EditProfile
-	},
+	// components: {
+	// 	Modal, EditProfile
+	// },
 	setup() {
 		const modalActive = ref(false);
 		const toggleModal = () => {
@@ -83,6 +131,11 @@ export default {
 	margin: 80px auto;
 	border: 1px solid #ffd7d7;
 	border-radius: 10px;
+}
+
+.profile {
+	display: flex;
+	flex-direction: column;
 }
 
 #profile-icon {

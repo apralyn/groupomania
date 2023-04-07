@@ -96,7 +96,7 @@ exports.deleteUser = (req, res, next) => {
     .then((user) => {
       if (user !== null) {
         user.destroy().then(() => {
-          res.status(201).json({
+          res.status(200).json({
             message: "User successfully deleted.",
           });
         });
