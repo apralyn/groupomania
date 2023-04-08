@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const { User } = require("../models");
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
+console.log("this is " + fs);
 
 //post
 exports.signup = (req, res, next) => {
@@ -27,7 +28,7 @@ exports.signup = (req, res, next) => {
 
 //post
 exports.login = (req, res, next) => {
-  User.findOne({where: { email: req.body.email }})
+  User.findOne({ where: { email: req.body.email } })
     .then((user) => {
       if (!user) {
         return res.status(401).json({
@@ -112,7 +113,6 @@ exports.deleteUser = (req, res, next) => {
       });
     });
 };
-
 
 // WIP on modifying user
 //put

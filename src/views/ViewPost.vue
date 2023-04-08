@@ -1,38 +1,20 @@
 <template>
   <div class="display-post">
-    <div> hello {{ post }}</div>
-    <router-link to="/feed"><button>back</button></router-link>
+    <label for="viewpost" class="view-post"></label>
+    <div> {{ post }}</div>
   </div>
-  <div class="edit-post">
-    <!-- user can edit or delete -->
-    <div class="edit-post" v-on="isUser = !isUser">
-      <button v-on:click="isUser">Edit Post</button>
-      <div>
-        <form class="edit-form" action="">
-          <input class="post-edit" type="title" name="title" v-model="post.title" placeholder="title" required />
-          <input class="post-edit" type="description" name="description" v-model="post.description"
-            placeholder="description" required />
-          <input class="post-edit" type="file" name="image">
-        </form>
-    </div>
-  </div>
-    <button>Delete Post</button>
-  </div>
-  <div>
-    <!-- do not show buttons if not user(else part) -->
-  </div>
+  <router-link to="/feed"><button>back</button></router-link>
 </template>
 <script>
 import axios from 'axios'
-
 export default {
+  name: 'ViewPost',
   data() {
     return {
       post: {
         title: '',
         description: '',
         isUser: false
-        
       }
     }
   },
