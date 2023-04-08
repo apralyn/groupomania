@@ -27,6 +27,8 @@
   </div>
 </template>
 <script>
+//TODO add axios to create a post with or without media
+//NOTE if there is media use the formData object
 export default {
   data() {
     return {

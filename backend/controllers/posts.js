@@ -44,6 +44,7 @@ exports.addPost = (req, res, next) => {
     const post = new Post({
       title: parsedPost.title,
       description: parsedPost.description,
+      //replace images with media
       imageUrl: imageUrl + "/images/" + req.file.filename,
       likes: 0,
       usersLiked: [],
@@ -65,6 +66,7 @@ exports.addPost = (req, res, next) => {
   const post = new Post({
     title: req.body.title,
     description: req.body.description,
+    //replace images with media
     imageUrl: imageUrl + "/images/" + req.file.filename,
     likes: 0,
     usersLiked: [],
@@ -92,6 +94,7 @@ exports.modifyPost = (req, res, next) => {
     post = {
       title: req.body.title,
       description: req.body.description,
+      //replace images with media
       imageUrl: imageUrl + "/images/" + req.file.filename,
       userId: req.body.userId,
     };

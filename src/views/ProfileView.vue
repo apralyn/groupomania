@@ -1,4 +1,10 @@
 <template>
+	<div class="user-info">
+		<div>hello user#{{ userId }}</div>
+		<div>Please add a display name.</div>
+		<div class="display-user-name"> {{ UDname }} </div>
+		<button @click="onDeleteUser">Delete Profile</button>
+	</div>
 	<div class="profile-container">
 		<nav id="nav-menu">
 			<div class="nav-feed-link">
@@ -8,7 +14,7 @@
 			<div @click="onLogout">Logout</div>
 		</nav>
 		<div class="profile">
-			<div>{{ UDname }}</div>
+			<!-- <div>{{ UDname }}</div> -->
 			<input type="text" v-model="UDname" @input="handleInput" placeholder="Change your display name">
 			<div>
 				<div class="row">
@@ -56,6 +62,7 @@
 <script>
 // import Modal from '@/components/PopupModal.vue'
 // import EditProfile from '@/components/EditProfile.vue'
+import axios from 'axios'
 import { ref } from 'vue'
 
 
@@ -70,7 +77,8 @@ export default {
 			preview: null,
 			image: null,
 			preview_list: [],
-			image_list: []
+			image_list: [],
+			user: ''
 		}
 	},
 	mounted() {
@@ -81,6 +89,12 @@ export default {
 		console.log(this.userId);
 	},
 	methods: {
+		async onDeleteUser() {
+			const response = await axios.delete(`/api/auth/${this.$route.params.id}`);
+			const user = response.data;
+			this.user = user;
+			console.log("User" + user + "successfully deleted!");
+		},
 		onLogout() {
 			localStorage.removeItem('token');
 			this.$router.push('/');
@@ -100,10 +114,10 @@ export default {
 				reader.readAsDataURL(input.files[0]);
 			}
 		},
-    handleInput(event) {
+		handleInput(event) {
 			const name = event.target.value
-			this.UDname = name; 
-    },
+			this.UDname = name;
+		},
 	},
 	// components: {
 	// 	Modal, EditProfile
