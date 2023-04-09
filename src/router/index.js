@@ -47,7 +47,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  //removed the hash on the url
+  //removed hash on the url
   history: createWebHistory(),
   routes,
 });

@@ -31,7 +31,7 @@ exports.viewPost = (req, res, next) => {
     });
 };
 
-//create a new one (addPost)
+//create new post (addPost)
 exports.addPost = (req, res, next) => {
   const imageUrl = req.protocol + "://" + req.get("host");
   if (req.file !== null) {
