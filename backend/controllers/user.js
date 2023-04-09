@@ -64,20 +64,7 @@ exports.login = (req, res, next) => {
     });
 };
 
-//get
-exports.getUsers = (req, res, next) => {
-  User.findAll()
-    .then((user) => {
-      res.status(200).json(user);
-    })
-    .catch((error) => {
-      res.status(500).json({
-        error: error.message,
-      });
-    });
-};
-
-//get
+//get || view the user Profile
 exports.getUser = (req, res, next) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => {
@@ -114,8 +101,20 @@ exports.deleteUser = (req, res, next) => {
     });
 };
 
-// WIP on modifying user
-//put
+//get all users !important
+exports.getUsers = (req, res, next) => {
+  User.findAll()
+    .then((user) => {
+      res.status(200).json(user);
+    })
+    .catch((error) => {
+      res.status(500).json({
+        error: error.message,
+      });
+    });
+};
+
+//edit user profile !important
 exports.modifyUser = (req, res, next) => {
   let user = new User({ id: req.params.id });
   if (req.file) {
@@ -132,16 +131,4 @@ exports.modifyUser = (req, res, next) => {
       userId: req.body.userId,
     };
   }
-
-  // Post.updateOne({ id: req.params.id }, post)
-  //   .then(() => {
-  //     res.status(201).json({
-  //       message: "Post updated successfully!",
-  //     });
-  //   })
-  //   .catch((error) => {
-  //     res.status(500).json({
-  //       error: error.message || error,
-  //     });
-  //   });
 };
