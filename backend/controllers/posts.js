@@ -40,8 +40,8 @@ exports.addPost = (req, res, next) => {
       title: parsedPost.title,
       description: parsedPost.description,
       imageUrl: imageUrl + "/images/" + req.file.filename,
-      likes: 0,
-      usersLiked: [],
+      read: 0,
+      usersRead: [],
       userId: parsedPost.userId,
     });
     post
@@ -61,8 +61,8 @@ exports.addPost = (req, res, next) => {
     title: req.body.title,
     description: req.body.description,
     imageUrl: imageUrl + "/images/" + req.file.filename,
-    likes: 0,
-    usersLiked: [],
+    read: 0,
+    usersRead: [],
     userId: req.body.userId,
   });
   post
@@ -86,24 +86,24 @@ exports.readPost = (req, res, next) => {
   const userId = req.body.userId;
   Post.findOne({ where: { id: postId } })
     .then((post) => {
-      let likes;
-      let { usersLiked } = post;
+      let read;
+      let { usersRead } = post;
       if (req.body.like == 1) {
         console.log("read post");
-        if (!post.usersLiked.includes(userId)) {
-          usersLiked = [...usersLiked, userId];
-          likes = post.likes + 1;
+        if (!post.usersRead.includes(userId)) {
+          usersRead = [...usersRead, userId];
+          read = post.read + 1;
         }
       }
       if (req.body.like == 0) {
         console.log("unread");
-        if (post.usersLiked.includes(userId)) {
+        if (post.usersRead.includes(userId)) {
           const userId = req.body.userId;
-          post.usersLiked = post.usersLiked.filter((value) => value !== userId);
-          post.likes--;
+          post.usersRead = post.usersRead.filter((value) => value !== userId);
+          post.read--;
         }
       }
-      post.update({ usersLiked, likes });
+      post.update({ usersRead, read });
       post.save().then(() =>
         res.status(200).json({
           message: "Updated the post status.",
