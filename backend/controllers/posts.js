@@ -33,18 +33,12 @@ exports.viewPost = (req, res, next) => {
 
 //create a new one (addPost)
 exports.addPost = (req, res, next) => {
-  //TODO add if statement to check if req.files is not null
-  //note if it is not null create the post like below line38-47 is good if there is req.files
-  //check either console.log
-  console.log(req.file);
-  console.log(req.body);
   const imageUrl = req.protocol + "://" + req.get("host");
   if (req.file !== null) {
     const parsedPost = JSON.parse(req.body.post);
     const post = new Post({
       title: parsedPost.title,
       description: parsedPost.description,
-      //replace images with media
       imageUrl: imageUrl + "/images/" + req.file.filename,
       likes: 0,
       usersLiked: [],
@@ -62,11 +56,10 @@ exports.addPost = (req, res, next) => {
           error: error,
         });
       });
-  }
+  } else {
   const post = new Post({
     title: req.body.title,
     description: req.body.description,
-    //replace images with media
     imageUrl: imageUrl + "/images/" + req.file.filename,
     likes: 0,
     usersLiked: [],
@@ -84,6 +77,7 @@ exports.addPost = (req, res, next) => {
         error: error,
       });
     });
+  }   
 };
 
 // edit a post (modifyPost)
@@ -106,18 +100,6 @@ exports.modifyPost = (req, res, next) => {
       userId: req.body.userId,
     };
   }
-
-  // Post.updateOne({ id: req.params.id }, post)
-  //   .then(() => {
-  //     res.status(201).json({
-  //       message: "Post updated successfully!",
-  //     });
-  //   })
-  //   .catch((error) => {
-  //     res.status(500).json({
-  //       error: error.message || error,
-  //     });
-  //   });
 };
 
 //liking a post (likePost)

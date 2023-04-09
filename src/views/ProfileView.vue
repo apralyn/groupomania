@@ -1,5 +1,6 @@
 <template>
 	<div class="user-info">
+		<!-- userId -->
 		<div>hello user#{{ userId }}</div>
 		<div>Please add a display name.</div>
 		<div class="display-user-name"> {{ UDname }} </div>
@@ -77,8 +78,7 @@ export default {
 			preview: null,
 			image: null,
 			preview_list: [],
-			image_list: [],
-			user: ''
+			image_list: []
 		}
 	},
 	mounted() {
@@ -90,18 +90,21 @@ export default {
 	},
 	methods: {
 		async onDeleteUser() {
-			const response = await axios.delete(`/api/auth/${this.$route.params.id}`);
-			const user = response.data;
-			this.user = user;
-			console.log("User" + user + "successfully deleted!");
+			//endpoint
+			const delUser = this.userId;
+			console.log('delete me ' + delUser);
+			const response = await axios.delete(`/api/auth/${delUser}`);
+			const status = response.status;
+			if (status === 200) {
+				console.log("Successfully deleted");
+			} else {
+				console.log("Error, unsuccessful.");
+			}
 		},
 		onLogout() {
 			localStorage.removeItem('token');
 			this.$router.push('/');
 			console.log('You have been logged out!');
-		},
-		showEditBtn() {
-			this.showEdit = true;
 		},
 		previewImage(event) {
 			var input = event.target;
