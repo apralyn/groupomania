@@ -80,30 +80,8 @@ exports.addPost = (req, res, next) => {
   }   
 };
 
-// edit a post (modifyPost)
-exports.modifyPost = (req, res, next) => {
-  let post = new Post({ id: req.params.id });
-  if (req.file) {
-    const imageUrl = req.protocol + "://" + req.get("host");
-    post = {
-      title: req.body.title,
-      description: req.body.description,
-      //replace images with media
-      imageUrl: imageUrl + "/images/" + req.file.filename,
-      userId: req.body.userId,
-    };
-  } else {
-    post = {
-      title: req.body.title,
-      description: req.body.description,
-      imageUrl: req.body.imageUrl,
-      userId: req.body.userId,
-    };
-  }
-};
-
-//liking a post (likePost)
-exports.likePost = (req, res, next) => {
+//read-indicator on a post (likePost)
+exports.readPost = (req, res, next) => {
   const postId = req.params.id;
   const userId = req.body.userId;
   Post.findOne({ where: { id: postId } })
@@ -139,7 +117,28 @@ exports.likePost = (req, res, next) => {
     });
 };
 
-//delete a post (deletePost)
+// edit post (modifyPost) !important
+exports.modifyPost = (req, res, next) => {
+  let post = new Post({ id: req.params.id });
+  if (req.file) {
+    const imageUrl = req.protocol + "://" + req.get("host");
+    post = {
+      title: req.body.title,
+      description: req.body.description,
+      //replace images with media
+      imageUrl: imageUrl + "/images/" + req.file.filename,
+      userId: req.body.userId,
+    };
+  } else {
+    post = {
+      title: req.body.title,
+      description: req.body.description,
+      imageUrl: req.body.imageUrl,
+      userId: req.body.userId,
+    };
+  }
+};
+//delete post (deletePost) !important
 exports.deletePost = (req, res, next) => {
   Post.findOne({ where: { id: req.params.id } })
     .then((post) => {

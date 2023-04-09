@@ -8,7 +8,7 @@ router.post("/addpost", multer, postsCtrl.addPost);
 router.get("/feed", postsCtrl.getAllPosts);
 router.get("/viewpost/:id", postsCtrl.viewPost);
 router.put("/mod/:id", multer, postsCtrl.modifyPost);
-router.post("/like/:id", postsCtrl.likePost);
+router.post("/like/:id", postsCtrl.readPost);
 router.delete("/delete/:id", postsCtrl.deletePost);
 
 module.exports = router;
