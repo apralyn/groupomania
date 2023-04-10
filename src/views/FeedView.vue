@@ -3,7 +3,7 @@
   <div class="feed-view">
     <div class="profile-container">
       <div class="small-profile-pic">Pic</div>
-      <div class="feed-userName" @click="$router.push({ name: 'ProfileView', params: { id: userId } })">=UrName=</div>
+      <div class="feed-userName" @click="$router.push({ name: 'ProfileView', params: { id: userId } })">User Profile</div>
       <br>
       <router-link to="/addpost">Add a post</router-link>
     </div>

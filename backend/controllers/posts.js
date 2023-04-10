@@ -33,37 +33,28 @@ exports.viewPost = (req, res, next) => {
 
 //create new post (addPost)
 exports.addPost = (req, res, next) => {
-  const imageUrl = req.protocol + "://" + req.get("host");
-  if (req.file !== null) {
+  let post, title, description, userId;
+  let imageUrl = null;
+
+  if (req.file) {
     const parsedPost = JSON.parse(req.body.post);
-    const post = new Post({
-      title: parsedPost.title,
-      description: parsedPost.description,
-      imageUrl: imageUrl + "/images/" + req.file.filename,
-      read: 0,
-      usersRead: [],
-      userId: parsedPost.userId,
-    });
-    post
-      .save()
-      .then(() => {
-        res.status(201).json({
-          message: "Post successfully added!",
-        });
-      })
-      .catch((error) => {
-        res.status(500).json({
-          error: error,
-        });
-      });
+    imageUrl = req.protocol + "://" + req.get("host");
+    title = parsedPost.title;
+    description = parsedPost.description;
+    userId = parsedPost.userId;
+    imageUrl += "/images/" + req.file.filename;
   } else {
-  const post = new Post({
-    title: req.body.title,
-    description: req.body.description,
-    imageUrl: imageUrl + "/images/" + req.file.filename,
+    title = req.body.title;
+    description = req.body.description;
+    userId = req.body.userId;
+  }
+  post = new Post({
+    title,
+    description,
+    imageUrl,
     read: 0,
     usersRead: [],
-    userId: req.body.userId,
+    userId,
   });
   post
     .save()
@@ -77,7 +68,6 @@ exports.addPost = (req, res, next) => {
         error: error,
       });
     });
-  }   
 };
 
 //read-indicator on a post (likePost)

@@ -1,71 +1,16 @@
 <template>
-	<div class="user-info">
-		<!-- userId -->
-		<div>hello user#{{ userId }}</div>
-		<div>Please add a display name.</div>
-		<div class="display-user-name"> {{ UDname }} </div>
-		<button @click="onDeleteUser">Delete Profile</button>
+	<div class="nav-feed-link">
+		<img id="profile-icon" alt="Groupomania logo" src="../assets/icon.png">
+		<p class="feed" @click="$router.push('/feed')">Feed</p>
 	</div>
-	<div class="profile-container">
-		<nav id="nav-menu">
-			<div class="nav-feed-link">
-				<img id="profile-icon" alt="Groupomania logo" src="../assets/icon.png">
-				<p class="feed" @click="$router.push('/feed')">Feed</p>
-			</div>
-			<div @click="onLogout">Logout</div>
-		</nav>
-		<div class="profile">
-			<!-- <div>{{ UDname }}</div> -->
-			<input type="text" v-model="UDname" @input="handleInput" placeholder="Change your display name">
-			<div>
-				<div class="row">
-					<div>
-						<h1>Upload Image</h1>
-					</div>
-					<div>
-						<form>
-							<div class="form-group">
-								<label for="my-file">Select Image</label>
-								<input type="file" accept="image/*" @change="previewImage" class="form-control-file" id="my-file">
-
-								<div>
-									<p>Preview Here:</p>
-									<template v-if="preview">
-										<img :src="preview" class="img-fluid" />
-										<p class="mb-0">file name: {{ image.name }}</p>
-										<p class="mb-0">size: {{ image.size / 1024 }}KB</p>
-									</template>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- <div id="profile-image">
-			<div id="profile-pic-holder">Profile Pic</div>
-		</div> -->
-
-		<!-- <button v-on:click="showEditBtn" class="user-btn">{{ showEdit }}</button>
-		<EditProfile>
-			<span>{{ userId }}</span>
-			<span>Posts:</span>
-		</EditProfile>
-
-		<button @click="toggleModal" class="user-btn">Delete</button>
-		<Modal @cancel="toggleModal" :modalActive="modalActive">
-			<div class="modal-content">
-				<button class="delete-btn" @click="handleDelete">Confirm</button>
-			</div>
-		</Modal> -->
+	<div class="user-info">
+		<div>hello, user#{{ userId }}</div>
+		<button @click="onDeleteUser(userId)">Delete Profile</button>
+		<div @click="onLogout">Logout</div>
 	</div>
 </template>
 <script>
-// import Modal from '@/components/PopupModal.vue'
-// import EditProfile from '@/components/EditProfile.vue'
 import axios from 'axios'
-import { ref } from 'vue'
-
 
 export default {
 	name: 'ProfileView',
@@ -73,12 +18,6 @@ export default {
 		return {
 			token: '',
 			userId: '',
-			showEdit: false,
-			UDname: '',
-			preview: null,
-			image: null,
-			preview_list: [],
-			image_list: []
 		}
 	},
 	mounted() {
@@ -89,49 +28,23 @@ export default {
 		console.log(this.userId);
 	},
 	methods: {
-		async onDeleteUser() {
-			//endpoint
-			const delUser = this.userId;
-			console.log('delete me ' + delUser);
-			const response = await axios.delete(`/api/auth/${delUser}`);
-			const status = response.status;
-			if (status === 200) {
-				console.log("Successfully deleted");
-			} else {
-				console.log("Error, unsuccessful.");
-			}
+
+		async onDeleteUser(userId) {
+			console.log(this.token.token);
+			const response = await axios.delete('/api/auth/' + userId, {
+				headers: {
+					'Authorization': `Bearer ${this.token.token}`,
+					'Content-Type': 'application/json'
+				}
+			})
+			console.log(response)
+			localStorage.removeItem('token');
+			this.$router.push('/');
 		},
 		onLogout() {
 			localStorage.removeItem('token');
 			this.$router.push('/');
 			console.log('You have been logged out!');
-		},
-		previewImage(event) {
-			var input = event.target;
-			if (input.files) {
-				var reader = new FileReader();
-				reader.onload = (e) => {
-					this.preview = e.target.result;
-				}
-				this.image = input.files[0];
-				reader.readAsDataURL(input.files[0]);
-			}
-		},
-		handleInput(event) {
-			const name = event.target.value
-			this.UDname = name;
-		},
-	},
-	// components: {
-	// 	Modal, EditProfile
-	// },
-	setup() {
-		const modalActive = ref(false);
-		const toggleModal = () => {
-			modalActive.value = !modalActive.value;
-		}
-		return {
-			modalActive, toggleModal
 		}
 	}
 }
@@ -140,8 +53,6 @@ export default {
 <style scoped>
 .profile-container {
 	border: 2px solid #fd2d01;
-	/* margin: auto; */
-	/* padding: 15px; */
 	width: 450px;
 	height: 550px;
 	padding: 5px;
