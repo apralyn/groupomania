@@ -32,19 +32,22 @@ export default {
       posts: [],
     }
   },
-  async created() {
-    const response = await axios.get('/api/posts/feed');
-    const posts = response.data;
-    this.posts = posts;
-  },
   mounted() {
-    //working
-    // if user login success get userId from localstorage and declare on userId.
     if (localStorage.getItem("token")) {
       this.token = JSON.parse(localStorage.getItem("token"));
     }
     this.userId = this.token.userId;
-    //console.log(this.userId);
+  },
+  async created() {
+    console.log(this.token.token);
+    const response = await axios.get('/api/posts/feed', {
+      headers: {
+        'Authorization': `Bearer ${this.token.token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    const posts = response.data;
+    this.posts = posts;
   },
 
 }

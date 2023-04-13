@@ -3,12 +3,14 @@
 		<img id="profile-icon" alt="Groupomania logo" src="../assets/icon.png">
 		<p class="feed" @click="$router.push('/feed')">Feed</p>
 	</div>
+
 	<div class="user-info">
 		<div>hello, user#{{ userId }}</div>
 		<button @click="onDeleteUser(userId)">Delete Profile</button>
 		<div @click="onLogout">Logout</div>
 	</div>
 </template>
+
 <script>
 import axios from 'axios'
 
@@ -31,15 +33,17 @@ export default {
 
 		async onDeleteUser(userId) {
 			console.log(this.token.token);
-			const response = await axios.delete('/api/auth/' + userId, {
-				headers: {
-					'Authorization': `Bearer ${this.token.token}`,
-					'Content-Type': 'application/json'
-				}
-			})
-			console.log(response)
-			localStorage.removeItem('token');
-			this.$router.push('/');
+			if (confirm("Do you want to delete your profile?")) {
+				const response = await axios.delete('/api/auth/' + userId, {
+					headers: {
+						'Authorization': `Bearer ${this.token.token}`,
+						'Content-Type': 'application/json'
+					}
+				})
+				console.log(response)
+				localStorage.removeItem('token');
+				this.$router.push('/');
+			}
 		},
 		onLogout() {
 			localStorage.removeItem('token');
