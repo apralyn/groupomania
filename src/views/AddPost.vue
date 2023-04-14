@@ -1,47 +1,87 @@
 <template>
   <div class="add-post-container">
+    <div class="add-nav">
+      <img class="add-logo" alt="Groupomania logo" src="../assets/icon.png">
+      <button @click="$router.push('/feed')">Back</button>
+    </div>
     <div class="add-post-view">
-      <img class="add-logo" src="../assets/icon-above-font.png" alt="Groupomania-logo">
-
-      <h1>Add a post</h1>
+      <h3>Add a post</h3>
       <div class="add-post-form">
-        <form @submit.prevent="handleSubmit">
+
+        <form @submit.prevent="submitForm">
           <div class="form-title">
-            <label>Title </label>
-            <input type="text" name="title" v-model="addPost.title" size="30" style="height: 25px;">
+            <label for="title">Title </label>
+            <input type="text" name="title" v-model="title" size="30" style="height: 25px;">
           </div>
           <div class="form-title">
-            <label>Description </label>
-            <input type="textarea" name="description" v-model="addPost.description" size="30" row="3"
-             style="height: 50px;">
+            <label for="description">Description </label>
+            <textarea name="description" v-model="description" rows="3"></textarea>
           </div>
           <div class="form-title">
-            <label class="post-image">Add photo </label>
-            <input type="file" src="" alt="">
+            <label for="image"><input type="file" @change="onFileChange"></label>
           </div>
+          <button class="add-btn" type="submit">Submit</button>
         </form>
-        <button class="add-btn">Submit</button>
+
       </div>
-      <button class="add-btn" @click="$router.push('/feed')">Back</button>
+
     </div>
   </div>
 </template>
 <script>
-//TODO add axios to create a post with or without media
-//NOTE if there is media use the formData object
+import axios from 'axios'
 export default {
+  name: 'AddPost',
   data() {
     return {
-      posts: [],
-      addPost: {
-        title: '',
-        description: '',
-        imageUrl: ''
+      title: '',
+      description: '',
+      image: null,
+      token: '',
+    }
+  },
+  mounted() {
+    if (localStorage.getItem("token")) {
+      this.token = JSON.parse(localStorage.getItem("token"));
+    }
+  },
+  methods: {
+    onFileChange(event) {
+      this.image = event.target.files[0];
+    },
+    submitForm() {
+      // Create a new FormData object
+      const formData = new FormData();
+
+      // Append the form data to the FormData object
+      formData.append('name', this.title);
+      formData.append('description', this.description);
+
+      // Check if an image file has been selected
+      if (this.image) {
+        formData.append('image', this.image);
       }
+
+      let config = {
+        header: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+
+      // Submit the form data using an HTTP request
+      axios.post('api/posts/addpost', formData, { config })
+        .then(response => {
+          console.log(response.data.files);
+          response.status;
+        })
+        .catch(error => {
+          error.message;
+        });
     }
   }
 }
 </script>
+
 <style scoped>
 .add-post-container {
   top: 0;
@@ -61,14 +101,14 @@ export default {
 }
 
 .add-logo {
-  width: 200px;
-  height: 200px;
+  width: 50px;
   margin-top: 2px;
+  border: 1px solid red;
 }
 
-h1 {
+h3 {
   position: relative;
-  top: -20px;
+  top: -10px;
 }
 
 .add-post-form {
@@ -80,12 +120,19 @@ h1 {
 
 .form-title {
   margin: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
-input[type=text] {
+input[type=text],
+textarea {
   border-radius: 6px;
   padding: 15px;
   border: 1px solid #fd2d01;
+}
+
+textarea {
+  resize: none;
 }
 
 .add-btn {
