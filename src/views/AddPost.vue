@@ -81,6 +81,15 @@ export default {
 </script>
 
 <style scoped>
+.add-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 450px;
+  height: 100px;
+  margin: 80px auto;
+  padding: 0 15px;
+}
 .add-post-container {
   top: 0;
   position: fixed;
@@ -100,8 +109,6 @@ export default {
 
 .add-logo {
   width: 50px;
-  margin-top: 2px;
-  border: 1px solid red;
 }
 
 h3 {
