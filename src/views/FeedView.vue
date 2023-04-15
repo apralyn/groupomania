@@ -29,15 +29,15 @@ export default {
     FeedNav
   },
   mounted() {
-    if (localStorage.getItem("token")) {
-      this.token = JSON.parse(localStorage.getItem("token"));
-    }
-    this.userId = this.token.userId;
+    const user = JSON.parse(localStorage.getItem('token'));
+    this.userId = user.userId;
+    this.token = user.token;
+    console.log(this.token);
   },
   async created() {
     const response = await axios.get('/api/posts/feed', {
       headers: {
-        'Authorization': `Bearer ${this.token.token}`,
+        'Authorization': `Bearer ${this.token}`,
         'Content-Type': 'application/json'
       }
     });
