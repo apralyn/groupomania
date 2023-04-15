@@ -1,26 +1,20 @@
 <template>
-  <div class="feed-nav">
-    <img id="feed-logo" alt="Groupomania logo" src="../assets/icon.png">
-    <div class="feed-sm-profile">
-      <div class="feed-userName" @click="$router.push({ name: 'ProfileView', params: { id: userId } })">User Profile
-      </div>
-      <div class="small-profile-pic">Pic</div>
-    </div>
-  </div>
-  <router-link to="/addpost"><button>Add a post</button></router-link>
+  <FeedNav />
+  <router-link to="/addpost"><button class="add-btn">Add a post</button></router-link>
   <div class="posts-container">
     <div class="all-posts" v-for="post of posts" :key="post.id">
-      <div class="each-post">
-        <router-link :to="/viewpost/ + post.id">
+      <router-link :to="/viewpost/ + post.id">
+        <div class="each-post">
           <div> {{ post.title }} </div>
-        </router-link>
-      </div>
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import FeedNav from '@/components/FeedNav.vue'
 export default {
   name: "FeedView",
   data() {
@@ -31,6 +25,9 @@ export default {
       posts: [],
     }
   },
+  components:{
+    FeedNav
+  },
   mounted() {
     if (localStorage.getItem("token")) {
       this.token = JSON.parse(localStorage.getItem("token"));
@@ -38,7 +35,6 @@ export default {
     this.userId = this.token.userId;
   },
   async created() {
-    console.log(this.token.token);
     const response = await axios.get('/api/posts/feed', {
       headers: {
         'Authorization': `Bearer ${this.token.token}`,
@@ -52,52 +48,23 @@ export default {
 }
 </script>
 <style scoped>
-.feed-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 450px;
-  height: 100px;
-  margin: 80px auto;
-  padding: 0 15px;
-}
 
-#feed-logo {
-  width: 50px;
-  border: 1px solid red;
+.add-btn {
+  width: 200px;
+  height: 30px;
 }
-
-.feed-sm-profile {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border: 1px solid #ffd7d7;
-  width: 150px;
-  padding: 5px;
-}
-
-.small-profile-pic {
-  border: 1px solid red;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  /* center the text */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 
 .posts-container {
   margin: auto;
-  width: 300px;
+  width: 450px;
 }
 
 .all-posts {
-  width: 400px;
+  width: 440px;
   border: 1px solid #ffd7d7;
   padding: 15px 0;
-  margin: 5px;
+  margin: 5px auto;
+  border-radius: 10px;
 }
 
 .each-post {
