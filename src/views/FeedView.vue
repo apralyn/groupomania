@@ -1,27 +1,26 @@
 <template>
-  <img id="feed-logo" alt="Groupomania logo" src="../assets/icon.png">
-  <div class="feed-view">
-    <div class="profile-container">
+  <div class="feed-nav">
+    <img id="feed-logo" alt="Groupomania logo" src="../assets/icon.png">
+    <div class="feed-sm-profile">
+      <div class="feed-userName" @click="$router.push({ name: 'ProfileView', params: { id: userId } })">User Profile
+      </div>
       <div class="small-profile-pic">Pic</div>
-      <div class="feed-userName" @click="$router.push({ name: 'ProfileView', params: { id: userId } })">User Profile</div>
-      <br>
-      <router-link to="/addpost">Add a post</router-link>
     </div>
-    <div class="posts-container">
-      <div class="all-posts" v-for="post of posts" :key="post.id">
-        <h3> {{ post.title }}</h3>
+  </div>
+  <router-link to="/addpost"><button>Add a post</button></router-link>
+  <div class="posts-container">
+    <div class="all-posts" v-for="post of posts" :key="post.id">
+      <div class="each-post">
         <router-link :to="/viewpost/ + post.id">
-          <button>View Post</button>
+          <div> {{ post.title }} </div>
         </router-link>
       </div>
     </div>
   </div>
 </template>
+
 <script>
-
 import axios from 'axios'
-
-
 export default {
   name: "FeedView",
   data() {
@@ -53,50 +52,34 @@ export default {
 }
 </script>
 <style scoped>
-#feed-logo {
-  margin-top: 100px;
-  width: 50px;
-}
-
-.feed-view {
+.feed-nav {
   display: flex;
-  width: 450px;
-  height: 480px;
-  margin: auto;
   justify-content: space-between;
-}
-
-.posts-container,
-.profile-container {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ffd7d7;
-  padding: 10px 20px;
-  justify-content: flex-start;
   align-items: center;
-  margin: 10px;
-  border-radius: 10px;
+  width: 450px;
+  height: 100px;
+  margin: 80px auto;
+  padding: 0 15px;
 }
 
-.posts-container {
-  width: 310px;
+#feed-logo {
+  width: 50px;
+  border: 1px solid red;
 }
 
-.all-posts {
+.feed-sm-profile {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   align-items: center;
-}
-
-.profile-container {
-  height: 200px;
+  border: 1px solid #ffd7d7;
+  width: 150px;
+  padding: 5px;
 }
 
 .small-profile-pic {
   border: 1px solid red;
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   /* center the text */
   display: flex;
@@ -105,28 +88,20 @@ export default {
 }
 
 
-.addPostFeed {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
+.posts-container {
+  margin: auto;
+  width: 300px;
 }
 
-/* .next-btn {
-  position: relative;
-  top: -20px;
-  border: 4px solid #fd2d01;
-  background-color: #fd2d01;
-  border-radius: 10px;
-  color: white;
-  padding: 3px;
-} */
-
-/* .bottom-nav-container {
-  display: flex;
-  justify-content: space-between;
+.all-posts {
   width: 400px;
-  position: relative;
-  top: -15px;
-  color: #fd2d01;
-} */
+  border: 1px solid #ffd7d7;
+  padding: 15px 0;
+  margin: 5px;
+}
+
+.each-post {
+  display: flex;
+  justify-content: space-evenly;
+}
 </style>

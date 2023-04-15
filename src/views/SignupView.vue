@@ -5,8 +5,8 @@
       <img @click="$router.push('/')" class="logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
       <h1>Sign Up</h1>
       <form @submit.prevent="handleSubmit">
-        <input class="input-field" type="email" name="email" v-model="email" placeholder="email" required />
-        <input class="input-field" type="password" name="password" v-model="password" placeholder="password" required />
+        <input class="input-field" type="email" name="email" v-model="email" placeholder="email" />
+        <input class="input-field" type="password" name="password" v-model="password" placeholder="password" />
         <div v-if="errorMessage" class="error"> {{ errorMessage }} </div>
         <button class="signup-btn">Sign Up</button>
       </form>
@@ -29,15 +29,15 @@ export default {
   },
   methods: {
     async handleSubmit() {
+      if (this.email === '' || this.password === '') {
+        return this.errorMessage = 'Please try again.'
+      }
       try {
         const response = await axios.post('/api/auth/signup', {
           email: this.email,
           password: this.password,
         });
-        console.log(response)
-        //validate password
-        this.errorMessage = this.password.length > 5 ? '' : 'Password  must be 6 characters long';
-
+        console.log(response.data)
         this.$router.push('/login');
       } catch (error) {
         error.message;

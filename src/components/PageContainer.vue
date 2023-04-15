@@ -14,7 +14,7 @@
 
 .box-container {
   width: 450px;
-  height: 550px;
+  height: 750px;
   padding: 5px;
   margin: 80px auto;
   border: 1px solid #ffd7d7;

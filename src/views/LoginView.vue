@@ -4,8 +4,8 @@
       <img @click="$router.push('/')" class="logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
       <h1>Login</h1>
       <form @submit.prevent="handleSubmit">
-        <input type="email" name="email" v-model="email" placeholder="email" required>
-        <input type="password" name="password" v-model="password" placeholder="password" required>
+        <input type="email" name="email" v-model="email" placeholder="email">
+        <input type="password" name="password" v-model="password" placeholder="password">
         <p>{{ errorMessage }}</p>
         <button class="login-btn" type="submit">Login</button>
       </form>
@@ -28,6 +28,9 @@ export default {
   },
   methods: {
     async handleSubmit() {
+      if (this.email === '' || this.password === '') {
+        return this.errorMessage = 'Please try again.'
+      }
       try {
         const response = await axios.post('/api/auth/login', {
           email: this.email,
@@ -80,9 +83,11 @@ input {
   border: 1px solid #fd2d01;
   border-radius: 10px;
 }
+
 .input-field:focus-visible {
   outline: #fd2d01 auto 1px;
 }
+
 .login-btn {
   width: 60%;
   height: 50px;
@@ -92,10 +97,9 @@ input {
   border-radius: 10px;
   color: white;
 }
+
 .signup-link {
   color: #fd2d01;
   cursor: pointer;
 }
-
-
 </style>

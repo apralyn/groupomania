@@ -1,6 +1,5 @@
 <template>
   <PageContainer />
-  <router-link to="/"></router-link>
   <router-view />
 </template>
 <script>
