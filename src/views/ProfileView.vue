@@ -4,17 +4,14 @@
 		<p class="feed" @click="$router.push('/feed')">Feed</p>
 	</div>
 	<div>{{ userId }}</div>
-	<!-- I want my app to check if username and/or profile pic is empty and then trigger the user to add info if it is empty -->
-	<!-- how can I get the username from the db -->
-	<!-- how can the user add an image -->
-	<div class="user-info" v-if="userInfo">
-		<div> {{ user.image }} </div>
-	</div>
-	<div class="edit-profile">
-		<div v-show="edit">
-			<input type="text" name="username" v-model="username" placeholder="username">
+	<div> {{ user.image }} </div>
+	<div> {{ user.username }}</div>
+	<div @submit.prevent="onSave" class="edit-profile">
+		<form v-show="edit">
+			<input type="text" name="username" v-model="user.username" placeholder="username">
 			<label for="image"><input type="file" @change="onFileChange"></label>
-		</div>
+			<button>Save</button>
+		</form>
 		<button class="add-info" @click="toggleEdit()">edit profile</button>
 	</div>
 	<button @click="onDeleteUser(userId)">Delete Profile</button>
@@ -33,6 +30,7 @@ export default {
 				username: '',
 				image: null
 			},
+			userProfile: [],
 			error: '',
 			edit: 'false'
 		}
@@ -50,9 +48,18 @@ export default {
 			this.edit = !this.edit;
 		},
 		userInfo() {
-			if (!this.user.username === '' && !this.user.image === null) {
+			if (!this.user.username === '' || !this.user.image === null) {
 				return this.error = 'Please add your username and profile picture';
 			}
+		},
+		onSave() {
+			if (!this.user.username === '' || !this.user.image === null) {
+				this.userProfile.push('this.user.username', 'this.user.image');
+			} else {
+			this.user.username  = '',
+			this.user.image = null;
+			console.log('not working!');
+		}
 		},
 		async onDeleteUser(userId) {
 			if (confirm("Do you want to delete your profile?")) {
