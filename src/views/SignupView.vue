@@ -5,6 +5,7 @@
       <img @click="$router.push('/')" class="logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
       <h1>Sign Up</h1>
       <form @submit.prevent="handleSubmit">
+        <input class="input-field" type="username" name="username" v-model="username" placeholder="username">
         <input class="input-field" type="email" name="email" v-model="email" placeholder="email" />
         <input class="input-field" type="password" name="password" v-model="password" placeholder="password" />
         <div v-if="errorMessage" class="error"> {{ errorMessage }} </div>
@@ -22,6 +23,7 @@ export default {
   name: 'SignupView',
   data() {
     return {
+      username:'',
       email: '',
       password: '',
       errorMessage: ''
@@ -29,11 +31,12 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      if (this.email === '' || this.password === '') {
+      if (this.username === '' || this.email === '' || this.password === '') {
         return this.errorMessage = 'Please try again.'
       }
       try {
         const response = await axios.post('/api/auth/signup', {
+          username: this.username,
           email: this.email,
           password: this.password,
         });
