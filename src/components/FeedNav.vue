@@ -2,9 +2,9 @@
   <div class="feed-nav">
     <img id="feed-logo" alt="Groupomania logo" src="../assets/icon.png">
     <div class="feed-sm-profile">
-      <div class="feed-userName" @click="$router.push({ name: 'ProfileView', params: { id: userId } })">User Profile
+      <div class="feed-userName" @click="$router.push({ name: 'ProfileView', params: { id: userId } })">User {{ userId }}
       </div>
-      <div class="small-profile-pic">Pic</div>
+      <!-- <div class="small-profile-pic">Pic</div> -->
     </div>
   </div>
 </template>
@@ -17,7 +17,7 @@ export default {
   },
   mounted() {
     const user = JSON.parse(localStorage.getItem('token'));
-    this.userId = user.token;
+    this.userId = user.userId;
     console.log(this.userId);
   },
 }

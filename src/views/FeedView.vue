@@ -71,4 +71,14 @@ export default {
   display: flex;
   justify-content: space-evenly;
 }
+
+.add-btn{
+  width: 250px;
+  height: 50px;
+  margin: 10px auto;
+  border: 4px solid #fd2d01;
+  background-color: #fd2d01;
+  border-radius: 10px;
+  color: white;
+}
 </style>

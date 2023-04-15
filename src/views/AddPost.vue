@@ -1,9 +1,6 @@
 <template>
   <div class="add-post-container">
-    <div class="add-nav">
-      <img class="add-logo" alt="Groupomania logo" src="../assets/icon.png">
-      <button @click="$router.push('/feed')">Back</button>
-    </div>
+    <FeedNav />
     <div class="add-post-view">
       <h3>Add a post</h3>
       <div class="add-post-form">
@@ -22,14 +19,16 @@
           </div>
           <button class="add-btn" type="submit">Submit</button>
         </form>
+        <button @click="$router.push('/feed')">Back</button>
+
 
       </div>
-
     </div>
   </div>
 </template>
 <script>
 import axios from 'axios'
+import FeedNav from '@/components/FeedNav.vue';
 export default {
   name: 'AddPost',
   data() {
@@ -41,11 +40,12 @@ export default {
       userId: ''
     }
   },
+  components:{
+    FeedNav
+  },
   mounted() {
-    if (localStorage.getItem("token")) {
-      this.token = JSON.parse(localStorage.getItem("token"));
-    }
-    this.userId = this.token.userId;
+    const user = JSON.parse(localStorage.getItem('token'));
+    this.userId = user.userId;
     console.log(this.userId);
   },
   methods: {
@@ -73,7 +73,9 @@ export default {
         .catch(error => {
           error.message;
         });
-      console.log(addPost);
+      console.log("Post successfully added ", addPost);
+      //TODO when post is successfully created redirect the page back to FeedView
+      this.$router.push('/feed');
     }
   }
 }
@@ -141,7 +143,7 @@ textarea {
 }
 
 .add-btn {
-  width: 200px;
+  width: 250px;
   height: 50px;
   margin: 15px auto;
   border: 4px solid #fd2d01;
