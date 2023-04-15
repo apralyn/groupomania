@@ -18,7 +18,7 @@
             <textarea name="description" v-model="description" rows="3"></textarea>
           </div>
           <div class="form-title">
-            <label for="image"><input type="file" @change="onFileChange"></label>
+            <label for="image"><input type="file" @change="onFileChange" ref="file"></label>
           </div>
           <button class="add-btn" type="submit">Submit</button>
         </form>
@@ -46,28 +46,26 @@ export default {
       this.token = JSON.parse(localStorage.getItem("token"));
     }
     this.userId = this.token.userId;
-
+    console.log(this.userId);
   },
   methods: {
-    onFileChange(event) {
-      this.image = event.target.files[0];
+    onFileChange() {
+      this.image = this.$refs.file.files[0];
     },
-    submitForm() {
+    async submitForm() {
       // Create a new FormData object
       const formData = new FormData();
 
       // Append the form data to the FormData object
-      formData.append('name', this.title);
+      formData.append('title', this.title);
       formData.append('description', this.description);
       formData.append('image', this.image);
-      let config = {
-        header: {
-          'Content-Type': 'multipart/form-data'
-        }
+      formData.append('userId', this.userId);
+      const headers = {
+        'Content-Type': 'multipart/form-data'
       }
-
       // Submit the form data using an HTTP request
-      axios.post('api/posts/addpost', formData, { config })
+      const addPost = await axios.post('api/posts/addpost', formData, { headers })
         .then(response => {
           console.log(response.data.files);
           response.status;
@@ -75,6 +73,7 @@ export default {
         .catch(error => {
           error.message;
         });
+      console.log(addPost);
     }
   }
 }
@@ -90,6 +89,7 @@ export default {
   margin: 80px auto;
   padding: 0 15px;
 }
+
 .add-post-container {
   top: 0;
   position: fixed;
