@@ -1,7 +1,7 @@
 const { Post } = require("../models");
 const fs = require("fs");
 
-//all postings (getAll)
+//all posts (getAll)
 exports.getAllPosts = (req, res, next) => {
   Post.findAll()
     .then((post) => {
@@ -9,7 +9,7 @@ exports.getAllPosts = (req, res, next) => {
     })
     .catch((error) => {
       res.status(500).json({
-        error: error.message,
+        error: error.message || error,
       });
     });
 };
@@ -22,11 +22,10 @@ exports.viewPost = (req, res, next) => {
         return res.status(404).send(new Error("Post not found!"));
       }
       res.status(200).json(post);
-      console.log("Hello Cat");
     })
     .catch((error) => {
       res.status(500).json({
-        error: error.message,
+        error: error.message || error,
       });
     });
 };
@@ -65,7 +64,7 @@ exports.addPost = (req, res, next) => {
     })
     .catch((error) => {
       res.status(500).json({
-        error: error,
+        error: error.message || error,
       });
     });
 };
@@ -78,14 +77,14 @@ exports.readPost = (req, res, next) => {
     .then((post) => {
       let read;
       let { usersRead } = post;
-      if (req.body.like == 1) {
+      if (req.body.read == 1) {
         console.log("read post");
         if (!post.usersRead.includes(userId)) {
           usersRead = [...usersRead, userId];
           read = post.read + 1;
         }
       }
-      if (req.body.like == 0) {
+      if (req.body.read == 0) {
         console.log("unread");
         if (post.usersRead.includes(userId)) {
           const userId = req.body.userId;
@@ -102,7 +101,7 @@ exports.readPost = (req, res, next) => {
     })
     .catch((error) => {
       res.status(400).json({
-        error: error.message,
+        error: error.message || error,
       });
     });
 };

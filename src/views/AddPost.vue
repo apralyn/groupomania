@@ -38,12 +38,15 @@ export default {
       description: '',
       image: null,
       token: '',
+      userId: ''
     }
   },
   mounted() {
     if (localStorage.getItem("token")) {
       this.token = JSON.parse(localStorage.getItem("token"));
     }
+    this.userId = this.token.userId;
+
   },
   methods: {
     onFileChange(event) {
@@ -56,12 +59,7 @@ export default {
       // Append the form data to the FormData object
       formData.append('name', this.title);
       formData.append('description', this.description);
-
-      // Check if an image file has been selected
-      if (this.image) {
-        formData.append('image', this.image);
-      }
-
+      formData.append('image', this.image);
       let config = {
         header: {
           'Content-Type': 'multipart/form-data'

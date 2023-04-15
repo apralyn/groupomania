@@ -55,21 +55,6 @@ export default {
 </script>
 
 <style scoped>
-.profile-container {
-	border: 2px solid #fd2d01;
-	width: 450px;
-	height: 550px;
-	padding: 5px;
-	margin: 80px auto;
-	border: 1px solid #ffd7d7;
-	border-radius: 10px;
-}
-
-.profile {
-	display: flex;
-	flex-direction: column;
-}
-
 #profile-icon {
 	width: 50px;
 }
@@ -115,21 +100,5 @@ li {
 	max-height: 550px;
 	padding: 60px 50px 50px 50px;
 	margin: 25px 20px;
-}
-
-.profile-bio {
-	text-align: center;
-	margin: auto;
-	padding: 10px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-.user-btn {
-	width: 250px;
-	height: 40px;
-	border: 3px solid white;
 }
 </style>
