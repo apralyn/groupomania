@@ -29,6 +29,7 @@
 <script>
 import axios from 'axios'
 import FeedNav from '@/components/FeedNav.vue';
+
 export default {
   name: 'AddPost',
   data() {
@@ -40,28 +41,31 @@ export default {
       userId: ''
     }
   },
-  components:{
+  components: {
     FeedNav
   },
   mounted() {
     const user = JSON.parse(localStorage.getItem('token'));
     this.userId = user.userId;
-    console.log(this.userId);
+    this.token = user.token;
   },
   methods: {
     onFileChange() {
       this.image = this.$refs.file.files[0];
     },
     async submitForm() {
+      console.log(this.token);
+      //TODO add condition for when there is no media and send post information as regular JSON with no formData
+
       // Create a new FormData object
       const formData = new FormData();
 
       // Append the form data to the FormData object
-      formData.append('title', this.title);
-      formData.append('description', this.description);
       formData.append('image', this.image);
-      formData.append('userId', this.userId);
+      const post = { title: this.title, description: this.description, userId: this.userId }
+      formData.append('post', JSON.stringify(post));
       const headers = {
+        'Authorization': `Bearer ${this.token}`,
         'Content-Type': 'multipart/form-data'
       }
       // Submit the form data using an HTTP request

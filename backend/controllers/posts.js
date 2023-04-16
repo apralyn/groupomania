@@ -71,8 +71,10 @@ exports.addPost = (req, res, next) => {
 
 //read-indicator on a post (likePost)
 exports.readPost = (req, res, next) => {
+//TODO only track userId in userRead array and don't worry about increament on read integer.
+  //FIXME usersRead array should include userId.
   const postId = req.params.id;
-  const userId = req.body.userId;
+  const userId = req.body.userReadId;
   Post.findOne({ where: { id: postId } })
     .then((post) => {
       let read;

@@ -1,9 +1,11 @@
 <template>
   <div v-show="read">Add userId to userRead array</div>
   <div class="display-post">
-    <img class="post-img" :src="post.imageUrl"/>
+    <img class="post-img" :src="post.imageUrl" />
     <div class="post-info">
-      <div class="post-title"> <h2>{{ post.title }}</h2> </div>
+      <div class="post-title">
+        <h2>{{ post.title }}</h2>
+      </div>
       <div class="">{{ post.description }}</div>
     </div>
   </div>
@@ -18,18 +20,30 @@ export default {
       post: {
         title: '',
         description: '',
-        imageUrl:'',
+        imageUrl: '',
         isUser: false
       },
       userRead: [],
-      read: 'true'
+      read: 'true',
+      token: '',
+      userId: '',
     }
   },
   mounted() {
     console.log(this.$route.params.id);
   },
   async created() {
-    const response = await axios.get(`/api/posts/viewpost/${this.$route.params.id}`);
+    const user = JSON.parse(localStorage.getItem('token'));
+    this.userId = user.userId;
+    this.token = user.token;
+    console.log(this.token);
+
+    const response = await axios.get(`/api/posts/viewpost/${this.$route.params.id}`, {
+      headers: {
+        'Authorization': `Bearer ${this.token}`,
+        'Content-Type': 'application/json'
+      }
+    });
     const post = response.data;
     this.post = post;
     console.log(post);
@@ -58,11 +72,12 @@ export default {
   padding: 10px;
 }
 
-.post-info{
+.post-info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
+
 .post-title {
   margin: 5px auto;
   padding: 10px;

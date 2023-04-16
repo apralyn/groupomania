@@ -25,16 +25,14 @@ export default {
       posts: [],
     }
   },
-  components:{
+  components: {
     FeedNav
   },
-  mounted() {
+  async created() {
     const user = JSON.parse(localStorage.getItem('token'));
     this.userId = user.userId;
     this.token = user.token;
     console.log(this.token);
-  },
-  async created() {
     const response = await axios.get('/api/posts/feed', {
       headers: {
         'Authorization': `Bearer ${this.token}`,
@@ -48,7 +46,6 @@ export default {
 }
 </script>
 <style scoped>
-
 .add-btn {
   width: 200px;
   height: 30px;
@@ -72,7 +69,7 @@ export default {
   justify-content: space-evenly;
 }
 
-.add-btn{
+.add-btn {
   width: 250px;
   height: 50px;
   margin: 10px auto;
