@@ -29,7 +29,7 @@ export default {
   align-items: center;
   width: 450px;
   height: 100px;
-  margin: 80px auto;
+  margin: auto;
   padding: 0 15px;
 }
 

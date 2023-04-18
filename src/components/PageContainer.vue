@@ -17,7 +17,7 @@
   height: 750px;
   padding: 5px;
   margin: 80px auto;
-  border: 1px solid #ffd7d7;
+  /* border: 1px solid #ffd7d7; */
   border-radius: 10px;
 }
 </style>

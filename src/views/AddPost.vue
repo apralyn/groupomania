@@ -1,6 +1,6 @@
 <template>
   <div class="add-post-container">
-    <FeedNav />
+    <PageNav />
     <div class="add-post-view">
       <h3>Add a post</h3>
       <div class="add-post-form">
@@ -28,7 +28,7 @@
 </template>
 <script>
 import axios from 'axios'
-import FeedNav from '@/components/FeedNav.vue';
+import PageNav from '@/components/PageNav.vue';
 
 export default {
   name: 'AddPost',
@@ -42,9 +42,9 @@ export default {
     }
   },
   components: {
-    FeedNav
+    PageNav
   },
-  mounted() {
+  beforeCreate() {
     const user = JSON.parse(localStorage.getItem('token'));
     this.userId = user.userId;
     this.token = user.token;
@@ -54,30 +54,49 @@ export default {
       this.image = this.$refs.file.files[0];
     },
     async submitForm() {
-      console.log(this.token);
       //TODO add condition for when there is no media and send post information as regular JSON with no formData
+      if (!this.image === null) {
+        const formData = new FormData();
+        // Append the form data to the FormData object
+        formData.append('image', this.image);
+        const post = { title: this.title, description: this.description, userId: this.userId }
+        formData.append('post', JSON.stringify(post));
+        const headers = {
+          'Authorization': `Bearer ${this.token}`,
+          'Content-Type': 'multipart/form-data'
+        }
+        // Submit the form data using an HTTP request
+        const addPost = await axios.post('api/posts/addpost', formData, { headers })
+          .then(response => {
+            console.log(response.data.files);
+            response.status;
+          })
+          .catch(error => {
+            error.message;
+          });
+        console.log("Post successfully added ", addPost);
+      } else {
+        console.log(this.image, "else is = media is empty");
 
-      // Create a new FormData object
-      const formData = new FormData();
 
-      // Append the form data to the FormData object
-      formData.append('image', this.image);
-      const post = { title: this.title, description: this.description, userId: this.userId }
-      formData.append('post', JSON.stringify(post));
-      const headers = {
-        'Authorization': `Bearer ${this.token}`,
-        'Content-Type': 'multipart/form-data'
+        const user = JSON.parse(localStorage.getItem('token'));
+        this.token = user.token;
+        console.log(this.token);
+        
+        const headers = {
+          'Authorization': `Bearer ${this.token}`,
+          'Content-Type': 'application/json'
+        }
+        const addPost = await axios.post('api/posts/addpost', { headers })
+          .then(response => {
+            console.log(response.data);
+            response.status
+          })
+          .catch(error => {
+            error.message;
+          })
+        console.log("no media has been posted", addPost);
       }
-      // Submit the form data using an HTTP request
-      const addPost = await axios.post('api/posts/addpost', formData, { headers })
-        .then(response => {
-          console.log(response.data.files);
-          response.status;
-        })
-        .catch(error => {
-          error.message;
-        });
-      console.log("Post successfully added ", addPost);
       //TODO when post is successfully created redirect the page back to FeedView
       this.$router.push('/feed');
     }

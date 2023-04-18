@@ -1,4 +1,5 @@
 <template>
+  <PageNav />
   <div v-show="read">Add userId to userRead array</div>
   <div class="display-post">
     <img class="post-img" :src="post.imageUrl" />
@@ -13,6 +14,7 @@
 </template>
 <script>
 import axios from 'axios'
+import PageNav from '@/components/PageNav.vue'
 export default {
   name: 'ViewPost',
   data() {
@@ -28,6 +30,9 @@ export default {
       token: '',
       userId: '',
     }
+  },
+  components: {
+    PageNav
   },
   mounted() {
     console.log(this.$route.params.id);

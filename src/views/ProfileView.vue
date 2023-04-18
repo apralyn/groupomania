@@ -1,8 +1,5 @@
 <template>
-	<div class="profile-nav">
-		<img id="profile-icon" alt="Groupomania logo" src="../assets/icon.png">
-		<p class="feed" @click="$router.push('/feed')">Feed</p>
-	</div>
+	<PageNav />
 	<div>{{ userId }}</div>
 	<div> {{ user.image }} </div>
 	<div> {{ user.username }}</div>
@@ -10,16 +7,21 @@
 		<form v-show="edit">
 			<input type="text" name="username" v-model="user.username" placeholder="username">
 			<label for="image"><input type="file" @change="onFileChange"></label>
-			<button>Save</button>
+			<button class="save-btn">Save</button>
 		</form>
 		<button class="add-info" @click="toggleEdit()">edit profile</button>
 	</div>
-	<button @click="onDeleteUser(userId)">Delete Profile</button>
-	<div @click="onLogout">Logout</div>
+	<div class="profile-btns">
+		<button @click="onDeleteUser(userId)">Delete Profile</button>
+		<button @click="onLogout">Logout</button>
+		<button><router-link to="/feed">back</router-link></button>
+	</div>
 </template>
 
 <script>
 import axios from 'axios'
+import PageNav from '@/components/PageNav.vue'
+
 export default {
 	name: 'ProfileView',
 	data() {
@@ -35,6 +37,9 @@ export default {
 			edit: 'false'
 		}
 	},
+	components: {
+		PageNav
+	},
 	mounted() {
 		if (localStorage.getItem("token")) {
 			this.token = JSON.parse(localStorage.getItem("token"));
@@ -44,22 +49,22 @@ export default {
 		this.userInfo();
 	},
 	methods: {
-		toggleEdit() {
-			this.edit = !this.edit;
-		},
 		userInfo() {
 			if (!this.user.username === '' || !this.user.image === null) {
 				return this.error = 'Please add your username and profile picture';
 			}
 		},
+		toggleEdit() {
+			this.edit = !this.edit;
+		},
 		onSave() {
 			if (!this.user.username === '' || !this.user.image === null) {
 				this.userProfile.push('this.user.username', 'this.user.image');
 			} else {
-			this.user.username  = '',
-			this.user.image = null;
-			console.log('not working!');
-		}
+				this.user.username = '',
+					this.user.image = null;
+				console.log('not working!');
+			}
 		},
 		async onDeleteUser(userId) {
 			if (confirm("Do you want to delete your profile?")) {
@@ -84,23 +89,19 @@ export default {
 </script>
 
 <style scoped>
-.profile-nav {
+form {
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
 	align-items: center;
-	width: 450px;
-	height: 100px;
-	margin: 80px auto;
-	padding: 0 15px;
-}
-
-#profile-icon {
-	width: 50px;
-}
-
-.user-info {
+	width: 250px;
+	margin: auto;
 	border: 1px solid black;
-	width: 450px;
+}
+
+.profile-btns {
+	display: flex;
+	flex-direction: column;
+	width: 150px;
 	margin: auto;
 }
 </style>

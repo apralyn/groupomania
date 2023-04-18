@@ -1,5 +1,5 @@
 <template>
-  <FeedNav />
+  <PageNav />
   <router-link to="/addpost"><button class="add-btn">Add a post</button></router-link>
   <div class="posts-container">
     <div class="all-posts" v-for="post of posts" :key="post.id">
@@ -14,7 +14,7 @@
 
 <script>
 import axios from 'axios'
-import FeedNav from '@/components/FeedNav.vue'
+import PageNav from '@/components/PageNav.vue'
 export default {
   name: "FeedView",
   data() {
@@ -26,7 +26,7 @@ export default {
     }
   },
   components: {
-    FeedNav
+    PageNav
   },
   async created() {
     const user = JSON.parse(localStorage.getItem('token'));
