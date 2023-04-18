@@ -1,6 +1,6 @@
 <template>
   <PageNav />
-  <div v-show="read">Add userId to userRead array</div>
+  <div v-if="read">Add userId to userRead array</div>
   <div class="display-post">
     <img class="post-img" :src="post.imageUrl" />
     <div class="post-info">
@@ -23,6 +23,7 @@ export default {
         title: '',
         description: '',
         imageUrl: '',
+        usersRead: [],
         isUser: false
       },
       userRead: [],
@@ -34,26 +35,53 @@ export default {
   components: {
     PageNav
   },
-  mounted() {
-    console.log(this.$route.params.id);
-  },
   async created() {
+    //api
+    //auth
     const user = JSON.parse(localStorage.getItem('token'));
     this.userId = user.userId;
     this.token = user.token;
     console.log(this.token);
-
-    const response = await axios.get(`/api/posts/viewpost/${this.$route.params.id}`, {
-      headers: {
-        'Authorization': `Bearer ${this.token}`,
-        'Content-Type': 'application/json'
-      }
-    });
+    //headers
+    const headers = {
+      'Authorization': `Bearer ${this.token}`,
+      'Content-Type': 'application/json'
+    }
+    //get
+    const response = await axios.get(`/api/posts/viewpost/${this.$route.params.id}`, { headers });
     const post = response.data;
     this.post = post;
     console.log(post);
   },
-  method: {
+  async mounted() {
+    this.usersRead = this.post.usersRead.push(this.userId);
+    //api
+    //auth
+    this.userId;
+    this.token;
+    //headers
+    const headers = {
+      'Authorization': `Bearer ${this.token}`,
+      'Content-Type': 'application/json'
+    }
+    //put
+    //TODO add the usersRead to put
+    const response = await axios.put(`/api/posts/viewpost/${this.$route.params.id}`, {
+      post: {
+        title: this.title,
+        description: this.description,
+        imageUrl: this.imageUrl,
+        usersRead: this.usersRead,
+      }
+    }, { headers })
+      .then((response) => {
+        response.data;
+        response.status;
+      })
+      .catch((error) => {
+        error.message;
+      });
+    console.log(response);
   }
 }
 </script>
