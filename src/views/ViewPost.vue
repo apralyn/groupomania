@@ -76,6 +76,7 @@ export default {
       .then((response) => {
         response.data;
         response.status;
+        console.log(response.data);
       })
       .catch((error) => {
         error.message;
