@@ -51,7 +51,6 @@ export default {
     const response = await axios.get(`/api/posts/viewpost/${this.$route.params.id}`, { headers });
     const post = response.data;
     this.post = post;
-    console.log(post);
   },
   async mounted() {
     this.usersRead = this.post.usersRead.push(this.userId);
@@ -65,8 +64,8 @@ export default {
       'Content-Type': 'application/json'
     }
     //put
-    //TODO add the usersRead to put
-    const response = await axios.put(`/api/posts/viewpost/${this.$route.params.id}`, {
+    //TODO use put request to add userId to the usersRead array on post.
+    const response = await axios.put(`/api/posts/viewpost/${this.$route.params.id}/read`, {
       post: {
         title: this.title,
         description: this.description,

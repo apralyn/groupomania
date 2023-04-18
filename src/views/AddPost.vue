@@ -54,9 +54,7 @@ export default {
       const user = JSON.parse(localStorage.getItem('token'));
       this.userId = user.userId;
       this.token = user.token;
-      console.log(this.userId);
 
-      //TODO add condition that handles with and without media
       if (this.image === null) {
         //add post
         const post = JSON.stringify({ title: this.title, description: this.description, userId: this.userId });

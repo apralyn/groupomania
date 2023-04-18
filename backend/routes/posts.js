@@ -7,7 +7,7 @@ const postsCtrl = require("../controllers/posts");
 router.post("/addpost", auth, multer, postsCtrl.addPost);
 router.get("/feed", auth, postsCtrl.getAllPosts);
 router.get("/viewpost/:id", auth, postsCtrl.viewPost);
-router.put("/read/:id", auth, postsCtrl.readPost);
+router.put("/viewpost/:id/read", auth, postsCtrl.readPost);
 
 // router.put("/mod/:id", multer, postsCtrl.modifyPost);
 // router.delete("/delete/:id", postsCtrl.deletePost);

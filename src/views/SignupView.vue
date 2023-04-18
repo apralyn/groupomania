@@ -40,10 +40,11 @@ export default {
           email: this.email,
           password: this.password,
         });
-        console.log(response.data)
+        console.log(response)
+        //reroute user to login page
         this.$router.push('/login');
       } catch (error) {
-        error.message;
+        this.errorMessage = error.message;
       }
     }
   }

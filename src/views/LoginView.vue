@@ -37,7 +37,9 @@ export default {
           password: this.password
         });
         console.log(response);
+        //set the userID and token to the localStorage
         localStorage.setItem('token', JSON.stringify(response.data));
+        //reroute the user to the feed page
         this.$router.push('/feed');
       } catch (error) {
         this.errorMessage = error.message;
