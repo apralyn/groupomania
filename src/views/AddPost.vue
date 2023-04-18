@@ -54,8 +54,8 @@ export default {
       this.image = this.$refs.file.files[0];
     },
     async submitForm() {
-      //TODO add condition for when there is no media and send post information as regular JSON with no formData
-      if (!this.image === null) {
+      //TODO add condition that handles with and without media
+      if (!this.image) {
         const formData = new FormData();
         // Append the form data to the FormData object
         formData.append('image', this.image);
@@ -76,18 +76,17 @@ export default {
           });
         console.log("Post successfully added ", addPost);
       } else {
-        console.log(this.image, "else is = media is empty");
-
-
+        //auth
         const user = JSON.parse(localStorage.getItem('token'));
+        this.userId = user.userId;
         this.token = user.token;
-        console.log(this.token);
-        
+
+        const post = JSON.stringify({ title: this.title, description: this.description, userId: this.userId });
         const headers = {
           'Authorization': `Bearer ${this.token}`,
           'Content-Type': 'application/json'
         }
-        const addPost = await axios.post('api/posts/addpost', { headers })
+        const addPost = await axios.post('api/posts/addpost', post, { headers })
           .then(response => {
             console.log(response.data);
             response.status
