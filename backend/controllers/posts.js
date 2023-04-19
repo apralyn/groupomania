@@ -1,5 +1,4 @@
 const { Post } = require("../models");
-const fs = require("fs");
 
 //all posts (getAll)
 exports.getAllPosts = (req, res, next) => {
@@ -12,6 +11,7 @@ exports.getAllPosts = (req, res, next) => {
         error: error.message || error,
       });
     });
+  next();
 };
 
 //view one post (viewPost)
@@ -28,6 +28,7 @@ exports.viewPost = (req, res, next) => {
         error: error.message || error,
       });
     });
+  next();
 };
 
 //create new post (addPost)
@@ -67,34 +68,26 @@ exports.addPost = (req, res, next) => {
         error: error.message || error,
       });
     });
+  next();
 };
 
 //read-indicator on a post (likePost)
 exports.readPost = (req, res, next) => {
-//TODO only track userId in userRead array and don't worry about increament on read integer.
+  //TODO only track userId in userRead array and don't worry about increament on read integer.
   //FIXME usersRead array should include userId.
   const postId = req.params.id;
-  const userId = req.body.userReadId;
-  Post.findOne({ where: { id: postId } })
+
+  const post = new Post({
+    id: req.params.id,
+    title: req.body.title,
+    description: req.body.description,
+    imageUrl: req.body.imageUrl,
+    userId: req.body.userId,
+    usersRead: req.body.usersRead,
+  });
+  Post.findOne({ where: { id: postId }, post })
     .then((post) => {
-      let read;
-      let { usersRead } = post;
-      if (req.body.read == 1) {
-        console.log("read post");
-        if (!post.usersRead.includes(userId)) {
-          usersRead = [...usersRead, userId];
-          read = post.read + 1;
-        }
-      }
-      if (req.body.read == 0) {
-        console.log("unread");
-        if (post.usersRead.includes(userId)) {
-          const userId = req.body.userId;
-          post.usersRead = post.usersRead.filter((value) => value !== userId);
-          post.read--;
-        }
-      }
-      post.update({ usersRead, read });
+      post.update({ post });
       post.save().then(() =>
         res.status(200).json({
           message: "Updated the post status.",
@@ -106,6 +99,7 @@ exports.readPost = (req, res, next) => {
         error: error.message || error,
       });
     });
+  next();
 };
 
 // edit post (modifyPost) !important
