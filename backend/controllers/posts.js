@@ -16,7 +16,8 @@ exports.getAllPosts = (req, res, next) => {
 
 //view one post (viewPost)
 exports.viewPost = (req, res, next) => {
-  Post.findOne({ where: { id: req.params.id } })
+  const postId = req.params.id;
+  Post.findOne({ where: { id: postId } })
     .then((post) => {
       if (!post) {
         return res.status(404).send(new Error("Post not found!"));
@@ -76,30 +77,27 @@ exports.readPost = (req, res, next) => {
   //TODO only track userId in userRead array and don't worry about increament on read integer.
   //FIXME usersRead array should include userId.
   const postId = req.params.id;
-
-  const post = new Post({
-    id: req.params.id,
-    title: req.body.title,
-    description: req.body.description,
-    imageUrl: req.body.imageUrl,
-    userId: req.body.userId,
-    usersRead: req.body.usersRead,
-  });
-  Post.findOne({ where: { id: postId }, post })
+  Post.findOne({ where: { id: postId } })
     .then((post) => {
-      post.update({ post });
-      post.save().then(() =>
-        res.status(200).json({
-          message: "Updated the post status.",
-        })
-      );
+      if (!post) {
+        return res.status(404).send(new Error("Post not found!"));
+      }
+      console.log("hi", post.usersRead);
+
+      let usersRead = post.usersRead;
+      let user = JSON.stringify(post.userId);
+      usersRead.push(user);
+      console.log(usersRead);
+
+      res.status(200).json({
+        message: "user successfully added to usersRead array.",
+      });
     })
     .catch((error) => {
-      res.status(400).json({
+      res.status(500).json({
         error: error.message || error,
       });
     });
-  next();
 };
 
 // edit post (modifyPost) !important
