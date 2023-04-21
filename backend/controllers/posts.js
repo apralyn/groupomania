@@ -72,25 +72,22 @@ exports.addPost = (req, res, next) => {
   next();
 };
 
-//read-indicator on a post (likePost)
 exports.readPost = (req, res, next) => {
-  //TODO only track userId in userRead array and don't worry about increament on read integer.
-  //FIXME usersRead array should include userId.
   const postId = req.params.id;
   Post.findOne({ where: { id: postId } })
     .then((post) => {
-      if (!post) {
-        return res.status(404).send(new Error("Post not found!"));
-      }
-      console.log("hi", post.usersRead);
+      //array
+      const usersReadArray = post.usersRead;
+      //userId must be add to usersReadArray
+      const user = req.body.userReadId;
 
-      let usersRead = post.usersRead;
-      let user = JSON.stringify(post.userId);
-      usersRead.push(user);
-      console.log(usersRead);
+      usersReadArray.push(user);
+      Post.update({ usersRead:[] }, { where: { usersRead:[] } });
+      post.save();
+      console.log(post);
 
       res.status(200).json({
-        message: "user successfully added to usersRead array.",
+        message: "user successfully added.",
       });
     })
     .catch((error) => {
