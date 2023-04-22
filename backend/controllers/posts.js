@@ -1,21 +1,20 @@
 const { Post } = require("../models");
 
 //all posts (getAll)
-exports.getAllPosts = (req, res, next) => {
+exports.getAllPosts = (req, res) => {
   Post.findAll()
     .then((post) => {
       res.status(200).json(post);
     })
     .catch((error) => {
       res.status(500).json({
-        error: error.message || error,
+        error: error.message,
       });
     });
-  next();
 };
 
 //view one post (viewPost)
-exports.viewPost = (req, res, next) => {
+exports.viewPost = (req, res) => {
   const postId = req.params.id;
   Post.findOne({ where: { id: postId } })
     .then((post) => {
@@ -29,11 +28,10 @@ exports.viewPost = (req, res, next) => {
         error: error.message || error,
       });
     });
-  next();
 };
 
 //create new post (addPost)
-exports.addPost = (req, res, next) => {
+exports.addPost = (req, res) => {
   let post, title, description, userId;
   let imageUrl = null;
 
@@ -69,10 +67,9 @@ exports.addPost = (req, res, next) => {
         error: error.message || error,
       });
     });
-  next();
 };
 
-exports.readPost = (req, res, next) => {
+exports.readPost = (req, res) => {
   const postId = req.params.id;
   Post.findOne({ where: { id: postId } })
     .then((post) => {
@@ -82,7 +79,7 @@ exports.readPost = (req, res, next) => {
       const user = req.body.userReadId;
 
       usersReadArray.push(user);
-      Post.update({ usersRead:[] }, { where: { usersRead:[] } });
+      Post.update({ usersRead: [] }, { where: { usersRead: [] } });
       post.save();
       console.log(post);
 
@@ -98,45 +95,46 @@ exports.readPost = (req, res, next) => {
 };
 
 // edit post (modifyPost) !important
-exports.modifyPost = (req, res, next) => {
-  let post = new Post({ id: req.params.id });
-  if (req.file) {
-    const imageUrl = req.protocol + "://" + req.get("host");
-    post = {
-      title: req.body.title,
-      description: req.body.description,
-      //replace images with media
-      imageUrl: imageUrl + "/images/" + req.file.filename,
-      userId: req.body.userId,
-    };
-  } else {
-    post = {
-      title: req.body.title,
-      description: req.body.description,
-      imageUrl: req.body.imageUrl,
-      userId: req.body.userId,
-    };
-  }
-};
-//delete post (deletePost) !important
-exports.deletePost = (req, res, next) => {
-  Post.findOne({ where: { id: req.params.id } })
-    .then((post) => {
-      if (post !== null) {
-        post.destroy().then(() => {
-          res.status(200).json({
-            message: "Post successfully deleted.",
-          });
-        });
-      } else {
-        res.status(400).json({
-          message: "Post not found.",
-        });
-      }
-    })
-    .catch((error) => {
-      res.status(400).json({
-        erorr: error.message,
-      });
-    });
-};
+// exports.modifyPost = (req, res, next) => {
+//   let post = new Post({ id: req.params.id });
+//   if (req.file) {
+//     const imageUrl = req.protocol + "://" + req.get("host");
+//     post = {
+//       title: req.body.title,
+//       description: req.body.description,
+//       //replace images with media
+//       imageUrl: imageUrl + "/images/" + req.file.filename,
+//       userId: req.body.userId,
+//     };
+//   } else {
+//     post = {
+//       title: req.body.title,
+//       description: req.body.description,
+//       imageUrl: req.body.imageUrl,
+//       userId: req.body.userId,
+//     };
+//     console.log(post);
+//   }
+// };
+// //delete post (deletePost) !important
+// exports.deletePost = (req, res, next) => {
+//   Post.findOne({ where: { id: req.params.id } })
+//     .then((post) => {
+//       if (post !== null) {
+//         post.destroy().then(() => {
+//           res.status(200).json({
+//             message: "Post successfully deleted.",
+//           });
+//         });
+//       } else {
+//         res.status(400).json({
+//           message: "Post not found.",
+//         });
+//       }
+//     })
+//     .catch((error) => {
+//       res.status(400).json({
+//         erorr: error.message,
+//       });
+//     });
+// };
