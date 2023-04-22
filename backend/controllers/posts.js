@@ -117,24 +117,24 @@ exports.readPost = (req, res) => {
 //   }
 // };
 // //delete post (deletePost) !important
-// exports.deletePost = (req, res, next) => {
-//   Post.findOne({ where: { id: req.params.id } })
-//     .then((post) => {
-//       if (post !== null) {
-//         post.destroy().then(() => {
-//           res.status(200).json({
-//             message: "Post successfully deleted.",
-//           });
-//         });
-//       } else {
-//         res.status(400).json({
-//           message: "Post not found.",
-//         });
-//       }
-//     })
-//     .catch((error) => {
-//       res.status(400).json({
-//         erorr: error.message,
-//       });
-//     });
-// };
+exports.deletePost = (req, res,) => {
+  Post.findOne({ where: { id: req.params.id } })
+    .then((post) => {
+      if (post !== null) {
+        post.destroy().then(() => {
+          res.status(200).json({
+            message: "Post successfully deleted.",
+          });
+        });
+      } else {
+        res.status(400).json({
+          message: "Post not found.",
+        });
+      }
+    })
+    .catch((error) => {
+      res.status(400).json({
+        erorr: error.message,
+      });
+    });
+};

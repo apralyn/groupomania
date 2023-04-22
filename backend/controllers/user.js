@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 
 //post
-exports.signup = (req, res, next) => {
+exports.signup = (req, res) => {
   bcrypt.hash(req.body.password, 10).then((hash) => {
     const user = new User({
       username: req.body.username,
@@ -27,7 +27,7 @@ exports.signup = (req, res, next) => {
 };
 
 //post
-exports.login = (req, res, next) => {
+exports.login = (req, res) => {
   User.findOne({ where: { email: req.body.email } })
     .then((user) => {
       if (!user) {
@@ -65,7 +65,7 @@ exports.login = (req, res, next) => {
 };
 
 //get || view the user Profile
-exports.getUser = (req, res, next) => {
+exports.getUser = (req, res) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => {
       res.status(200).json(user);
@@ -79,7 +79,7 @@ exports.getUser = (req, res, next) => {
 };
 
 //delete
-exports.deleteUser = (req, res, next) => {
+exports.deleteUser = (req, res) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => {
       if (user !== null) {
@@ -102,7 +102,7 @@ exports.deleteUser = (req, res, next) => {
 };
 
 //get all users !important
-exports.getUsers = (req, res, next) => {
+exports.getUsers = (req, res) => {
   User.findAll()
     .then((user) => {
       res.status(200).json(user);

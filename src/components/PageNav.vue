@@ -2,24 +2,44 @@
   <div class="feed-nav">
     <img id="feed-logo" alt="Groupomania logo" src="../assets/icon.png">
     <div class="feed-sm-profile">
-      <div class="feed-userName" @click="$router.push({ name: 'ProfileView', params: { id: userId } })">User {{ userId }}
+      <div class="feed-userName" @click="$router.push({ name: 'ProfileView', params: { id: userId } })">{{getUser.username}}
       </div>
       <!-- <div class="small-profile-pic">Pic</div> -->
     </div>
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
-      userId: ''
+      userId: '',
+      getUser: ''
     }
   },
-  mounted() {
+  async mounted() {
+  //api
+    //auth
     const user = JSON.parse(localStorage.getItem('token'));
     this.userId = user.userId;
-    console.log(this.userId);
-  },
+    this.token = user.token;
+
+		//headers
+    const headers = {
+      'Authorization': `Bearer ${this.token}`,
+      'Content-Type': 'application/json'
+    }
+		//get username from the database
+		await axios.get(`api/auth/${this.userId}`, { headers })
+		.then((response) => {
+        this.getUser = response.data;
+        response.status;
+        console.log(response.data);
+      })
+      .catch((error) => {
+        error.message;
+      });
+    }
 }
 </script>
 <style>

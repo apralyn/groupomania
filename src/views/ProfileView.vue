@@ -1,6 +1,5 @@
 <template>
 	<PageNav />
-	<div>{{ userId }}</div>
 	<div> {{ user.image }} </div>
 	<div> {{ user.username }}</div>
 	<div @submit.prevent="onSave" class="edit-profile">
@@ -34,18 +33,17 @@ export default {
 			},
 			userProfile: [],
 			error: '',
-			edit: 'false'
+			edit: 'true',
 		}
 	},
 	components: {
 		PageNav
 	},
 	mounted() {
-		if (localStorage.getItem("token")) {
-			this.token = JSON.parse(localStorage.getItem("token"));
-		}
-		this.userId = this.token.userId;
-		console.log(this.userId);
+		const user = JSON.parse(localStorage.getItem('token'));
+		this.userId = user.userId;
+		this.token = user.token;
+
 		this.userInfo();
 	},
 	methods: {
