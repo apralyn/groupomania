@@ -3,10 +3,10 @@
   <router-link to="/addpost"><button class="add-btn">Add a post</button></router-link>
   <div class="posts-container">
     <div class="all-posts" v-for="post of posts" :key="post.id">
-      <router-link :to="/viewpost/ + post.id">
+      <div v-if="read">new</div>
+      <router-link :to="/viewpost/ + post.id" @click="this.read = !this.read;">
         <div class="each-post">
           <div>{{ post.title }}</div>
-          <div v-if="read">new</div>
         </div>
       </router-link>
 

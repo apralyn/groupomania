@@ -4,7 +4,6 @@
     <div class="add-post-view">
       <h3>Add a post</h3>
       <div class="add-post-form">
-
         <form @submit.prevent="submitForm">
           <div class="form-title">
             <label for="title">Title </label>
@@ -19,10 +18,8 @@
           </div>
           <button class="add-btn" type="submit">Submit</button>
         </form>
-        <button @click="$router.push('/feed')">Back</button>
-
-
       </div>
+      <button class="back-btn" @click="$router.push('/feed')">Back</button>
     </div>
   </div>
 </template>
@@ -113,16 +110,6 @@ export default {
 </script>
 
 <style scoped>
-.add-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 450px;
-  height: 100px;
-  margin: 80px auto;
-  padding: 0 15px;
-}
-
 .add-post-container {
   top: 0;
   position: fixed;
@@ -138,10 +125,6 @@ export default {
   height: 560px;
   margin: 80px auto;
   border-radius: 10px;
-}
-
-.add-logo {
-  width: 50px;
 }
 
 h3 {
@@ -173,7 +156,7 @@ textarea {
   resize: none;
 }
 
-.add-btn {
+.add-btn, .back-btn {
   width: 250px;
   height: 50px;
   margin: 15px auto;
