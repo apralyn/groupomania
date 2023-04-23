@@ -34,26 +34,52 @@ export default {
 			userProfile: [],
 			error: '',
 			edit: 'true',
+			getUser: ''
 		}
 	},
 	components: {
 		PageNav
 	},
-	mounted() {
+	async created() {
+		//api
+		//auth
 		const user = JSON.parse(localStorage.getItem('token'));
 		this.userId = user.userId;
 		this.token = user.token;
 
 		this.userInfo();
+
+
+
 	},
 	methods: {
-		userInfo() {
-			if (!this.user.username === '' || !this.user.image === null) {
-				return this.error = 'Please add your username and profile picture';
-			}
+		// userInfo() {
+		// 	if (!this.user.username === '' || !this.user.image === null) {
+		// 		return this.error = 'Please add your username and profile picture';
+		// 	}
 		},
-		toggleEdit() {
+		async toggleEdit() {
 			this.edit = !this.edit;
+			//api
+			//auth
+			const user = JSON.parse(localStorage.getItem('token'));
+			this.userId = user.userId;
+			this.token = user.token;
+			//headers
+			const headers = {
+				'Authorization': `Bearer ${this.token}`,
+				'Content-Type': 'application/json'
+			}
+			//get user from the database
+			await axios.get(`api/auth/${this.userId}`, { headers })
+				.then((response) => {
+					this.getUser = response.data;
+					response.status;
+					console.log(response.data);
+				})
+				.catch((error) => {
+					error.message;
+				});
 		},
 		onSave() {
 			if (!this.user.username === '' || !this.user.image === null) {
@@ -83,7 +109,6 @@ export default {
 			console.log('You have been logged out!');
 		}
 	}
-}
 </script>
 
 <style scoped>

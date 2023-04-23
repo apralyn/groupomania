@@ -5,7 +5,6 @@
       <div class="feed-userName" @click="$router.push({ name: 'ProfileView', params: { id: userId } })">
         {{ getUser.username }}
       </div>
-      <!-- <div class="small-profile-pic">Pic</div> -->
     </div>
   </div>
 </template>
