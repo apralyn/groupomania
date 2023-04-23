@@ -2,7 +2,8 @@
   <div class="feed-nav">
     <img id="feed-logo" alt="Groupomania logo" src="../assets/icon.png">
     <div class="feed-sm-profile">
-      <div class="feed-userName" @click="$router.push({ name: 'ProfileView', params: { id: userId } })">{{getUser.username}}
+      <div class="feed-userName" @click="$router.push({ name: 'ProfileView', params: { id: userId } })">
+        {{ getUser.username }}
       </div>
       <!-- <div class="small-profile-pic">Pic</div> -->
     </div>
@@ -18,20 +19,20 @@ export default {
     }
   },
   async mounted() {
-  //api
+    //api
     //auth
     const user = JSON.parse(localStorage.getItem('token'));
     this.userId = user.userId;
     this.token = user.token;
 
-		//headers
+    //headers
     const headers = {
       'Authorization': `Bearer ${this.token}`,
       'Content-Type': 'application/json'
     }
-		//get username from the database
-		await axios.get(`api/auth/${this.userId}`, { headers })
-		.then((response) => {
+    //get username from the database
+    await axios.get(`api/auth/${this.userId}`, { headers })
+      .then((response) => {
         this.getUser = response.data;
         response.status;
         console.log(response.data);
@@ -39,7 +40,7 @@ export default {
       .catch((error) => {
         error.message;
       });
-    }
+  }
 }
 </script>
 <style>
@@ -64,6 +65,10 @@ export default {
   align-items: center;
   width: 150px;
   padding: 5px;
+}
+
+.feed-userName {
+  cursor: pointer;
 }
 
 .small-profile-pic {
