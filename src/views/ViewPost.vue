@@ -1,6 +1,6 @@
 <template>
   <PageNav />
-  <div v-if="read">Add userId to userRead array</div>
+  <!-- <div v-if="read">Add userId to userRead array</div> -->
   <div class="display-post">
     <img class="post-img" :src="post.imageUrl" />
     <div class="post-info">
@@ -10,7 +10,7 @@
       <div class="">{{ post.description }}</div>
     </div>
   </div>
-  <router-link to="/feed"><button>back</button></router-link>
+  <router-link to="/feed"><button class="back-btn">back</button></router-link>
 </template>
 <script>
 import axios from 'axios'
@@ -114,5 +114,16 @@ export default {
 .post-title {
   margin: 5px auto;
   padding: 10px;
+}
+
+.back-btn {
+  text-align: center;
+  width: 250px;
+  height: 50px;
+  margin: 10px auto;
+  border: 4px solid #fd2d01;
+  background-color: #fd2d01;
+  border-radius: 10px;
+  color: white;
 }
 </style>

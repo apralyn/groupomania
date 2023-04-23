@@ -3,7 +3,7 @@
   <router-link to="/addpost"><button class="add-btn">Add a post</button></router-link>
   <div class="posts-container">
     <div class="all-posts" v-for="post of posts" :key="post.id">
-      <router-link :to="/viewpost/ + post.id" >
+      <router-link :to="/viewpost/ + post.id">
         <div class="each-post">
           <div>{{ post.title }}</div>
           <div v-if="read">new</div>
@@ -47,7 +47,7 @@ export default {
       'Content-Type': 'application/json'
     }
     //api    
-    const response = await axios.get('/api/posts/feed', { headers })
+    await axios.get('/api/posts/feed', { headers })
       .then((response) => {
         const posts = response.data;
         this.posts = posts;
@@ -55,7 +55,7 @@ export default {
       .catch((error) => {
         error.message;
       });
-    console.log(response);
+
   },
 
 }

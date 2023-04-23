@@ -1,19 +1,24 @@
 <template>
 	<PageNav />
-	<div> {{ user.image }} </div>
-	<div> {{ user.username }}</div>
-	<div @submit.prevent="onSave" class="edit-profile">
-		<form v-show="edit">
-			<input type="text" name="username" v-model="user.username" placeholder="username">
-			<label for="image"><input type="file" @change="onFileChange"></label>
-			<button class="save-btn">Save</button>
-		</form>
-		<button class="add-info" @click="toggleEdit()">edit profile</button>
+	<div class="profile-image">
+		<img :src="getUser.image" alt="profile image">
 	</div>
+	<h2> {{ getUser.username }}</h2>
+	<!-- edit profile -->
+	<div class="edit-profile" @submit.prevent="onSave">
+		<form v-if="edit">
+			<input type="text" name="username" v-model="user.username" :placeholder="getUser.username">
+			<input type="file" @change="onFileSelected">
+			<p>{{ this.errorMessage }}</p>
+			<button>Save</button>
+		</form>
+		<button class="edit-btn" @click="this.edit = !this.edit;">Edit Profile</button>
+	</div>
+	<!-- delete || logout || back -->
 	<div class="profile-btns">
-		<button @click="onDeleteUser(userId)">Delete Profile</button>
-		<button @click="onLogout">Logout</button>
-		<button><router-link to="/feed">back</router-link></button>
+		<button class="edit-btn" @click=" onDeleteUser(userId) ">Delete Profile</button>
+		<button class="edit-btn" @click=" onLogout ">Logout</button>
+		<button class="edit-btn"><router-link to="/feed">Back</router-link></button>
 	</div>
 </template>
 
@@ -25,80 +30,71 @@ export default {
 	name: 'ProfileView',
 	data() {
 		return {
-			token: '',
-			userId: '',
 			user: {
 				username: '',
 				image: null
 			},
+			token: '',
+			userId: '',
 			userProfile: [],
+			edit: false,
 			error: '',
-			edit: 'true',
-			getUser: ''
+			getUser: '',
+			errorMessage: '',
+
 		}
 	},
 	components: {
 		PageNav
 	},
 	async created() {
-		//api
+		//get user from the database
 		//auth
 		const user = JSON.parse(localStorage.getItem('token'));
 		this.userId = user.userId;
 		this.token = user.token;
-
-		this.userInfo();
-
-
-
+		//headers
+		const headers = {
+			'Authorization': `Bearer ${this.token}`,
+			'Content-Type': 'application/json'
+		}
+		//api
+		await axios.get(`api/auth/${this.userId}`, { headers })
+			.then((response) => {
+				this.getUser = response.data;
+				response.status;
+			})
+			.catch((error) => {
+				error.message;
+			});
 	},
 	methods: {
-		// userInfo() {
-		// 	if (!this.user.username === '' || !this.user.image === null) {
-		// 		return this.error = 'Please add your username and profile picture';
-		// 	}
+		onFileSelected(event) {
+			this.user.image = event.target.files[0];
 		},
-		async toggleEdit() {
-			this.edit = !this.edit;
-			//api
-			//auth
-			const user = JSON.parse(localStorage.getItem('token'));
-			this.userId = user.userId;
-			this.token = user.token;
-			//headers
-			const headers = {
-				'Authorization': `Bearer ${this.token}`,
-				'Content-Type': 'application/json'
+		async onSave(userId) {
+			if (this.user.username === '' || this.user.image === null) {
+				return this.errorMessage = "Please try again.";
 			}
-			//get user from the database
-			await axios.get(`api/auth/${this.userId}`, { headers })
-				.then((response) => {
-					this.getUser = response.data;
-					response.status;
-					console.log(response.data);
-				})
-				.catch((error) => {
-					error.message;
-				});
-		},
-		onSave() {
-			if (!this.user.username === '' || !this.user.image === null) {
-				this.userProfile.push('this.user.username', 'this.user.image');
-			} else {
-				this.user.username = '',
-					this.user.image = null;
-				console.log('not working!');
+			//TODO use axios.put when the user change the username/image
+			const user = {
+				username: this.user.username,
 			}
-		},
-		async onDeleteUser(userId) {
-			if (confirm("Do you want to delete your profile?")) {
-				const response = await axios.delete('/api/auth/' + userId, {
+			await axios.put('/api/auth/' + userId, user, {
 					headers: {
 						'Authorization': `Bearer ${this.token.token}`,
 						'Content-Type': 'application/json'
 					}
-				})
-				console.log(response)
+				});
+			},
+		async onDeleteUser(userId) {
+			if (confirm("Do you want to delete your profile?")) {
+				await axios.delete('/api/auth/' + userId, {
+					headers: {
+						'Authorization': `Bearer ${this.token.token}`,
+						'Content-Type': 'application/json'
+					}
+				});
 				localStorage.removeItem('token');
 				this.$router.push('/');
 			}
@@ -109,6 +105,7 @@ export default {
 			console.log('You have been logged out!');
 		}
 	}
+}
 </script>
 
 <style scoped>
@@ -117,14 +114,32 @@ form {
 	flex-direction: column;
 	align-items: center;
 	width: 250px;
-	margin: auto;
-	border: 1px solid black;
+	margin: 5px auto;
 }
 
 .profile-btns {
 	display: flex;
 	flex-direction: column;
-	width: 150px;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+}
+
+.edit-btn {
+	text-align: center;
+	width: 250px;
+	height: 50px;
+	margin: 15px auto;
+	border: 4px solid #fd2d01;
+	background-color: #fd2d01;
+	border-radius: 10px;
+	color: white;
+}
+
+.profile-image {
+	border: 1px solid #fd2d01;
+	height: 250px;
+	width: 250px;
 	margin: auto;
 }
 </style>
