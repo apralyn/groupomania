@@ -66,12 +66,7 @@ export default {
     //put
     //TODO use put request to add userId to the usersRead array on post.
     const response = await axios.put(`/api/posts/viewpost/${this.$route.params.id}/read`, {
-      post: {
-        title: this.title,
-        description: this.description,
-        imageUrl: this.imageUrl,
-        usersRead: this.usersRead,
-      }
+      "userId": this.userId
     }, { headers })
       .then((response) => {
         response.data;

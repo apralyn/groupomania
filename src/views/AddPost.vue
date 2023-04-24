@@ -41,7 +41,11 @@ export default {
   components: {
     PageNav
   },
-
+  beforeCreate() {
+    if (!localStorage.getItem('token')) {
+      this.$router.push('/login');
+    }
+  },
   methods: {
     onFileChange() {
       this.image = this.$refs.file.files[0];
@@ -156,7 +160,8 @@ textarea {
   resize: none;
 }
 
-.add-btn, .back-btn {
+.add-btn,
+.back-btn {
   width: 250px;
   height: 50px;
   margin: 15px auto;

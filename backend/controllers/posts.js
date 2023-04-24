@@ -71,29 +71,28 @@ exports.addPost = (req, res) => {
 
 exports.readPost = (req, res) => {
   const postId = req.params.id;
-  Post.findOne({ where: { id: postId } })
-    .then((post) => {
-      //array
-      const usersReadArray = post.usersRead;
-      //userId must be add to usersReadArray
-      const user = req.body.userReadId;
-
-      usersReadArray.push(user);
-      Post.update({ usersRead: [] }, { where: { usersRead: [] } });
-      post.save();
-      console.log(post);
-
-      res.status(200).json({
-        message: "user successfully added.",
+  Post.findOne({ where: { id: postId } }).then((post) => {
+    const user = req.body.userId;
+    //FIXME add an if condition to check if user exist in array
+    //if read return a 304 error 'user already read the post'
+    //if else do line 82
+    post
+      .update({ usersRead: [...post.usersRead, user] })
+      .then((post) => {
+        post.save().then(() => {
+          console.log(post);
+          res.status(200).json({
+            message: "user successfully added.",
+          });
+        });
+      })
+      .catch((error) => {
+        res.status(500).json({
+          error: error.message || error,
+        });
       });
-    })
-    .catch((error) => {
-      res.status(500).json({
-        error: error.message || error,
-      });
-    });
+  });
 };
-
 // edit post (modifyPost) !important
 // exports.modifyPost = (req, res, next) => {
 //   let post = new Post({ id: req.params.id });
@@ -117,7 +116,7 @@ exports.readPost = (req, res) => {
 //   }
 // };
 // //delete post (deletePost) !important
-exports.deletePost = (req, res,) => {
+exports.deletePost = (req, res) => {
   Post.findOne({ where: { id: req.params.id } })
     .then((post) => {
       if (post !== null) {

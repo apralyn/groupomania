@@ -2,14 +2,13 @@
   <PageNav />
   <router-link to="/addpost"><button class="add-btn">Add a post</button></router-link>
   <div class="posts-container">
-    <div class="all-posts" v-for="post of posts" :key="post.id">
-      <div v-if="read">new</div>
+    <div class="all-posts" v-for="post of      posts     " :key="post.id">
+      <div v-if="isRead(post)">new</div>
       <router-link :to="/viewpost/ + post.id" @click="this.read = !this.read;">
         <div class="each-post">
           <div>{{ post.title }}</div>
         </div>
       </router-link>
-
     </div>
   </div>
 </template>
@@ -34,9 +33,13 @@ export default {
   methods: {
     viewPost() {
       console.log("clicked", this.id);
+    },
+    isRead(post) {
+      return !post.usersRead.includes(this.userId);
     }
   },
   async created() {
+    console.log('created');
     //api auth
     const user = JSON.parse(localStorage.getItem('token'));
     this.userId = user.userId;

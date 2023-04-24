@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       description: DataTypes.STRING,
       imageUrl: DataTypes.STRING,
       read: DataTypes.INTEGER,
-      usersRead: DataTypes.ARRAY(DataTypes.STRING),
+      usersRead: DataTypes.ARRAY(DataTypes.INTEGER),
       userId: DataTypes.INTEGER,
     },
     {
