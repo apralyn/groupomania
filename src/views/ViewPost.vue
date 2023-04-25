@@ -1,8 +1,11 @@
 <template>
   <PageNav />
-  <!-- <div v-if="read">Add userId to userRead array</div> -->
   <div class="display-post">
-    <img class="post-img" :src="post.imageUrl" />
+    <div class="media">
+      <img v-if="isImage" class="post-media" :src="post.imageUrl">
+      <video v-else-if="isVideo" class="post-media" controls :src="post.imageUrl"></video>
+      <audio v-else-if="isAudio" class="post-media" controls :src="post.imageUrl"></audio>
+    </div>
     <div class="post-info">
       <div class="post-title">
         <h2>{{ post.title }}</h2>
@@ -30,6 +33,9 @@ export default {
       read: 'true',
       token: '',
       userId: '',
+      isImage: false,
+      isVideo: false,
+      isAudio: false
     }
   },
   components: {
@@ -55,11 +61,28 @@ export default {
     const response = await axios.get(`/api/posts/viewpost/${this.$route.params.id}`, { headers });
     const post = response.data;
     this.post = post;
-    console.log(post.usersRead);
+    // console.log(post.usersRead);
+    // console.log(this.post.imageUrl.split(".").pop());
+    if (this.post.imageUrl === null) {
+      console.log('media is empty');
+    } else {
+      const media = this.post.imageUrl.split(".").pop();
+      if (media === 'mp3') {
+        console.log('this is audio');
+        this.isAudio = true;
+      } else if (media === 'mp4') {
+        console.log('this is video');
+        this.isVideo = true;
+      } else if (media === 'jpg') {
+        console.log('this is image');
+        this.isImage = true;
+      }
+    }
   },
   async mounted() {
+    //add to usersRead array
     this.usersRead = this.post.usersRead.push(this.userId);
-    //api
+    //update db through api
     //auth
     this.userId;
     this.token;
@@ -94,7 +117,7 @@ export default {
 
 }
 
-.post-img {
+.post-media {
   width: 400px;
   height: 300px;
   border: 1px solid black;
