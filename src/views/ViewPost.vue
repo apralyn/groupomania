@@ -46,7 +46,6 @@ export default {
     const user = JSON.parse(localStorage.getItem('token'));
     this.userId = user.userId;
     this.token = user.token;
-    console.log(this.token);
     //headers
     const headers = {
       'Authorization': `Bearer ${this.token}`,
@@ -56,6 +55,7 @@ export default {
     const response = await axios.get(`/api/posts/viewpost/${this.$route.params.id}`, { headers });
     const post = response.data;
     this.post = post;
+    console.log(post.usersRead);
   },
   async mounted() {
     this.usersRead = this.post.usersRead.push(this.userId);
@@ -69,19 +69,16 @@ export default {
       'Content-Type': 'application/json'
     }
     //put
-    //TODO use put request to add userId to the usersRead array on post.
-    const response = await axios.put(`/api/posts/viewpost/${this.$route.params.id}/read`, {
+    await axios.put(`/api/posts/viewpost/${this.$route.params.id}/read`, {
       "userId": this.userId
     }, { headers })
       .then((response) => {
         response.data;
         response.status;
-        console.log(response.data);
       })
       .catch((error) => {
         error.message;
       });
-    console.log(response);
   }
 }
 </script>

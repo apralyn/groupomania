@@ -14,7 +14,7 @@
             <textarea name="description" v-model="description" rows="3"></textarea>
           </div>
           <div class="form-title">
-            <label for="image"><input type="file" @change="onFileChange" ref="file"></label>
+            <label for="image"><input type="file" @change="onFileSelected" ref="file"></label>
           </div>
           <button class="add-btn" type="submit">Submit</button>
         </form>
@@ -42,16 +42,17 @@ export default {
     PageNav
   },
   beforeCreate() {
-    //secure frontend for when no user is logged in. 
-    //no one can access any of the routes without being logged-in.
     if (!localStorage.getItem('token')) {
       this.$router.push('/login');
     }
   },
   methods: {
-    onFileChange() {
-      this.image = this.$refs.file.files[0];
-    },
+    onFileSelected(event) {
+			this.image = event.target.files[0];
+		},
+    // onFileChange() {
+    //   this.image = this.$refs.file.files[0];
+    // },
     async submitForm() {
       //api auth
       const user = JSON.parse(localStorage.getItem('token'));
@@ -61,8 +62,6 @@ export default {
       if (this.image === null) {
         //add post
         const post = JSON.stringify({ title: this.title, description: this.description, userId: this.userId });
-
-        //api
         //auth
         this.userId;
         this.token;
@@ -72,7 +71,7 @@ export default {
           'Content-Type': 'application/json'
         }
         //post
-        const addPost = await axios.post('api/posts/addpost', post, { headers })
+        await axios.post('api/posts/addpost', post, { headers })
           .then((response) => {
             response.data;
             response.status;
@@ -80,15 +79,12 @@ export default {
           .catch((error) => {
             error.message;
           })
-        console.log("Added new post with no media", addPost);
       } else {
         // Append the form data to the FormData object
         const formData = new FormData();
         formData.append('image', this.image);
         const post = { title: this.title, description: this.description, userId: this.userId }
         formData.append('post', JSON.stringify(post));
-
-        //api
         //auth
         this.userId;
         this.token;
@@ -98,7 +94,7 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
         //post 
-        const addPost = await axios.post('api/posts/addpost', formData, { headers })
+        await axios.post('api/posts/addpost', formData, { headers })
           .then(response => {
             response.data.files;
             response.status;
@@ -106,7 +102,6 @@ export default {
           .catch(error => {
             error.message;
           });
-        console.log("Post successfully added", addPost);
       }
       //redirect to feed after creating a post
       this.$router.push('/feed');

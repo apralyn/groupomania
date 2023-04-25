@@ -1,6 +1,6 @@
 const { Post } = require("../models");
 
-//all posts (getAll)
+//onFeedView
 exports.getAllPosts = (req, res) => {
   Post.findAll()
     .then((post) => {
@@ -13,7 +13,7 @@ exports.getAllPosts = (req, res) => {
     });
 };
 
-//view one post (viewPost)
+//onViewPost
 exports.viewPost = (req, res) => {
   const postId = req.params.id;
   Post.findOne({ where: { id: postId } })
@@ -30,7 +30,7 @@ exports.viewPost = (req, res) => {
     });
 };
 
-//create new post (addPost)
+//onAddPost
 exports.addPost = (req, res) => {
   let post, title, description, userId;
   let imageUrl = null;
@@ -69,37 +69,36 @@ exports.addPost = (req, res) => {
     });
 };
 
+//onViewPost
 exports.readPost = (req, res) => {
   const postId = req.params.id;
   Post.findOne({ where: { id: postId } }).then((post) => {
     const user = req.body.userId;
-    //FIXME add an if condition to check if user exist in array
-    //if read return a 304 error 'user already read the post'
-    //if else do line 82
+    //FIXME if read return a 304 error 'user already read the post'
     if (post.usersRead.includes(user)) {
-      console.log("80");
-      //need to check the array for userId
+      return res.status(304).json({
+        message: "user already read the post.",
+      });
     } else {
-      console.log("83");
-    }
-
-    post
-      .update({ usersRead: [...post.usersRead, user] })
-      .then((post) => {
-        post.save().then(() => {
-          // console.log("84", post);
-          res.status(200).json({
-            message: "user successfully added.",
+      console.log("userId not in array");
+      post
+        .update({ usersRead: [...post.usersRead, user] })
+        .then((post) => {
+          post.save().then(() => {
+            res.status(200).json({
+              message: "user successfully added.",
+            });
+          });
+        })
+        .catch((error) => {
+          res.status(500).json({
+            error: error.message || error,
           });
         });
-      })
-      .catch((error) => {
-        res.status(500).json({
-          error: error.message || error,
-        });
-      });
+    }
   });
 };
+
 // edit post (modifyPost) !important
 // exports.modifyPost = (req, res, next) => {
 //   let post = new Post({ id: req.params.id });
@@ -122,25 +121,25 @@ exports.readPost = (req, res) => {
 //     console.log(post);
 //   }
 // };
-// //delete post (deletePost) !important
-exports.deletePost = (req, res) => {
-  Post.findOne({ where: { id: req.params.id } })
-    .then((post) => {
-      if (post !== null) {
-        post.destroy().then(() => {
-          res.status(200).json({
-            message: "Post successfully deleted.",
-          });
-        });
-      } else {
-        res.status(400).json({
-          message: "Post not found.",
-        });
-      }
-    })
-    .catch((error) => {
-      res.status(400).json({
-        erorr: error.message,
-      });
-    });
-};
+//delete post (deletePost) !important
+// exports.deletePost = (req, res) => {
+//   Post.findOne({ where: { id: req.params.id } })
+//     .then((post) => {
+//       if (post !== null) {
+//         post.destroy().then(() => {
+//           res.status(200).json({
+//             message: "Post successfully deleted.",
+//           });
+//         });
+//       } else {
+//         res.status(400).json({
+//           message: "Post not found.",
+//         });
+//       }
+//     })
+//     .catch((error) => {
+//       res.status(400).json({
+//         erorr: error.message,
+//       });
+//     });
+// };

@@ -3,7 +3,7 @@ const { User } = require("../models");
 const jwt = require("jsonwebtoken");
 
 
-//post
+//SignupView
 exports.signup = (req, res) => {
   bcrypt.hash(req.body.password, 10).then((hash) => {
     const user = new User({
@@ -26,7 +26,7 @@ exports.signup = (req, res) => {
   });
 };
 
-//post
+//LoginView
 exports.login = (req, res) => {
   User.findOne({ where: { email: req.body.email } })
     .then((user) => {
@@ -64,7 +64,7 @@ exports.login = (req, res) => {
     });
 };
 
-//get || view the user Profile
+//get || ProfileView
 exports.getUser = (req, res) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => {
@@ -103,33 +103,33 @@ exports.deleteUser = (req, res) => {
 
 
 //edit user profile !important
-exports.modifyUser = (req, res, next) => {
-  let user = new User({ id: req.params.id });
-  if (req.file) {
-    const imageUrl = req.protocol + "://" + req.get("host");
-    user = {
-      name: req.body.name,
-      imageUrl: imageUrl + "/images/" + req.file.filename,
-      userId: req.body.userId,
-    };
-  } else {
-    user = {
-      name: req.body.name,
-      imageUrl: req.body.imageUrl,
-      userId: req.body.userId,
-    };
-  }
-};
+// exports.modifyUser = (req, res, next) => {
+//   let user = new User({ id: req.params.id });
+//   if (req.file) {
+//     const imageUrl = req.protocol + "://" + req.get("host");
+//     user = {
+//       name: req.body.name,
+//       imageUrl: imageUrl + "/images/" + req.file.filename,
+//       userId: req.body.userId,
+//     };
+//   } else {
+//     user = {
+//       name: req.body.name,
+//       imageUrl: req.body.imageUrl,
+//       userId: req.body.userId,
+//     };
+//   }
+// };
 
 //get all users !important
-exports.getUsers = (req, res) => {
-  User.findAll()
-    .then((user) => {
-      res.status(200).json(user);
-    })
-    .catch((error) => {
-      res.status(500).json({
-        error: error.message,
-      });
-    });
-};
+// exports.getUsers = (req, res) => {
+//   User.findAll()
+//     .then((user) => {
+//       res.status(200).json(user);
+//     })
+//     .catch((error) => {
+//       res.status(500).json({
+//         error: error.message,
+//       });
+//     });
+// };

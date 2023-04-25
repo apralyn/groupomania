@@ -3,7 +3,7 @@
     <img id="feed-logo" alt="Groupomania logo" src="../assets/icon.png">
     <div class="feed-sm-profile">
       <div class="feed-userName" @click="$router.push({ name: 'ProfileView', params: { id: userId } })">
-        {{ getUser.username }}
+        <strong>{{ getUser.username }}</strong>
       </div>
     </div>
   </div>
