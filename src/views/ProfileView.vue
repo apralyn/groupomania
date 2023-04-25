@@ -8,7 +8,7 @@
 	<div class="edit-profile" @submit.prevent="onSave">
 		<form v-if="edit">
 			<input type="text" name="username" v-model="user.username" :placeholder="getUser.username">
-			<input type="file" @change="onFileSelected">
+			<input type="text" name="initials" v-model="user.initials" :placeholder="getUser.initials">
 			<p>{{ this.errorMessage }}</p>
 			<button>Save</button>
 		</form>
@@ -32,7 +32,7 @@ export default {
 		return {
 			user: {
 				username: '',
-				image: null
+				initials: '',
 			},
 			token: '',
 			userId: '',
