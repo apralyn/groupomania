@@ -18,7 +18,7 @@
 	<div class="profile-btns">
 		<button class="edit-btn" @click=" onDeleteUser(userId) ">Delete Profile</button>
 		<button class="edit-btn" @click=" onLogout ">Logout</button>
-		<button class="edit-btn"><router-link to="/feed">Back</router-link></button>
+		<button class="back-btn" @click="$router.push('/feed')">Back</button>
 	</div>
 </template>
 
@@ -141,6 +141,15 @@ form {
 	background-color: #fd2d01;
 	border-radius: 10px;
 	color: white;
+}
+.back-btn {
+  width: 250px;
+  height: 50px;
+  margin: 15px auto;
+  border: 4px solid #fd2d01;
+  background-color: #fd2d01;
+  border-radius: 10px;
+  color: white;
 }
 
 .profile-image {

@@ -34,6 +34,7 @@ export default {
       .then((response) => {
         this.getUser = response.data;
         response.status;
+        console.log(this.getUser);
       })
       .catch((error) => {
         error.message;
@@ -67,16 +68,5 @@ export default {
 
 .feed-userName {
   cursor: pointer;
-}
-
-.small-profile-pic {
-  border: 1px solid red;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  /* center the text */
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 </style>

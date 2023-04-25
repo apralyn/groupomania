@@ -1,10 +1,11 @@
 <template>
   <PageNav />
+  <div class="media-query"></div>
   <div class="display-post">
     <div class="media">
-      <img v-if="isImage" class="post-media" :src="post.imageUrl">
-      <video v-else-if="isVideo" class="post-media" controls :src="post.imageUrl"></video>
-      <audio v-else-if="isAudio" class="post-media" controls :src="post.imageUrl"></audio>
+      <img v-if="isImage" class="post-media" :src="post.imageUrl" :alt="post.imageUrl">
+      <video v-else-if="isVideo" class="post-media" controls :src="post.imageUrl" type="video/mp4"></video>
+      <audio v-else-if="isAudio" class="post-media" controls :src="post.imageUrl" type="audio/mp3"></audio>
     </div>
     <div class="post-info">
       <div class="post-title">
@@ -13,7 +14,7 @@
       <div class="">{{ post.description }}</div>
     </div>
   </div>
-  <router-link to="/feed"><button class="back-btn">back</button></router-link>
+  <button class="back-btn" @click="$router.push('/feed')">Back</button>
 </template>
 <script>
 import axios from 'axios'
@@ -145,5 +146,17 @@ export default {
   background-color: #fd2d01;
   border-radius: 10px;
   color: white;
+}
+/* for desktop */
+@media screen and (min-width: 900px) {
+  .media-query {
+    border: 4px solid #fd2d01;
+  }
+}
+/* for mobile the max viewing is 480px */
+@media screen and (max-width: 480px) {
+  .media-query {
+    border: 4px solid black;
+  }
 }
 </style>
