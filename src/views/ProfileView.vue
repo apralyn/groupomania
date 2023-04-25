@@ -1,7 +1,7 @@
 <template>
 	<PageNav />
-	<div class="profile-image">
-		<img :src="getUser.image" alt="profile image">
+	<div class="profile-initials">
+		<p class="initials">{{ getUser.initials }}</p>
 	</div>
 	<h2> {{ getUser.username }}</h2>
 	<!-- edit profile -->
@@ -18,7 +18,7 @@
 	<div class="profile-btns">
 		<button class="edit-btn" @click=" onDeleteUser(userId) ">Delete Profile</button>
 		<button class="edit-btn" @click=" onLogout ">Logout</button>
-		<button class="back-btn" @click="$router.push('/feed')">Back</button>
+		<button class="back-btn" @click=" $router.push('/feed') ">Back</button>
 	</div>
 </template>
 
@@ -48,12 +48,12 @@ export default {
 		PageNav
 	},
 	beforeCreate() {
-    //secure frontend for when no user is logged in. 
-    //no one can access any of the routes without being logged-in.
-    if (!localStorage.getItem('token')) {
-      this.$router.push('/login');
-    }
-  },
+		//secure frontend for when no user is logged in. 
+		//no one can access any of the routes without being logged-in.
+		if (!localStorage.getItem('token')) {
+			this.$router.push('/login');
+		}
+	},
 	async created() {
 		//get user from the database
 		//auth
@@ -88,12 +88,12 @@ export default {
 				username: this.user.username,
 			}
 			await axios.put('/api/auth/' + userId, user, {
-					headers: {
-						'Authorization': `Bearer ${this.token.token}`,
-						'Content-Type': 'application/json'
-					}
-				});
-			},
+				headers: {
+					'Authorization': `Bearer ${this.token.token}`,
+					'Content-Type': 'application/json'
+				}
+			});
+		},
 		async onDeleteUser(userId) {
 			if (confirm("Do you want to delete your profile?")) {
 				await axios.delete('/api/auth/' + userId, {
@@ -142,20 +142,33 @@ form {
 	border-radius: 10px;
 	color: white;
 }
+
 .back-btn {
-  width: 250px;
-  height: 50px;
-  margin: 15px auto;
-  border: 4px solid #fd2d01;
-  background-color: #fd2d01;
-  border-radius: 10px;
-  color: white;
+	width: 250px;
+	height: 50px;
+	margin: 15px auto;
+	border: 4px solid #fd2d01;
+	background-color: #fd2d01;
+	border-radius: 10px;
+	color: white;
 }
 
-.profile-image {
-	border: 1px solid #fd2d01;
+.profile-initials {
+	background-color: #ffd7d7;
+	border-radius: 50%;
 	height: 250px;
 	width: 250px;
 	margin: auto;
+	position: relative;
+}
+
+.initials {
+	font-size: 125px;
+	font-style: oblique;
+	color: white;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 20%;
 }
 </style>

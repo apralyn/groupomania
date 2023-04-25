@@ -6,6 +6,7 @@
       <h1>Sign Up</h1>
       <form @submit.prevent="handleSubmit">
         <input class="input-field" type="username" name="username" v-model="username" placeholder="username">
+        <input class="input-field" type="initials" name="initials" v-model="initials" placeholder="initials">
         <input class="input-field" type="email" name="email" v-model="email" placeholder="email" />
         <input class="input-field" type="password" name="password" v-model="password" placeholder="password" />
         <div v-if="errorMessage" class="error"> {{ errorMessage }} </div>
@@ -24,6 +25,7 @@ export default {
   data() {
     return {
       username:'',
+      initials:'',
       email: '',
       password: '',
       errorMessage: ''
@@ -31,12 +33,13 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      if (this.username === '' || this.email === '' || this.password === '') {
+      if (this.username === '' || this.username === '' || this.email === '' || this.password === '') {
         return this.errorMessage = 'Please try again.'
       }
       try {
         const response = await axios.post('/api/auth/signup', {
           username: this.username,
+          initials: this.initials,
           email: this.email,
           password: this.password,
         });
