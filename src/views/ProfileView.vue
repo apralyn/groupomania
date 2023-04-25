@@ -1,5 +1,6 @@
 <template>
 	<PageNav />
+	<div class="media-query"></div>
 	<div class="profile-initials">
 		<p class="initials">{{ getUser.initials }}</p>
 	</div>
@@ -158,7 +159,7 @@ form {
 	border-radius: 50%;
 	height: 250px;
 	width: 250px;
-	margin: auto;
+	margin: 50px auto;
 	position: relative;
 }
 
@@ -170,5 +171,17 @@ form {
 	height: 100%;
 	position: absolute;
 	top: 20%;
+}
+/* for desktop */
+@media screen and (min-width: 900px) {
+  .media-query {
+    border: 4px solid #fd2d01;
+  }
+}
+/* for mobile the max viewing is 480px */
+@media screen and (max-width: 480px) {
+  .media-query {
+    border: 4px solid black;
+  }
 }
 </style>

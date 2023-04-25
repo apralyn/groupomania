@@ -1,27 +1,26 @@
 <template>
-  <div class="add-post-container">
     <PageNav />
+    <div class="media-query"></div>
     <div class="add-post-view">
       <h3>Add a post</h3>
       <div class="add-post-form">
         <form @submit.prevent="submitForm">
           <div class="form-title">
-            <label for="title">Title </label>
+            <label for="title">Title</label>
             <input type="text" name="title" v-model="title" size="30" style="height: 25px;">
           </div>
           <div class="form-title">
-            <label for="description">Description </label>
+            <label for="description">Description</label>
             <textarea name="description" v-model="description" rows="3"></textarea>
           </div>
           <div class="form-title">
             <label for="image"><input type="file" @change="onFileSelected" ref="file"></label>
           </div>
-          <button class="add-btn" type="submit">Submit</button>
+          <button class="submit-btn" type="submit">Submit</button>
         </form>
       </div>
       <button class="back-btn" @click="$router.push('/feed')">Back</button>
     </div>
-  </div>
 </template>
 <script>
 import axios from 'axios'
@@ -48,8 +47,8 @@ export default {
   },
   methods: {
     onFileSelected(event) {
-			this.image = event.target.files[0];
-		},
+      this.image = event.target.files[0];
+    },
     // onFileChange() {
     //   this.image = this.$refs.file.files[0];
     // },
@@ -111,12 +110,6 @@ export default {
 </script>
 
 <style scoped>
-.add-post-container {
-  top: 0;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-}
 
 .add-post-view {
   display: flex;
@@ -125,7 +118,6 @@ export default {
   width: 450px;
   height: 560px;
   margin: 80px auto;
-  border-radius: 10px;
 }
 
 h3 {
@@ -137,7 +129,6 @@ h3 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: start;
 }
 
 .form-title {
@@ -151,13 +142,10 @@ textarea {
   border-radius: 6px;
   padding: 15px;
   border: 1px solid #fd2d01;
-}
-
-textarea {
   resize: none;
 }
 
-.add-btn,
+.submit-btn,
 .back-btn {
   width: 250px;
   height: 50px;
@@ -166,5 +154,19 @@ textarea {
   background-color: #fd2d01;
   border-radius: 10px;
   color: white;
+}
+
+/* for desktop */
+@media screen and (min-width: 900px) {
+  .media-query {
+    border: 4px solid #fd2d01;
+  }
+}
+
+/* for mobile the max viewing is 480px */
+@media screen and (max-width: 480px) {
+  .media-query {
+    border: 4px solid black;
+  }
 }
 </style>
