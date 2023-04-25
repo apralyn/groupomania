@@ -30,16 +30,19 @@ export default {
   components: {
     PageNav
   },
+  beforeCreate() {
+    //secure frontend for when no user is logged in. 
+    //no one can access any of the routes without being logged-in.
+    if (!localStorage.getItem('token')) {
+      this.$router.push('/login');
+    }
+  },
   methods: {
-    viewPost() {
-      console.log("clicked", this.id);
-    },
     isRead(post) {
       return !post.usersRead.includes(this.userId);
     }
   },
   async created() {
-    console.log('created');
     //api auth
     const user = JSON.parse(localStorage.getItem('token'));
     this.userId = user.userId;

@@ -47,6 +47,13 @@ export default {
 	components: {
 		PageNav
 	},
+	beforeCreate() {
+    //secure frontend for when no user is logged in. 
+    //no one can access any of the routes without being logged-in.
+    if (!localStorage.getItem('token')) {
+      this.$router.push('/login');
+    }
+  },
 	async created() {
 		//get user from the database
 		//auth

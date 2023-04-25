@@ -101,18 +101,6 @@ exports.deleteUser = (req, res) => {
     });
 };
 
-//get all users !important
-exports.getUsers = (req, res) => {
-  User.findAll()
-    .then((user) => {
-      res.status(200).json(user);
-    })
-    .catch((error) => {
-      res.status(500).json({
-        error: error.message,
-      });
-    });
-};
 
 //edit user profile !important
 exports.modifyUser = (req, res, next) => {
@@ -131,4 +119,17 @@ exports.modifyUser = (req, res, next) => {
       userId: req.body.userId,
     };
   }
+};
+
+//get all users !important
+exports.getUsers = (req, res) => {
+  User.findAll()
+    .then((user) => {
+      res.status(200).json(user);
+    })
+    .catch((error) => {
+      res.status(500).json({
+        error: error.message,
+      });
+    });
 };

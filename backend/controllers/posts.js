@@ -76,11 +76,18 @@ exports.readPost = (req, res) => {
     //FIXME add an if condition to check if user exist in array
     //if read return a 304 error 'user already read the post'
     //if else do line 82
+    if (post.usersRead.includes(user)) {
+      console.log("80");
+      //need to check the array for userId
+    } else {
+      console.log("83");
+    }
+
     post
       .update({ usersRead: [...post.usersRead, user] })
       .then((post) => {
         post.save().then(() => {
-          console.log(post);
+          // console.log("84", post);
           res.status(200).json({
             message: "user successfully added.",
           });

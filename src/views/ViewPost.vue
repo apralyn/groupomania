@@ -35,6 +35,11 @@ export default {
   components: {
     PageNav
   },
+  beforeCreate() {
+    if (!localStorage.getItem('token')) {
+      this.$router.push('/login');
+    }
+  },
   async created() {
     //api
     //auth
