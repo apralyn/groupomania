@@ -9,7 +9,4 @@ router.get("/feed", auth, postsCtrl.getAllPosts);
 router.get("/viewpost/:id", auth, postsCtrl.viewPost);
 router.put("/viewpost/:id/read", auth, postsCtrl.readPost);
 
-// router.put("/mod/:id", multer, postsCtrl.modifyPost);
-// router.delete("/delete/:id", postsCtrl.deletePost);
-
 module.exports = router;

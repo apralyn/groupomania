@@ -45,7 +45,7 @@ exports.login = (req, res) => {
             });
           }
           const token = jwt.sign({ userId: user.id }, "RANDOM_TOKEN_SECRET", {
-            expiresIn: "24h",
+            expiresIn: "1h",
           });
           res.status(200).json({
             userId: user.id,
@@ -100,36 +100,3 @@ exports.deleteUser = (req, res) => {
       });
     });
 };
-
-
-//edit user profile !important
-// exports.modifyUser = (req, res, next) => {
-//   let user = new User({ id: req.params.id });
-//   if (req.file) {
-//     const imageUrl = req.protocol + "://" + req.get("host");
-//     user = {
-//       name: req.body.name,
-//       imageUrl: imageUrl + "/images/" + req.file.filename,
-//       userId: req.body.userId,
-//     };
-//   } else {
-//     user = {
-//       name: req.body.name,
-//       imageUrl: req.body.imageUrl,
-//       userId: req.body.userId,
-//     };
-//   }
-// };
-
-//get all users !important
-// exports.getUsers = (req, res) => {
-//   User.findAll()
-//     .then((user) => {
-//       res.status(200).json(user);
-//     })
-//     .catch((error) => {
-//       res.status(500).json({
-//         error: error.message,
-//       });
-//     });
-// };
