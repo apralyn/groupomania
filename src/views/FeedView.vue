@@ -3,12 +3,18 @@
   <div class="media-query"></div>
   <div class="desktop-view">
     <div class="profile-card">
-      <div class="circle-initials"></div>
-      <div class="profile-username">username</div>
+      <div class="circle-initials" @click="$router.push({ name: 'ProfileView', params: { id: userId } })">
+        <p class="initials">{{ user.initials }}</p>
+      </div>
+      <div class="profile-username">
+        <h3>{{ user.username }}</h3>
+      </div>
+      <router-link to="/addpost"><button class="desktop-add-btn">Add a post</button></router-link>
     </div>
+
     <router-link to="/addpost"><button class="add-btn">Add a post</button></router-link>
     <div class="posts-container">
-      <div class="all-posts" v-for="post of          posts         " :key="post.id">
+      <div class="all-posts" v-for="post of     posts    " :key="post.id">
         <div v-if="isRead(post)">new</div>
         <router-link :to="/viewpost/ + post.id" @click="this.read = !this.read;">
           <div class="each-post">
@@ -29,6 +35,7 @@ export default {
     return {
       id: null,
       token: '',
+      user: {},
       userId: '',
       posts: [],
       read: true,
@@ -67,7 +74,29 @@ export default {
         error.message;
       });
   },
+  async mounted() {
+    //api
+    //auth
+    const user = JSON.parse(localStorage.getItem('token'));
+    this.userId = user.userId;
+    this.token = user.token;
 
+    //headers
+    const headers = {
+      'Authorization': `Bearer ${this.token}`,
+      'Content-Type': 'application/json'
+    }
+    //get username from the database
+    await axios.get(`api/auth/${this.userId}`, { headers })
+      .then((response) => {
+        this.user = response.data;
+        response.status;
+        console.log(this.getUser);
+      })
+      .catch((error) => {
+        error.message;
+      });
+  }
 }
 </script>
 <style scoped>
@@ -76,6 +105,10 @@ export default {
   .media-query {
     border: 1px solid #ffd7d7;
     margin-bottom: 50px;
+  }
+
+  .profile-card {
+    display: none;
   }
 
   .add-btn {
@@ -131,10 +164,20 @@ export default {
     display: none;
   }
 
+  .desktop-add-btn {
+    width: 125px;
+    height: 50px;
+    margin: 50px auto 10px auto;
+    border: 4px solid #fd2d01;
+    background-color: #fd2d01;
+    border-radius: 10px;
+    color: white;
+  }
+
   .profile-card {
     border: 1px solid #ffd7d7;
     border-radius: 10px;
-    width: 200px;
+    width: 169px;
     height: 300px;
     margin-left: 50px;
     display: flex;
@@ -142,26 +185,42 @@ export default {
     padding-top: 20px;
     align-items: center;
   }
+
+  .profile-username {
+    margin: 10px auto;
+  }
+
   .circle-initials {
-    border: 1px solid #ffd7d7;
+    background-color: #ffd7d7;
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .initials {
+    font-size: 70px;
+    font-style: oblique;
+    color: white;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 5%;
   }
 
   .posts-container {
-    width: 500px;
+    width: 60vw;
     height: 50vh;
     margin: 0 50px;
   }
 
   .all-posts {
-    width: 450px;
+    width: 60vw;
     border: 1px solid #ffd7d7;
     border-radius: 10px;
     padding: 15px 0;
-    margin: 5px auto;
-
+    margin-top: 0;
+    margin-bottom: 5px;
   }
-}
-</style>
+}</style>

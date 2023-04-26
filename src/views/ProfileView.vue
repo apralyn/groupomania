@@ -5,16 +5,6 @@
 		<p class="initials">{{ getUser.initials }}</p>
 	</div>
 	<h2> {{ getUser.username }}</h2>
-	<!-- edit profile -->
-	<div class="edit-profile" @submit.prevent="onSave">
-		<form v-if="edit">
-			<input type="text" name="username" v-model="user.username" :placeholder="getUser.username">
-			<input type="text" name="initials" v-model="user.initials" :placeholder="getUser.initials">
-			<p>{{ this.errorMessage }}</p>
-			<button>Save</button>
-		</form>
-		<button class="edit-btn" @click="this.edit = !this.edit;">Edit Profile</button>
-	</div>
 	<!-- delete || logout || back -->
 	<div class="profile-btns">
 		<button class="edit-btn" @click=" onDeleteUser(userId) ">Delete Profile</button>
@@ -77,24 +67,6 @@ export default {
 			});
 	},
 	methods: {
-		onFileSelected(event) {
-			this.user.image = event.target.files[0];
-		},
-		async onSave(userId) {
-			if (this.user.username === '' || this.user.image === null) {
-				return this.errorMessage = "Please try again.";
-			}
-			//TODO use axios.put when the user change the username/image
-			const user = {
-				username: this.user.username,
-			}
-			await axios.put('/api/auth/' + userId, user, {
-				headers: {
-					'Authorization': `Bearer ${this.token.token}`,
-					'Content-Type': 'application/json'
-				}
-			});
-		},
 		async onDeleteUser(userId) {
 			if (confirm("Do you want to delete your profile?")) {
 				await axios.delete('/api/auth/' + userId, {
@@ -172,16 +144,18 @@ form {
 	position: absolute;
 	top: 20%;
 }
+
 /* for desktop */
 @media screen and (min-width: 900px) {
-  .media-query {
-    border: 4px solid #fd2d01;
-  }
+	.media-query {
+		border: 4px solid #fd2d01;
+	}
 }
+
 /* for mobile the max viewing is 480px */
 @media screen and (max-width: 480px) {
-  .media-query {
-    border: 4px solid black;
-  }
+	.media-query {
+		border: 4px solid black;
+	}
 }
 </style>
