@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   Post.init(
     {
       title: DataTypes.STRING,
-      description: DataTypes.STRING,
+      description: DataTypes.STRING(512),
       imageUrl: DataTypes.STRING,
       read: DataTypes.INTEGER,
       usersRead: DataTypes.ARRAY(DataTypes.INTEGER),

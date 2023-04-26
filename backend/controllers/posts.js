@@ -2,7 +2,7 @@ const { Post } = require("../models");
 
 //onFeedView
 exports.getAllPosts = (req, res) => {
-  Post.findAll()
+  Post.findAll({ order: [["createdAt", "DESC"]] })
     .then((post) => {
       res.status(200).json(post);
     })

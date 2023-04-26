@@ -6,10 +6,10 @@
 	</div>
 	<h2> {{ getUser.username }}</h2>
 	<div class="profile-btns">
-		<button class="edit-btn" @click=" onDeleteUser(userId) ">Delete Profile</button>
-		<button class="edit-btn" @click=" onLogout ">Logout</button>
+		<button class="edit-btn" @click="onDeleteUser(userId)">Delete Profile</button>
+		<button class="edit-btn" @click="onLogout">Logout</button>
 	</div>
-	<button class="back-btn" @click=" $router.push('/feed') ">Back</button>
+	<button class="back-btn" @click="$router.push('/feed')">Back</button>
 </template>
 
 <script>
@@ -38,6 +38,7 @@ export default {
 		const user = JSON.parse(localStorage.getItem('token'));
 		this.userId = user.userId;
 		this.token = user.token;
+
 		//headers
 		const headers = {
 			'Authorization': `Bearer ${this.token}`,
@@ -58,7 +59,7 @@ export default {
 			if (confirm("Do you want to delete your profile?")) {
 				await axios.delete('/api/auth/' + userId, {
 					headers: {
-						'Authorization': `Bearer ${this.token.token}`,
+						'Authorization': `Bearer ${this.token}`,
 						'Content-Type': 'application/json'
 					}
 				});
@@ -135,23 +136,24 @@ form {
 /* desktop */
 @media screen and (min-width: 769px) {
 	.media-query {
-    border: 1px solid #ffd7d7;
-    margin-bottom: 50px;
-  }
+		border: 1px solid #ffd7d7;
+		margin-bottom: 50px;
+	}
+
 	.profile-btns {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	margin: 50px auto;
-}
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		margin: 50px auto;
+	}
 }
 
 /* mobile */
 @media screen and (max-width: 768px) {
-  .media-query {
-    border: 1px solid #ffd7d7;
-    margin-bottom: 50px;
-  }
+	.media-query {
+		border: 1px solid #ffd7d7;
+		margin-bottom: 50px;
+	}
 }
 </style>

@@ -1,5 +1,9 @@
 # groupomania
 
+## Project configuration
+* create "groupomania" database in postgresql
+* create .env file with properties: DB_NAME=groupomania,  DB_USERNAME=..., DB_PASSWORD=...
+
 ## Project setup
 ```
 npm install
