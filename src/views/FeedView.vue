@@ -14,11 +14,11 @@
 
     <router-link to="/addpost"><button class="add-btn">Add a post</button></router-link>
     <div class="posts-container">
-      <div class="all-posts" v-for="post of     posts    " :key="post.id">
+      <div class="all-posts" v-for="post of      posts     " :key="post.id">
         <div v-if="isRead(post)">new</div>
-        <router-link :to="/viewpost/ + post.id" @click="this.read = !this.read;">
+        <router-link style="text-decoration: none; color: inherit;" :to="/viewpost/ + post.id" @click="this.read = !this.read;">
           <div class="each-post">
-            <div>{{ post.title }}</div>
+            <p><strong>{{ post.title }}</strong></p>
           </div>
         </router-link>
       </div>
@@ -134,7 +134,6 @@ export default {
     flex-direction: column;
     justify-content: space-evenly;
   }
-
   .add-btn {
     width: 250px;
     height: 50px;
