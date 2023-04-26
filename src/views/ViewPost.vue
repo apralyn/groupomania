@@ -134,7 +134,6 @@ export default {
 
 .post-title {
   margin: 5px auto;
-  padding: 10px;
 }
 
 .back-btn {
