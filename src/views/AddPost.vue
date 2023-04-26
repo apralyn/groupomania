@@ -49,9 +49,6 @@ export default {
     onFileSelected(event) {
       this.image = event.target.files[0];
     },
-    // onFileChange() {
-    //   this.image = this.$refs.file.files[0];
-    // },
     async submitForm() {
       //api auth
       const user = JSON.parse(localStorage.getItem('token'));
@@ -156,7 +153,7 @@ textarea {
   color: white;
 }
 
-/* for desktop */
+/* desktop */
 @media screen and (min-width: 769px) {
 	.media-query {
     border: 1px solid #ffd7d7;
@@ -164,7 +161,7 @@ textarea {
   }
 }
 
-/* for mobile the max viewing is 480px */
+/* mobile */
 @media screen and (max-width: 768px) {
   .media-query {
     border: 1px solid #ffd7d7;

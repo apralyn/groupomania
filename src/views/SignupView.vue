@@ -1,5 +1,4 @@
 <template>
-  <div class="full-overlay" v-if="false"></div>
   <div class="full-screen">
     <div class="signup">
       <img @click="$router.push('/')" class="logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
@@ -53,7 +52,7 @@ export default {
             email: this.email,
             password: this.password,
           });
-          //reroute user to login page
+          //reroute user to login
           this.$router.push('/login');
         } catch (error) {
           this.errorMessage = error.message;
@@ -64,21 +63,6 @@ export default {
 }
 </script>
 <style scoped>
-.full-overlay {
-  /* top: 0;
-  position: fixed; */
-  z-index: 1000;
-  background-color: #FF000077;
-  position: fixed;
-  top: 0;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  /* border: 10px solid black; */
-  width: 100vw;
-  height: 100vh;
-}
-
 .signup {
   width: 450px;
   height: 560px;

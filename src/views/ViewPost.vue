@@ -68,13 +68,13 @@ export default {
       console.log('media is empty');
     } else {
       const media = this.post.imageUrl.split(".").pop();
-      if (media === 'mp3') {
+      if (media === 'mp3' || media === 'ogg') {
         console.log('this is audio');
         this.isAudio = true;
-      } else if (media === 'mp4') {
+      } else if (media === 'mp4' || media === 'mov') {
         console.log('this is video');
         this.isVideo = true;
-      } else if (media === 'jpg') {
+      } else if (media === 'jpg' || media === 'gif') {
         console.log('this is image');
         this.isImage = true;
       }
@@ -83,7 +83,6 @@ export default {
   async mounted() {
     //add to usersRead array
     this.usersRead = this.post.usersRead.push(this.userId);
-    //update db through api
     //auth
     this.userId;
     this.token;
@@ -146,15 +145,16 @@ export default {
   border-radius: 10px;
   color: white;
 }
-/* for desktop */
+
+/* desktop */
 @media screen and (min-width: 769px) {
-	.media-query {
+  .media-query {
     border: 1px solid #ffd7d7;
     margin-bottom: 50px;
   }
 }
 
-/* for mobile the max viewing is 480px */
+/* mobile */
 @media screen and (max-width: 768px) {
   .media-query {
     border: 1px solid #ffd7d7;

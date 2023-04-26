@@ -75,8 +75,7 @@ export default {
       });
   },
   async mounted() {
-    //api
-    //auth
+    //api auth
     const user = JSON.parse(localStorage.getItem('token'));
     this.userId = user.userId;
     this.token = user.token;

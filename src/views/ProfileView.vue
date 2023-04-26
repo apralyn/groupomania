@@ -5,7 +5,6 @@
 		<p class="initials">{{ getUser.initials }}</p>
 	</div>
 	<h2> {{ getUser.username }}</h2>
-	<!-- delete || logout || back -->
 	<div class="profile-btns">
 		<button class="edit-btn" @click=" onDeleteUser(userId) ">Delete Profile</button>
 		<button class="edit-btn" @click=" onLogout ">Logout</button>
@@ -133,7 +132,7 @@ form {
 	top: 20%;
 }
 
-/* for desktop */
+/* desktop */
 @media screen and (min-width: 769px) {
 	.media-query {
     border: 1px solid #ffd7d7;
@@ -148,7 +147,7 @@ form {
 }
 }
 
-/* for mobile the max viewing is 480px */
+/* mobile */
 @media screen and (max-width: 768px) {
   .media-query {
     border: 1px solid #ffd7d7;
