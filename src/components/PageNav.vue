@@ -47,10 +47,10 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 450px;
+  width: 100vw;
   height: 100px;
   margin: auto;
-  padding: 0 15px;
+  padding: 0 40px;
 }
 
 #feed-logo {
