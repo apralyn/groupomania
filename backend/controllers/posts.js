@@ -34,7 +34,6 @@ exports.viewPost = (req, res) => {
 exports.addPost = (req, res) => {
   let post, title, description, userId;
   let imageUrl = null;
-
   if (req.file) {
     const parsedPost = JSON.parse(req.body.post);
     imageUrl = req.protocol + "://" + req.get("host");
@@ -74,13 +73,11 @@ exports.readPost = (req, res) => {
   const postId = req.params.id;
   Post.findOne({ where: { id: postId } }).then((post) => {
     const user = req.body.userId;
-    //FIXME if read return a 304 error 'user already read the post'
     if (post.usersRead.includes(user)) {
       return res.status(304).json({
         message: "user already read the post.",
       });
     } else {
-      console.log("userId not in array");
       post
         .update({ usersRead: [...post.usersRead, user] })
         .then((post) => {

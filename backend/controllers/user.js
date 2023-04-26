@@ -21,7 +21,7 @@ exports.signup = (req, res) => {
       })
       .catch((error) => {
         res.status(500).json({
-          error: error,
+          error: error.message,
         });
       });
   });
@@ -54,13 +54,13 @@ exports.login = (req, res) => {
         })
         .catch((error) => {
           res.status(500).json({
-            error: error,
+            error: error.message,
           });
         });
     })
     .catch((error) => {
       res.status(500).json({
-        error: error,
+        error: error.message,
       });
     });
 };
@@ -70,7 +70,6 @@ exports.getUser = (req, res) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => {
       res.status(200).json(user);
-      console.log("this is the current user id " + user.email);
     })
     .catch((error) => {
       res.status(500).json({
