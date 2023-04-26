@@ -157,16 +157,18 @@ textarea {
 }
 
 /* for desktop */
-@media screen and (min-width: 900px) {
-  .media-query {
-    border: 4px solid #fd2d01;
+@media screen and (min-width: 769px) {
+	.media-query {
+    border: 1px solid #ffd7d7;
+    margin-bottom: 50px;
   }
 }
 
 /* for mobile the max viewing is 480px */
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
   .media-query {
-    border: 4px solid black;
+    border: 1px solid #ffd7d7;
+    margin-bottom: 50px;
   }
 }
 </style>

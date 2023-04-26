@@ -9,8 +9,8 @@
 	<div class="profile-btns">
 		<button class="edit-btn" @click=" onDeleteUser(userId) ">Delete Profile</button>
 		<button class="edit-btn" @click=" onLogout ">Logout</button>
-		<button class="back-btn" @click=" $router.push('/feed') ">Back</button>
 	</div>
+	<button class="back-btn" @click=" $router.push('/feed') ">Back</button>
 </template>
 
 <script>
@@ -21,32 +21,20 @@ export default {
 	name: 'ProfileView',
 	data() {
 		return {
-			user: {
-				username: '',
-				initials: '',
-			},
 			token: '',
 			userId: '',
-			userProfile: [],
-			edit: false,
-			error: '',
 			getUser: '',
-			errorMessage: '',
-
 		}
 	},
 	components: {
 		PageNav
 	},
 	beforeCreate() {
-		//secure frontend for when no user is logged in. 
-		//no one can access any of the routes without being logged-in.
 		if (!localStorage.getItem('token')) {
 			this.$router.push('/login');
 		}
 	},
 	async created() {
-		//get user from the database
 		//auth
 		const user = JSON.parse(localStorage.getItem('token'));
 		this.userId = user.userId;
@@ -102,7 +90,7 @@ form {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin: auto;
+	margin: 50px auto;
 }
 
 .edit-btn {
@@ -146,16 +134,25 @@ form {
 }
 
 /* for desktop */
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 769px) {
 	.media-query {
-		border: 4px solid #fd2d01;
-	}
+    border: 1px solid #ffd7d7;
+    margin-bottom: 50px;
+  }
+	.profile-btns {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	margin: 50px auto;
+}
 }
 
 /* for mobile the max viewing is 480px */
-@media screen and (max-width: 480px) {
-	.media-query {
-		border: 4px solid black;
-	}
+@media screen and (max-width: 768px) {
+  .media-query {
+    border: 1px solid #ffd7d7;
+    margin-bottom: 50px;
+  }
 }
 </style>
