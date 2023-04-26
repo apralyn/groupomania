@@ -6,9 +6,12 @@
       <h1>Sign Up</h1>
       <form @submit.prevent="handleSubmit">
         <input class="input-field" type="username" name="username" v-model="username" placeholder="username">
-        <input class="input-field" type="initials" name="initials" v-model="initials" placeholder="initials">
-        <input class="input-field" type="email" name="email" v-model="email" placeholder="email" />
-        <input class="input-field" type="password" name="password" v-model="password" placeholder="password" />
+        <input class="input-field" type="initials" name="initials" v-model="initials" placeholder="initials"
+          :maxlength="max">
+        <input class="input-field" type="email" name="email" v-model="email" placeholder="email"
+          v-on:keydown="regex = false" />
+        <input class="input-field" type="password" name="password" v-model="password" placeholder="password"
+          :minlength="passwordMin" />
         <div v-if="errorMessage" class="error"> {{ errorMessage }} </div>
         <button class="signup-btn">Sign Up</button>
       </form>
@@ -24,30 +27,35 @@ export default {
   name: 'SignupView',
   data() {
     return {
-      username:'',
-      initials:'',
+      username: '',
+      initials: '',
       email: '',
       password: '',
-      errorMessage: ''
+      errorMessage: '',
+      max: 2,
+      passwordMin: 6
     }
   },
   methods: {
     async handleSubmit() {
-      if (this.username === '' || this.username === '' || this.email === '' || this.password === '') {
+      if (!this.username || !this.initials || !this.email || !this.password) {
         return this.errorMessage = 'Please try again.'
       }
-      try {
-        const response = await axios.post('/api/auth/signup', {
-          username: this.username,
-          initials: this.initials,
-          email: this.email,
-          password: this.password,
-        });
-        console.log(response)
-        //reroute user to login page
-        this.$router.push('/login');
-      } catch (error) {
-        this.errorMessage = error.message;
+      const regexEmail =
+        /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+      if (regexEmail.test(this.email)) {
+        try {
+          await axios.post('/api/auth/signup', {
+            username: this.username,
+            initials: this.initials,
+            email: this.email,
+            password: this.password,
+          });
+          //reroute user to login page
+          this.$router.push('/login');
+        } catch (error) {
+          this.errorMessage = error.message;
+        }
       }
     }
   }
