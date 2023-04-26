@@ -5,7 +5,7 @@
       <img @click="$router.push('/')" class="logo" alt="Groupomania logo" src="../assets/icon-above-font.svg">
       <h1>Sign Up</h1>
       <form @submit.prevent="handleSubmit">
-        <input class="input-field" type="username" name="username" v-model="username" placeholder="username">
+        <input class="input-field" type="username" name="username" v-model="username" placeholder="username" :maxlength="usernameMax">
         <input class="input-field" type="initials" name="initials" v-model="initials" placeholder="initials"
           :maxlength="max">
         <input class="input-field" type="email" name="email" v-model="email" placeholder="email"
@@ -33,7 +33,8 @@ export default {
       password: '',
       errorMessage: '',
       max: 2,
-      passwordMin: 6
+      passwordMin: 6,
+      usernameMax: 12
     }
   },
   methods: {
