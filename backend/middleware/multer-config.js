@@ -2,7 +2,7 @@ const multer = require("multer");
 
 const MIME_TYPES = {
   "image/jpg": "jpg",
-  "image/jpeg": "jpeg",
+  "image/jpeg": "jpg",
   "image/png": "png",
   "image/webp": "webp",
   "image/gif": "gif",
@@ -10,8 +10,8 @@ const MIME_TYPES = {
   "audio/ogg": "ogg",
   "audio/wav": "wav",
   "video/mp4": "mp4",
-  "video/mpeg":"mpeg",
-  "vidoe/mov": "mov"
+  "video/mpeg": "mpeg",
+  "vidoe/mov": "mov",
 };
 
 const storage = multer.diskStorage({

@@ -90,7 +90,6 @@ export default {
       .then((response) => {
         this.user = response.data;
         response.status;
-        console.log(this.getUser);
       })
       .catch((error) => {
         error.message;

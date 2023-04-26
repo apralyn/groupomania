@@ -34,7 +34,6 @@ export default {
       .then((response) => {
         this.getUser = response.data;
         response.status;
-        console.log(this.getUser);
       })
       .catch((error) => {
         error.message;
