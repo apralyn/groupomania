@@ -1,12 +1,13 @@
 const { Pool } = require("pg");
+require('dotenv').config();
 
 // Create a pool to handle database connections
 const pool = new Pool({
-  user: "newuser",
+  user: process.env.DB_USERNAME,
   host: "localhost",
-  database: "groupomania",
-  password: "password",
-  port: 5432,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
 
 pool.connect();
@@ -15,13 +16,13 @@ const createUserTable = () => {
   pool
     .query(
       `CREATE TABLE IF NOT EXISTS users (
-      userId      SERIAL PRIMARY KEY,
-      username    VARCHAR(50) UNIQUE NOT NULL,
-      initials    VARCHAR(2)  NOT NULL,
-      password    VARCHAR(50) NOT NULL,
-      email       VARCHAR(50) UNIQUE NOT NULL,
-      created_at  TIMESTAMP DEFAULT NOW(),
-      updated_at  TIMESTAMP DEFAULT NOW()
+      id          SERIAL PRIMARY KEY,
+      username    VARCHAR(255),
+      initials    VARCHAR(255),
+      password    VARCHAR(255),
+      email       VARCHAR(255)UNIQUE,
+      createdAt  TIMESTAMP DEFAULT NOW(),
+      updatedAt  TIMESTAMP DEFAULT NOW()
     )
   `
     )
@@ -34,14 +35,14 @@ const createPostTable = () => {
   pool
     .query(
       `CREATE TABLE IF NOT EXISTS posts (
-      id SERIAL PRIMARY KEY,
-      title VARCHAR(50) NOT NULL,
-      description TEXT NOT NULL,
-      imageURL VARCHAR(50) NOT NULL,
-      usersRead INTEGER[] NOT NULL,
-      userId INTEGER REFERENCES users(id) NOT NULL,
-      created_at TIMESTAMP DEFAULT NOW(),
-      updated_at TIMESTAMP DEFAULT NOW()
+      id            SERIAL PRIMARY KEY,
+      title         VARCHAR(255),
+      description   VARCHAR (512),
+      imageURL      VARCHAR(255),
+      usersRead     INTEGER[],
+      userId        INTEGER,
+      createdAt    TIMESTAMP DEFAULT NOW(),
+      updatedAt    TIMESTAMP DEFAULT NOW()
     )
   `
     )
@@ -52,3 +53,5 @@ const createPostTable = () => {
 // Call the table creation functions
 createUserTable();
 createPostTable();
+
+module.exports = pool;
