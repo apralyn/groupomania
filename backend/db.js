@@ -15,14 +15,14 @@ pool.connect();
 const createUserTable = () => {
   pool
     .query(
-      `CREATE TABLE IF NOT EXISTS users (
-      id          SERIAL PRIMARY KEY,
-      username    VARCHAR(255),
-      initials    VARCHAR(255),
-      password    VARCHAR(255),
-      email       VARCHAR(255)UNIQUE,
-      createdAt  TIMESTAMP DEFAULT NOW(),
-      updatedAt  TIMESTAMP DEFAULT NOW()
+      `CREATE TABLE IF NOT EXISTS "Users" (
+     "id"         SERIAL PRIMARY KEY,
+     "username"   VARCHAR(255),
+     "initials"   VARCHAR(255),
+     "password"   VARCHAR(255),
+     "email"      VARCHAR(255)UNIQUE,
+     "createdAt"  TIMESTAMP DEFAULT NOW(),
+     "updatedAt"  TIMESTAMP DEFAULT NOW()
     )
   `
     )
@@ -34,15 +34,15 @@ const createUserTable = () => {
 const createPostTable = () => {
   pool
     .query(
-      `CREATE TABLE IF NOT EXISTS posts (
-      id            SERIAL PRIMARY KEY,
-      title         VARCHAR(255),
-      description   VARCHAR (512),
-      imageURL      VARCHAR(255),
-      usersRead     INTEGER[],
-      userId        INTEGER,
-      createdAt    TIMESTAMP DEFAULT NOW(),
-      updatedAt    TIMESTAMP DEFAULT NOW()
+      `CREATE TABLE IF NOT EXISTS "Posts" (
+      "id"            SERIAL PRIMARY KEY,
+      "title"         VARCHAR(255),
+      "description"   VARCHAR (512),
+      "imageUrl"      VARCHAR(255),
+      "usersRead"     INTEGER[],
+      "userId"        INTEGER,
+      "createdAt"     TIMESTAMP DEFAULT NOW(),
+      "updatedAt"     TIMESTAMP DEFAULT NOW()
     )
   `
     )
